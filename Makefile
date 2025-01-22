@@ -1,3 +1,3 @@
 run:
-	javac src/main/java/Duke.java
-	java -cp src/main/java Duke
+	javac src/main/java/Pascal.java
+	java -cp src/main/java Pascal
