@@ -1,9 +1,11 @@
 import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Pascal {
-    static void println(String format, Object... args) {
-        PrintStream writer = System.out;
+    private static Scanner scanner = new Scanner(System.in);
+    private static PrintStream writer = System.out;
 
+    static void println(String format, Object... args) {
         String output = String.format(format, args);
 
         // Nothing to do here.
@@ -25,9 +27,20 @@ public class Pascal {
         writer.println('─' + rule + '╯');
     }
 
+    static String prompt() {
+        writer.print("> ");
+        writer.flush();
+        return scanner.nextLine();
+    }
+
     public static void main(String[] args) {
         String greet = "Hello! I'm Pascal!\nWhat can I do for you?\n";
-
         println(greet);
+
+        String user_input;
+        while (!(user_input = prompt()).equals("bye")) {
+            println("You said: \"%s\"", user_input);
+        }
+        println("Bye. Hope to see you again soon!");
     }
 }
