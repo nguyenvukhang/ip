@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
+    private final String[] tasks_;
 
     Pascal(InputStream input, PrintStream output) {
         scanner_ = new Scanner(input);
         writer_ = output;
+        tasks_ = new String[100];
     }
 
     private void println(String format, Object... args) {
