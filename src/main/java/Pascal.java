@@ -6,11 +6,13 @@ public class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
     private final String[] tasks_;
+    private int task_count_;
 
     Pascal(InputStream input, PrintStream output) {
         scanner_ = new Scanner(input);
         writer_ = output;
         tasks_ = new String[100];
+        task_count_ = 0;
     }
 
     private void println(String format, Object... args) {
@@ -41,7 +43,28 @@ public class Pascal {
         return scanner_.nextLine();
     }
 
+    private void print_list() {
+        String buf = "";
+        for (int j = 0; j < task_count_; ++j) {
+            buf += String.format("%d. %s", j + 1, tasks_[j]);
+            if (j < tasks_.length) {
+                buf += '\n';
+            }
+        }
+        println(buf);
+    }
+
+    private void add_to_list(String item) {
+        tasks_[task_count_++] = item;
+        println("added: %s", item);
+    }
+
     private void handle_input(String input) {
+        if (input.equals("list")) {
+            print_list();
+            return;
+        }
+        add_to_list(input);
     }
 
     public void run() {
