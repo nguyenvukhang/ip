@@ -41,13 +41,16 @@ public class Pascal {
         return scanner_.nextLine();
     }
 
+    private void handle_input(String input) {
+    }
+
     public void run() {
         String greet = "Hello! I'm Pascal!\nWhat can I do for you?\n";
         println(greet);
 
         String user_input;
         while (!(user_input = prompt()).equals("bye")) {
-            println("You said: \"%s\"", user_input);
+            handle_input(user_input);
         }
         println("Bye. Hope to see you again soon!");
     }
