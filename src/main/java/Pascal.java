@@ -1,11 +1,17 @@
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Pascal {
-    private static Scanner scanner = new Scanner(System.in);
-    private static PrintStream writer = System.out;
+    private final Scanner scanner_;
+    private final PrintStream writer_;
 
-    static void println(String format, Object... args) {
+    Pascal(InputStream input, PrintStream output) {
+        scanner_ = new Scanner(input);
+        writer_ = output;
+    }
+
+    private void println(String format, Object... args) {
         String output = String.format(format, args);
 
         // Nothing to do here.
@@ -22,18 +28,18 @@ public class Pascal {
         String rule = "─".repeat(max_line_len + 2);
         String fmt = "│ \033[36m%-" + max_line_len + "s\033[m │\n";
 
-        writer.println('╭' + rule + '╮');
-        output.lines().forEach((line) -> writer.printf(fmt, line));
-        writer.println('─' + rule + '╯');
+        writer_.println('╭' + rule + '╮');
+        output.lines().forEach((line) -> writer_.printf(fmt, line));
+        writer_.println('─' + rule + '╯');
     }
 
-    static String prompt() {
-        writer.print("> ");
-        writer.flush();
-        return scanner.nextLine();
+    private String prompt() {
+        writer_.print("> ");
+        writer_.flush();
+        return scanner_.nextLine();
     }
 
-    public static void main(String[] args) {
+    public void run() {
         String greet = "Hello! I'm Pascal!\nWhat can I do for you?\n";
         println(greet);
 

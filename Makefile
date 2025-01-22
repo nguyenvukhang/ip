@@ -1,3 +1,3 @@
 run:
-	javac src/main/java/Pascal.java
-	java -cp src/main/java Pascal
+	javac src/main/java/*.java
+	java -cp src/main/java Main
