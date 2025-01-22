@@ -1,4 +1,9 @@
 public class Pascal {
+  static void println(String format, Object... args) {
+    System.out.printf(format, args);
+    System.out.println();
+  }
+
   public static void main(String[] args) {
     String logo =
         ""
@@ -9,6 +14,6 @@ public class Pascal {
         + "  Bye. Hope to see you again soon!\n"
         + "____________________________________________________________";
 
-    System.out.println(logo);
+    println(logo);
   }
 }
