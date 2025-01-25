@@ -1,6 +1,63 @@
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import task.Task;
+import task.Todo;
+
+enum Command {
+    /** List the tasks in memory. */
+    List,
+
+    /** Adds a todo. */
+    Todo,
+
+    /** Marks a task as complete. */
+    Mark,
+
+    /** Marks a task as incomplete. */
+    Unmark,
+
+    /** Adds a deadline. */
+    Deadline,
+
+    /** Adds an event. */
+    Event,
+
+    /** Quits the session. */
+    Bye;
+
+    private static Pair<String, Command> pair(String s, Command c) {
+        return new Pair<String, Command>(s, c);
+    }
+
+    private static List<Pair<String, Command>> command_map() {
+        return java.util.List.of(       //
+            pair("list", List),         //
+            pair("mark", Mark),         //
+            pair("unmark", Unmark),     //
+            pair("todo", Todo),         //
+            pair("deadline", Deadline), //
+            pair("event", Event),       //
+            pair("bye", Bye)            //
+        );
+    }
+
+    /**
+     * Parses a command out of the first word of `input`, and then returns the
+     * command, along with the remnants of the input.
+     */
+    public static Optional<Pair<Command, Str>> parse(Str input) {
+        for (Pair<String, Command> p : command_map()) {
+            Optional<Str> z = input.strip_prefix(p.v0).map(Str::trim_start);
+            if (z.isPresent()) {
+                return Optional.of(new Pair<>(p.v1, z.get()));
+            }
+        }
+        return Optional.empty();
+    }
+}
 
 public class Pascal {
     private final Scanner scanner_;
@@ -37,18 +94,21 @@ public class Pascal {
         writer_.println('─' + rule + '╯');
     }
 
-    private String prompt() {
+    private Str prompt() {
         writer_.print("> ");
         writer_.flush();
-        return scanner_.nextLine();
+        String response = scanner_.nextLine();
+        if (System.getenv("DEBUG") != null) {
+            writer_.println(response);
+        }
+        return new Str(response);
     }
 
     private void print_list() {
         String buf = "";
         for (int j = 0; j < task_count_; ++j) {
             Task task = tasks_[j];
-            buf += String.format("%d.[%s] %s", j + 1, task.get_status_icon(),
-                                 task);
+            buf += String.format("%d. %s", j + 1, task);
             if (j < tasks_.length) {
                 buf += '\n';
             }
@@ -58,41 +118,67 @@ public class Pascal {
 
     private void add_task(Task task) {
         tasks_[task_count_++] = task;
-        println("added: %s", task);
+        String msg = String.format("added: %s", task);
+        msg += "\n";
+        msg += String.format("Now you have %d tasks in the list.", task_count_);
+        println(msg);
     }
 
-    private void handle_input(String input) {
-        if (input.equals("list")) {
-            print_list();
-            return;
+    /**
+     * Handles a `Command` and then returns a boolean. Boolean is true implies
+     * we want to continue reading commands.
+     */
+    boolean handle_command(Command command, Str input) {
+        Optional<Integer> opt;
+        switch (command) {
+            case Mark:
+                if ((opt = input.parse_int()).isEmpty()) {
+                    println("Invalid input. Expected an integer.");
+                    return true;
+                }
+                tasks_[opt.get() - 1].mark_as_done();
+                break;
+            case Unmark:
+                if ((opt = input.parse_int()).isEmpty()) {
+                    println("Invalid input. Expected an integer.");
+                    return true;
+                }
+                tasks_[opt.get() - 1].mark_as_not_done();
+                break;
+            case List:
+                print_list();
+                break;
+            case Todo:
+                add_task(new task.Todo(input.inner()));
+                break;
+            case Deadline:
+                add_task(new task.Deadline(input.inner()));
+                break;
+            case Event:
+                add_task(new task.Event(input.inner()));
+                break;
+            case Bye:
+                println("Bye. Hope to see you again soon!");
+                return false;
         }
-        if (input.startsWith("mark")) {
-            String num_str = input.replaceFirst("^mark", "").trim();
-            int idx = Integer.parseInt(num_str) - 1;
-            Task task = tasks_[idx];
-            task.mark_as_done();
-            println("Nice! I've marked this task as done:\n  [%s] %s",
-                    task.get_status_icon(), task);
-            return;
-        }
-        if (input.startsWith("unmark")) {
-            String num_str = input.replaceFirst("^unmark", "").trim();
-            int idx = Integer.parseInt(num_str) - 1;
-            tasks_[idx].mark_as_not_done();
-            return;
-        }
+        return true;
+    }
 
-        add_task(new Task(input));
+    void event_loop() {
+        while (true) {
+            Str user_input = prompt();
+            Optional<Pair<Command, Str>> opt = Command.parse(user_input);
+            if (opt.isEmpty()) {
+                println("Invalid command. Try again.");
+                continue;
+            }
+            if (!handle_command(opt.get().v0, opt.get().v1))
+                break;
+        }
     }
 
     public void run() {
-        String greet = "Hello! I'm Pascal!\nWhat can I do for you?\n";
-        println(greet);
-
-        String user_input;
-        while (!(user_input = prompt()).equals("bye")) {
-            handle_input(user_input);
-        }
-        println("Bye. Hope to see you again soon!");
+        println("Hello! I'm Pascal!\nWhat can I do for you?\n");
+        event_loop();
     }
 }

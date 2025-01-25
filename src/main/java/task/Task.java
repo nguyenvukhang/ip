@@ -1,4 +1,6 @@
-public class Task {
+package task;
+
+public abstract class Task {
     protected String description;
     protected boolean is_done;
 
@@ -15,11 +17,14 @@ public class Task {
         is_done = false;
     }
 
-    public String get_status_icon() {
-        return is_done ? "X" : " "; // mark done task with X
+    public char get_status_icon() {
+        return is_done ? 'X' : ' '; // mark done task with X
     }
 
+    abstract public char get_enum_icon();
+
     public String toString() {
-        return description;
+        return String.format("[%s][%s] %s", get_enum_icon(), get_status_icon(),
+                             description);
     }
 }
