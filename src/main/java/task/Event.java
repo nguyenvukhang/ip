@@ -11,7 +11,9 @@ public class Event extends Task {
         return String.format("%s (from: %s to: %s)", description_, from_, to_);
     }
 
-    public Event(String description) {
+    public Event(String description, String from, String to) {
         super(description);
+        from_ = from;
+        to_ = to;
     }
 }

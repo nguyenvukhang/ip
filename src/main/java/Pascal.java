@@ -130,6 +130,8 @@ public class Pascal {
      */
     boolean handle_command(Command command, Str input) {
         Optional<Integer> opt;
+        Optional<Pair<Str, Str>> pair_str;
+        Str arg0, arg1, arg2;
         switch (command) {
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
@@ -152,17 +154,31 @@ public class Pascal {
                 add_task(new task.Todo(input.inner()));
                 break;
             case Deadline:
-                Optional<Pair<Str, Str>> pair_str = input.split_once("/by");
-                if (pair_str.isEmpty()) {
+                if ((pair_str = input.split_once("/by")).isEmpty()) {
                     println("Invalid input. Expected a \"/by\".");
                     return true;
                 }
-                Str left = pair_str.get().v0.trim_end();
-                Str right = pair_str.get().v1.trim_start();
-                add_task(new task.Deadline(left.inner(), right.inner()));
+                arg0 = pair_str.get().v0.trim_end();
+                arg1 = pair_str.get().v1.trim_start();
+                add_task(new task.Deadline(arg0.inner(), arg1.inner()));
                 break;
             case Event:
-                add_task(new task.Event(input.inner()));
+                if ((pair_str = input.split_once("/from")).isEmpty()) {
+                    println("Invalid input. Expected a \"/from\".");
+                    return true;
+                }
+                arg0 = pair_str.get().v0.trim_end();
+                arg1 = pair_str.get().v1.trim_start();
+
+                if ((pair_str = arg1.split_once("/to")).isEmpty()) {
+                    println("Invalid input. Expected a \"/to\".");
+                    return true;
+                }
+                arg1 = pair_str.get().v0.trim_end();
+                arg2 = pair_str.get().v1.trim_start();
+
+                add_task(
+                    new task.Event(arg0.inner(), arg1.inner(), arg2.inner()));
                 break;
             case Bye:
                 println("Bye. Hope to see you again soon!");
