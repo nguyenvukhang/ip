@@ -8,6 +8,10 @@ public class Todo extends Task {
         return 'T';
     }
 
+    public String get_description() {
+        return description_;
+    }
+
     public Todo(String description) {
         super(description);
     }

@@ -152,7 +152,14 @@ public class Pascal {
                 add_task(new task.Todo(input.inner()));
                 break;
             case Deadline:
-                add_task(new task.Deadline(input.inner()));
+                Optional<Pair<Str, Str>> pair_str = input.split_once("/by");
+                if (pair_str.isEmpty()) {
+                    println("Invalid input. Expected a \"/by\".");
+                    return true;
+                }
+                Str left = pair_str.get().v0.trim_end();
+                Str right = pair_str.get().v1.trim_start();
+                add_task(new task.Deadline(left.inner(), right.inner()));
                 break;
             case Event:
                 add_task(new task.Event(input.inner()));
