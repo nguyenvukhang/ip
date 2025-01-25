@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
-    private final String[] tasks_;
+    private final Task[] tasks_;
     private int task_count_;
 
     Pascal(InputStream input, PrintStream output) {
         scanner_ = new Scanner(input);
         writer_ = output;
-        tasks_ = new String[100];
+        tasks_ = new Task[100];
         task_count_ = 0;
     }
 
@@ -46,7 +46,9 @@ public class Pascal {
     private void print_list() {
         String buf = "";
         for (int j = 0; j < task_count_; ++j) {
-            buf += String.format("%d. %s", j + 1, tasks_[j]);
+            Task task = tasks_[j];
+            buf += String.format("%d.[%s] %s", j + 1, task.get_status_icon(),
+                                 task);
             if (j < tasks_.length) {
                 buf += '\n';
             }
@@ -54,9 +56,9 @@ public class Pascal {
         println(buf);
     }
 
-    private void add_to_list(String item) {
-        tasks_[task_count_++] = item;
-        println("added: %s", item);
+    private void add_task(Task task) {
+        tasks_[task_count_++] = task;
+        println("added: %s", task);
     }
 
     private void handle_input(String input) {
@@ -64,7 +66,23 @@ public class Pascal {
             print_list();
             return;
         }
-        add_to_list(input);
+        if (input.startsWith("mark")) {
+            String num_str = input.replaceFirst("^mark", "").trim();
+            int idx = Integer.parseInt(num_str) - 1;
+            Task task = tasks_[idx];
+            task.mark_as_done();
+            println("Nice! I've marked this task as done:\n  [%s] %s",
+                    task.get_status_icon(), task);
+            return;
+        }
+        if (input.startsWith("unmark")) {
+            String num_str = input.replaceFirst("^unmark", "").trim();
+            int idx = Integer.parseInt(num_str) - 1;
+            tasks_[idx].mark_as_not_done();
+            return;
+        }
+
+        add_task(new Task(input));
     }
 
     public void run() {
