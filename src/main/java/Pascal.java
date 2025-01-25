@@ -124,11 +124,7 @@ public class Pascal {
         println(msg);
     }
 
-    /**
-     * Handles a `Command` and then returns a boolean. Boolean is true implies
-     * we want to continue reading commands.
-     */
-    boolean handle_command(Command command, Str input) {
+    void handle_command(Command command, Str input) {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pair_str;
         Str arg0, arg1, arg2;
@@ -136,14 +132,14 @@ public class Pascal {
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     println("Invalid input. Expected an integer.");
-                    return true;
+                    return;
                 }
                 tasks_[opt.get() - 1].mark_as_done();
                 break;
             case Unmark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     println("Invalid input. Expected an integer.");
-                    return true;
+                    return;
                 }
                 tasks_[opt.get() - 1].mark_as_not_done();
                 break;
@@ -156,7 +152,7 @@ public class Pascal {
             case Deadline:
                 if ((pair_str = input.split_once("/by")).isEmpty()) {
                     println("Invalid input. Expected a \"/by\".");
-                    return true;
+                    return;
                 }
                 arg0 = pair_str.get().v0.trim_end();
                 arg1 = pair_str.get().v1.trim_start();
@@ -165,14 +161,14 @@ public class Pascal {
             case Event:
                 if ((pair_str = input.split_once("/from")).isEmpty()) {
                     println("Invalid input. Expected a \"/from\".");
-                    return true;
+                    return;
                 }
                 arg0 = pair_str.get().v0.trim_end();
                 arg1 = pair_str.get().v1.trim_start();
 
                 if ((pair_str = arg1.split_once("/to")).isEmpty()) {
                     println("Invalid input. Expected a \"/to\".");
-                    return true;
+                    return;
                 }
                 arg1 = pair_str.get().v0.trim_end();
                 arg2 = pair_str.get().v1.trim_start();
@@ -182,12 +178,11 @@ public class Pascal {
                 break;
             case Bye:
                 println("Bye. Hope to see you again soon!");
-                return false;
         }
-        return true;
     }
 
-    void event_loop() {
+    public void run() {
+        println("Hello! I'm Pascal!\nWhat can I do for you?\n");
         while (true) {
             Str user_input = prompt();
             Optional<Pair<Command, Str>> opt = Command.parse(user_input);
@@ -195,13 +190,10 @@ public class Pascal {
                 println("Invalid command. Try again.");
                 continue;
             }
-            if (!handle_command(opt.get().v0, opt.get().v1))
-                break;
+            handle_command(opt.get().v0, opt.get().v1);
+            if (opt.get().v0 == Command.Bye) {
+                return;
+            }
         }
-    }
-
-    public void run() {
-        println("Hello! I'm Pascal!\nWhat can I do for you?\n");
-        event_loop();
     }
 }
