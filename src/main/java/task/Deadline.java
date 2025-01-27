@@ -28,6 +28,6 @@ public class Deadline extends Task {
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
         Pair<Str, Str> pair = x.split_once("::").get();
-        return Result.Ok(new Deadline(pair.v0.inner(), pair.v1.inner()));
+        return Result.Ok(new Deadline(pair.left.inner(), pair.right.inner()));
     }
 }

@@ -2,6 +2,7 @@ package task;
 
 import common.Pair;
 import common.Str;
+import java.util.Optional;
 import result.Error;
 import result.Result;
 
@@ -28,10 +29,20 @@ public class Event extends Task {
 
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
-        Pair<Str, Str> pair = x.split_once("::").get();
-        String description = pair.v0.inner();
-        pair = pair.v1.split_once("::").get();
-        return Result.Ok(
-            new Event(description, pair.v0.inner(), pair.v1.inner()));
+        Optional<Pair<Str, Str>> opt;
+        opt = x.split_once("::");
+        if (opt.isEmpty()) {
+            return Result.Err(Error.other("Error in parsing an `Event`."));
+        }
+
+        String description = opt.get().left.inner();
+        opt = opt.get().right.split_once("::");
+        if (opt.isEmpty()) {
+            return Result.Err(Error.other("Error in parsing an `Event`."));
+        }
+
+        Str from = opt.get().left;
+        Str to = opt.get().right;
+        return Result.Ok(new Event(description, from.inner(), to.inner()));
     }
 }

@@ -74,9 +74,9 @@ public class Pascal {
         if (opt.isEmpty()) {
             return Result.Err(Error.other("Invalid command. Try again."));
         }
-        exited_ |= opt.get().v0 == Command.Bye;
+        exited_ |= opt.get().left == Command.Bye;
         Result<String, Error> result =
-            handle_command(opt.get().v0, opt.get().v1);
+            handle_command(opt.get().left, opt.get().right);
         tasks_.write(Path.of("pascal.txt"));
         return result;
     }
@@ -120,8 +120,8 @@ public class Pascal {
                     return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                arg0 = pair_str.get().v0.trim_end();
-                arg1 = pair_str.get().v1.trim_start();
+                arg0 = pair_str.get().left.trim_end();
+                arg1 = pair_str.get().right.trim_start();
                 return Result.Ok(
                     add_task(new task.Deadline(arg0.inner(), arg1.inner())));
             case Event:
@@ -129,15 +129,15 @@ public class Pascal {
                     return Result.Err(
                         Error.other("Invalid input. Expected a \"/from\"."));
                 }
-                arg0 = pair_str.get().v0.trim_end();
-                arg1 = pair_str.get().v1.trim_start();
+                arg0 = pair_str.get().left.trim_end();
+                arg1 = pair_str.get().right.trim_start();
 
                 if ((pair_str = arg1.split_once("/to")).isEmpty()) {
                     return Result.Err(
                         Error.other("Invalid input. Expected a \"/to\"."));
                 }
-                arg1 = pair_str.get().v0.trim_end();
-                arg2 = pair_str.get().v1.trim_start();
+                arg1 = pair_str.get().left.trim_end();
+                arg2 = pair_str.get().right.trim_start();
 
                 return Result.Ok(add_task(
                     new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
