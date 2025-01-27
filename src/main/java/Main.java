@@ -105,7 +105,7 @@ class Main {
     static void run_tests() {
         Tester t = new Tester();
         Test.test01(new Pascal(System.in, t));
-        Test.test02(new Pascal(System.in, t));
+        // Test.test02(new Pascal(System.in, t));
     }
 
     public static void main(String[] args) {

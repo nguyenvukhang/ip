@@ -1,5 +1,9 @@
 package task;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -40,5 +44,24 @@ public class TaskList {
         int n = len();
         String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
         return String.format("Now you have %s in the list.", tasks);
+    }
+
+    //////////////////////////////////////////////////////////////////
+    // IO Methods
+
+    /**
+     * Writes the contents of the task list to a file.
+     */
+    public void write(Path filepath) {
+        try {
+            FileWriter target = new FileWriter(filepath.toFile());
+            for (Task task : tasks_) {
+                target.write(task.get_enum_icon());
+                target.write(task.get_status_icon());
+                target.write('\n');
+            }
+            target.flush();
+        } catch (IOException e) {
+        }
     }
 }

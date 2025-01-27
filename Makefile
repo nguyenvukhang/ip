@@ -1,4 +1,5 @@
 current: test
+	nvim pascal.txt
 
 run:
 	find * -name '*.java' > sources.txt
