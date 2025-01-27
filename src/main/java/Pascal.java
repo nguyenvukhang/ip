@@ -9,6 +9,7 @@ import java.util.Scanner;
 import printer.Printer;
 import result.Error;
 import result.Result;
+import task.Deadline;
 import task.Task;
 import task.TaskList;
 
@@ -122,8 +123,9 @@ public class Pascal {
                 }
                 arg0 = pair_str.get().left.trim_end();
                 arg1 = pair_str.get().right.trim_start();
-                return Result.Ok(
-                    add_task(new task.Deadline(arg0.inner(), arg1.inner())));
+
+                return Deadline.of(arg0.inner(), arg1.inner())
+                    .map(deadline -> add_task(deadline));
             case Event:
                 if ((pair_str = input.split_once("/from")).isEmpty()) {
                     return Result.Err(

@@ -2,16 +2,26 @@ package task;
 
 import common.Pair;
 import common.Str;
+import java.time.LocalDate;
 import java.util.Optional;
 import result.Error;
 import result.Result;
 
 public class Deadline extends Task {
-    protected String by_;
+    protected LocalDate by_;
 
-    public Deadline(String description, String by) {
+    /** Empty constructor for inner use. */
+    public Deadline() {
+        super("");
+    }
+
+    public Deadline(String description, LocalDate by) {
         super(description);
         by_ = by;
+    }
+
+    public static Result<Deadline, Error> of(String description, String by) {
+        return parse_date(by).map(z -> new Deadline(description, z));
     }
 
     public char get_enum_icon() {
@@ -32,7 +42,8 @@ public class Deadline extends Task {
         if (opt.isEmpty()) {
             return Result.Err(Error.other("Error in parsing an `Deadline`."));
         }
-        return Result.Ok(
-            new Deadline(opt.get().left.inner(), opt.get().right.inner()));
+        String description = opt.get().left.inner();
+        String by = opt.get().right.inner();
+        return parse_date(by).map(z -> new Deadline(description, z));
     }
 }

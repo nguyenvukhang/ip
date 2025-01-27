@@ -79,13 +79,13 @@ public class TaskList {
         Optional<Task> tt = Optional.empty();
         switch (task_kind) {
             case 'T':
-                tt = Optional.of(new Todo(""));
+                tt = Optional.of(new Todo());
                 break;
             case 'D':
-                tt = Optional.of(new Deadline("", ""));
+                tt = Optional.of(new Deadline());
                 break;
             case 'E':
-                tt = Optional.of(new Event("", "", ""));
+                tt = Optional.of(new Event());
                 break;
         }
         if (tt.isEmpty()) {

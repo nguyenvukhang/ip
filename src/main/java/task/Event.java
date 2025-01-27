@@ -9,6 +9,11 @@ import result.Result;
 public class Event extends Task {
     protected String from_, to_;
 
+    /** Empty constructor for inner use. */
+    public Event() {
+        super("");
+    }
+
     public Event(String description, String from, String to) {
         super(description);
         from_ = from;

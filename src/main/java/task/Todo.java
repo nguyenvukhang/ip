@@ -4,6 +4,11 @@ import result.Error;
 import result.Result;
 
 public class Todo extends Task {
+    /** Empty constructor for inner use. */
+    public Todo() {
+        super("");
+    }
+
     public Todo(String description) {
         super(description);
     }

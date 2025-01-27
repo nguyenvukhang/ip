@@ -34,8 +34,8 @@ class Test {
                Result.Ok(j("added: [T][ ] read book",
                            "Now you have 1 task in the list.")));
 
-        t.test("deadline return book /by June 6th",
-               Result.Ok(j("added: [D][ ] return book (by: June 6th)",
+        t.test("deadline return book /by 2025-05-29",
+               Result.Ok(j("added: [D][ ] return book (by: 2025-05-29)",
                            "Now you have 2 tasks in the list.")));
 
         t.test("event project meeting /from Aug 6th 2pm /to 4pm",
@@ -57,12 +57,12 @@ class Test {
         t.test("mark 4", Result.Ok(j("Nice! I've marked this task as done:",
                                      "[T][X] join sports club")));
 
-        t.test(
-            "list",
-            Result.Ok(
-                j("1. [T][X] read book", "2. [D][ ] return book (by: June 6th)",
-                  "3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
-                  "4. [T][X] join sports club", "5. [T][ ] borrow book")));
+        t.test("list",
+               Result.Ok(
+                   j("1. [T][X] read book",
+                     "2. [D][ ] return book (by: 2025-05-29)",
+                     "3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)",
+                     "4. [T][X] join sports club", "5. [T][ ] borrow book")));
 
         t.test("bye", Result.Ok("Bye. Hope to see you again soon!"));
     }
