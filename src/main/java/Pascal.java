@@ -26,6 +26,9 @@ enum Command {
     /** Adds an event. */
     Event,
 
+    /** Deletes an event. */
+    Delete,
+
     /** Quits the session. */
     Bye;
 
@@ -41,6 +44,7 @@ enum Command {
             pair("todo", Todo),         //
             pair("deadline", Deadline), //
             pair("event", Event),       //
+            pair("delete", Delete),     //
             pair("bye", Bye)            //
         );
 
@@ -107,6 +111,11 @@ public class Pascal {
         return sb.toString();
     }
 
+    private String now_have(int n) {
+        String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
+        return String.format("Now you have %s in the list.", tasks);
+    }
+
     /**
      * Adds a task to the list.
      *
@@ -114,11 +123,25 @@ public class Pascal {
      */
     private String add_task(Task task) {
         tasks_[task_count_++] = task;
-        String msg = String.format("added: %s", task);
-        msg += "\n";
-        String tasks = String.format(task_count_ == 1 ? "%d task" : "%d tasks",
-                                     task_count_);
-        return msg + String.format("Now you have %s in the list.", tasks);
+        return String.format("added: %s\n%s", task, now_have(task_count_));
+    }
+
+    /**
+     * Removes a task from the list.
+     *
+     * And then returns the output intended for the user.
+     *
+     * Assumes that `idx` points to a valid task.
+     */
+    private String delete_task(int idx) {
+        Task task = tasks_[idx - 1];
+        String message = String.format("Noted. I've removed this task:\n%s\n%s",
+                                       task, now_have(task_count_ - 1));
+        for (int i = idx; i <= task_count_; ++i) {
+            tasks_[i - 1] = tasks_[i];
+        }
+        tasks_[--task_count_] = null;
+        return message;
     }
 
     Result<String, Error> handle_cli_line(String user_input) {
@@ -184,6 +207,12 @@ public class Pascal {
 
                 return Result.ok(add_task(
                     new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
+            case Delete:
+                if ((opt = input.parse_int()).isEmpty()) {
+                    return Result.err(
+                        Error.other("Invalid input. Expected an integer."));
+                }
+                return Result.ok(delete_task(opt.get()));
             case Bye:
                 return Result.ok("Bye. Hope to see you again soon!");
         }

@@ -62,6 +62,39 @@ class Test {
 
         t.test("bye", Result.ok("Bye. Hope to see you again soon!"));
     }
+
+    /**
+     * Test task deletion.
+     */
+    static void test02(Pascal pascal) {
+        Test t = new Test(pascal);
+
+        t.test("todo send blue",
+               Result.ok(j("added: [T][ ] send blue",
+                           "Now you have 1 task in the list.")));
+
+        t.test("todo send red",
+               Result.ok(j("added: [T][ ] send red",
+                           "Now you have 2 tasks in the list.")));
+
+        t.test("todo send green",
+               Result.ok(j("added: [T][ ] send green",
+                           "Now you have 3 tasks in the list.")));
+
+        t.test("todo send purple",
+               Result.ok(j("added: [T][ ] send purple",
+                           "Now you have 4 tasks in the list.")));
+
+        t.test("list",
+               Result.ok(j("1. [T][ ] send blue", "2. [T][ ] send red",
+                           "3. [T][ ] send green", "4. [T][ ] send purple")));
+
+        t.test("delete 2",
+               Result.ok(j("Noted. I've removed this task:\n[T][ ] send red",
+                           "Now you have 3 tasks in the list.")));
+
+        t.test("bye", Result.ok("Bye. Hope to see you again soon!"));
+    }
 }
 
 class Main {
@@ -70,8 +103,9 @@ class Main {
     }
 
     static void run_tests() {
-        Pascal p = new Pascal(System.in, new Tester());
-        Test.test01(p);
+        Tester t = new Tester();
+        Test.test01(new Pascal(System.in, t));
+        Test.test02(new Pascal(System.in, t));
     }
 
     public static void main(String[] args) {
