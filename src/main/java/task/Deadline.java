@@ -2,6 +2,7 @@ package task;
 
 import common.Pair;
 import common.Str;
+import java.util.Optional;
 import result.Error;
 import result.Result;
 
@@ -27,7 +28,11 @@ public class Deadline extends Task {
 
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
-        Pair<Str, Str> pair = x.split_once("::").get();
-        return Result.Ok(new Deadline(pair.left.inner(), pair.right.inner()));
+        Optional<Pair<Str, Str>> opt = x.split_once("::");
+        if (opt.isEmpty()) {
+            return Result.Err(Error.other("Error in parsing an `Deadline`."));
+        }
+        return Result.Ok(
+            new Deadline(opt.get().left.inner(), opt.get().right.inner()));
     }
 }
