@@ -1,3 +1,5 @@
+package result;
+
 import java.util.Optional;
 
 public final class Result<T, E> {

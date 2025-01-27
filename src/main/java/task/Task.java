@@ -1,5 +1,7 @@
 package task;
 
+import result.Result;
+
 public abstract class Task {
     protected String description_;
     protected boolean is_done_;

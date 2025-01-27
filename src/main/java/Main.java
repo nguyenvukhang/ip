@@ -3,6 +3,8 @@ import java.util.Optional;
 import printer.Color;
 import printer.PrettyPrint;
 import printer.Tester;
+import result.Error;
+import result.Result;
 
 class Test {
     private final Pascal pascal_;
