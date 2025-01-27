@@ -195,7 +195,12 @@ public class Pascal {
         println("Hello! I'm Pascal!\nWhat can I do for you?\n");
         while (true) {
             Str user_input = prompt();
-            handle_cli_line(user_input.inner());
+            Result<String, Error> result = handle_cli_line(user_input.inner());
+            if (result.is_ok()) {
+                println(result.get());
+            } else if (result.is_err()) {
+                println("%s", result.get_err());
+            }
             if (is_exited()) {
                 return;
             }
