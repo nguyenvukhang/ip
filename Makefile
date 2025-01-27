@@ -1,7 +1,7 @@
 run:
 	find * -name '*.java' > sources.txt
 	javac -d build @sources.txt
-	DEBUG=1 java -cp build Main < debug_input.txt
+	DEBUG=1 java -cp build Main test
 
 i: interact
 interact:

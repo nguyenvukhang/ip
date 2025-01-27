@@ -3,6 +3,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import printer.Printer;
 import task.Task;
 import task.Todo;
 
@@ -62,36 +63,26 @@ enum Command {
 public class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
+    private final Printer printer_;
     private final Task[] tasks_;
     private int task_count_;
+    private boolean exited_;
 
-    Pascal(InputStream input, PrintStream output) {
+    Pascal(InputStream input, Printer printer) {
         scanner_ = new Scanner(input);
-        writer_ = output;
+        writer_ = printer.get_print_stream().orElse(System.err);
+        printer_ = printer;
         tasks_ = new Task[100];
         task_count_ = 0;
+        exited_ = false;
+    }
+
+    public boolean is_exited() {
+        return exited_;
     }
 
     private void println(String format, Object... args) {
-        String output = String.format(format, args);
-
-        // Nothing to do here.
-        if (output.length() == 0)
-            return;
-
-        // Unwrap safety guaranteed by the fact that output is non-empty.
-        int max_line_len =
-            output.lines().map(String::length).max(Integer::compare).get();
-
-        assert max_line_len <= 70
-            : "Keep hard-coded outputs to <= 70 chars per line.";
-
-        String rule = "─".repeat(max_line_len + 2);
-        String fmt = "│ \033[36m%-" + max_line_len + "s\033[m │\n";
-
-        writer_.println('╭' + rule + '╮');
-        output.lines().forEach((line) -> writer_.printf(fmt, line));
-        writer_.println('─' + rule + '╯');
+        printer_.println(format, args);
     }
 
     private Str prompt() {
@@ -105,43 +96,59 @@ public class Pascal {
     }
 
     private void print_list() {
-        String buf = "";
+        StringBuffer sb = new StringBuffer();
         for (int j = 0; j < task_count_; ++j) {
-            Task task = tasks_[j];
-            buf += String.format("%d. %s", j + 1, task);
-            if (j < tasks_.length) {
-                buf += '\n';
+            sb.append(String.format("%d. %s", j + 1, tasks_[j]));
+            if (j + 1 < task_count_) {
+                sb.append('\n');
             }
         }
-        println(buf);
+        printer_.println(sb.toString());
     }
 
     private void add_task(Task task) {
         tasks_[task_count_++] = task;
         String msg = String.format("added: %s", task);
         msg += "\n";
-        msg += String.format("Now you have %d tasks in the list.", task_count_);
+        String tasks = String.format(task_count_ == 1 ? "%d task" : "%d tasks",
+                                     task_count_);
+        msg += String.format("Now you have %s in the list.", tasks);
         println(msg);
+    }
+
+    void handle_cli_line(String user_input) {
+        Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
+        if (opt.isEmpty()) {
+            println("Invalid command. Try again.");
+            return;
+        }
+        handle_command(opt.get().v0, opt.get().v1);
+        exited_ |= opt.get().v0 == Command.Bye;
     }
 
     void handle_command(Command command, Str input) {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pair_str;
         Str arg0, arg1, arg2;
+        Task task;
         switch (command) {
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     println("Invalid input. Expected an integer.");
                     return;
                 }
-                tasks_[opt.get() - 1].mark_as_done();
+                task = tasks_[opt.get() - 1];
+                task.mark_as_done();
+                println("Nice! I've marked this task as done:\n%s", task);
                 break;
             case Unmark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     println("Invalid input. Expected an integer.");
                     return;
                 }
-                tasks_[opt.get() - 1].mark_as_not_done();
+                task = tasks_[opt.get() - 1];
+                task.mark_as_done();
+                println("OK, I've marked this task as not done yet:\n%s", task);
                 break;
             case List:
                 print_list();
@@ -185,13 +192,8 @@ public class Pascal {
         println("Hello! I'm Pascal!\nWhat can I do for you?\n");
         while (true) {
             Str user_input = prompt();
-            Optional<Pair<Command, Str>> opt = Command.parse(user_input);
-            if (opt.isEmpty()) {
-                println("Invalid command. Try again.");
-                continue;
-            }
-            handle_command(opt.get().v0, opt.get().v1);
-            if (opt.get().v0 == Command.Bye) {
+            handle_cli_line(user_input.inner());
+            if (is_exited()) {
                 return;
             }
         }
