@@ -14,4 +14,7 @@ i: interact
 interact: build
 	java -cp build Main
 
+fmt:
+	find * -name '*.java' | xargs clang-format -i
+
 .PHONY: build
