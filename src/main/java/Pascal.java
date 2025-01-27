@@ -95,38 +95,43 @@ public class Pascal {
         return new Str(response);
     }
 
-    private void print_list() {
+    /**
+     * Returns the output intended for the user as a `String`.
+     */
+    private String print_list() {
         StringBuffer sb = new StringBuffer();
         for (int j = 0; j < task_count_; ++j) {
             sb.append(String.format("%d. %s", j + 1, tasks_[j]));
-            if (j + 1 < task_count_) {
+            if (j + 1 < task_count_)
                 sb.append('\n');
-            }
         }
-        printer_.println(sb.toString());
+        return sb.toString();
     }
 
-    private void add_task(Task task) {
+    /**
+     * Adds a task to the list.
+     *
+     * And then returns the output intended for the user.
+     */
+    private String add_task(Task task) {
         tasks_[task_count_++] = task;
         String msg = String.format("added: %s", task);
         msg += "\n";
         String tasks = String.format(task_count_ == 1 ? "%d task" : "%d tasks",
                                      task_count_);
-        msg += String.format("Now you have %s in the list.", tasks);
-        println(msg);
+        return msg + String.format("Now you have %s in the list.", tasks);
     }
 
-    Result<Unit, Error> handle_cli_line(String user_input) {
+    Result<String, Error> handle_cli_line(String user_input) {
         Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
         if (opt.isEmpty()) {
             return Result.err(Error.other("Invalid command. Try again."));
         }
-        handle_command(opt.get().v0, opt.get().v1);
         exited_ |= opt.get().v0 == Command.Bye;
-        return Result.ok(Unit.UNIT);
+        return handle_command(opt.get().v0, opt.get().v1);
     }
 
-    void handle_command(Command command, Str input) {
+    Result<String, Error> handle_command(Command command, Str input) {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pair_str;
         Str arg0, arg1, arg2;
@@ -134,58 +139,56 @@ public class Pascal {
         switch (command) {
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
-                    println("Invalid input. Expected an integer.");
-                    return;
+                    return Result.err(
+                        Error.other("Invalid input. Expected an integer."));
                 }
                 task = tasks_[opt.get() - 1];
                 task.mark_as_done();
-                println("Nice! I've marked this task as done:\n%s", task);
-                break;
+                return Result.ok(String.format(
+                    "Nice! I've marked this task as done:\n%s", task));
             case Unmark:
                 if ((opt = input.parse_int()).isEmpty()) {
-                    println("Invalid input. Expected an integer.");
-                    return;
+                    return Result.err(
+                        Error.other("Invalid input. Expected an integer."));
                 }
                 task = tasks_[opt.get() - 1];
                 task.mark_as_done();
-                println("OK, I've marked this task as not done yet:\n%s", task);
-                break;
+                return Result.ok(String.format(
+                    "OK, I've marked this task as not done yet:\n%s", task));
             case List:
-                print_list();
-                break;
+                return Result.ok(print_list());
             case Todo:
-                add_task(new task.Todo(input.inner()));
-                break;
+                return Result.ok(add_task(new task.Todo(input.inner())));
             case Deadline:
                 if ((pair_str = input.split_once("/by")).isEmpty()) {
-                    println("Invalid input. Expected a \"/by\".");
-                    return;
+                    return Result.err(
+                        Error.other("Invalid input. Expected an integer."));
                 }
                 arg0 = pair_str.get().v0.trim_end();
                 arg1 = pair_str.get().v1.trim_start();
-                add_task(new task.Deadline(arg0.inner(), arg1.inner()));
-                break;
+                return Result.ok(
+                    add_task(new task.Deadline(arg0.inner(), arg1.inner())));
             case Event:
                 if ((pair_str = input.split_once("/from")).isEmpty()) {
-                    println("Invalid input. Expected a \"/from\".");
-                    return;
+                    return Result.err(
+                        Error.other("Invalid input. Expected a \"/from\"."));
                 }
                 arg0 = pair_str.get().v0.trim_end();
                 arg1 = pair_str.get().v1.trim_start();
 
                 if ((pair_str = arg1.split_once("/to")).isEmpty()) {
-                    println("Invalid input. Expected a \"/to\".");
-                    return;
+                    return Result.err(
+                        Error.other("Invalid input. Expected a \"/to\"."));
                 }
                 arg1 = pair_str.get().v0.trim_end();
                 arg2 = pair_str.get().v1.trim_start();
 
-                add_task(
-                    new task.Event(arg0.inner(), arg1.inner(), arg2.inner()));
-                break;
+                return Result.ok(add_task(
+                    new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
             case Bye:
-                println("Bye. Hope to see you again soon!");
+                return Result.ok("Bye. Hope to see you again soon!");
         }
+        return Result.err(Error.other("Unhandled command!"));
     }
 
     public void run() {

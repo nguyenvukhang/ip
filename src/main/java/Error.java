@@ -7,8 +7,8 @@ public class Error {
         msg_ = message;
     }
 
-    public static Error other(String message) {
-        return new Error(ErrorKind.Other, message);
+    public static Error other(String format, Object... args) {
+        return new Error(ErrorKind.Other, String.format(format, args));
     }
 
     public boolean equals(Object other) {
