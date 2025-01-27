@@ -116,7 +116,7 @@ public class Pascal {
         println(msg);
     }
 
-    void handle_cli_line(String user_input) {
+    void handle_cli_line(String user_input)  {
         Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
         if (opt.isEmpty()) {
             println("Invalid command. Try again.");
