@@ -1,5 +1,8 @@
 package task;
 
+import result.Error;
+import result.Result;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -17,7 +20,7 @@ public class Todo extends Task {
         return description_;
     }
 
-    public Task deserialize(String text) {
-        return new Todo(text);
+    public Result<Task, Error> deserialize(String text) {
+        return Result.Ok(new Todo(text));
     }
 }

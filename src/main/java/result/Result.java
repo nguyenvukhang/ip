@@ -1,6 +1,7 @@
 package result;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public final class Result<T, E> {
     private Optional<T> value_;
@@ -11,11 +12,11 @@ public final class Result<T, E> {
         err_ = error;
     }
 
-    public static <T, E> Result<T, E> ok(T value) {
+    public static <T, E> Result<T, E> Ok(T value) {
         return new Result<>(Optional.of(value), Optional.empty());
     }
 
-    public static <T, E> Result<T, E> err(E error) {
+    public static <T, E> Result<T, E> Err(E error) {
         return new Result<>(Optional.empty(), Optional.of(error));
     }
 
@@ -33,6 +34,10 @@ public final class Result<T, E> {
 
     public E get_err() {
         return err_.get();
+    }
+
+    public <U> Result<U, E> map(Function<? super T, ? extends U> f) {
+        return new Result<>(value_.map(f), err_);
     }
 
     @Override

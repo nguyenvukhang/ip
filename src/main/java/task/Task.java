@@ -1,5 +1,6 @@
 package task;
 
+import result.Error;
 import result.Result;
 
 public abstract class Task {
@@ -29,7 +30,7 @@ public abstract class Task {
 
     abstract public String serialize();
 
-    abstract public Task deserialize(String text);
+    abstract public Result<Task, Error> deserialize(String text);
 
     @Override
     public String toString() {
