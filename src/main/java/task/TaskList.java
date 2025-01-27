@@ -1,6 +1,12 @@
 package task;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -40,5 +46,63 @@ public class TaskList {
         int n = len();
         String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
         return String.format("Now you have %s in the list.", tasks);
+    }
+
+    //////////////////////////////////////////////////////////////////
+    // IO Methods
+
+    /**
+     * Writes the contents of the task list to a file.
+     */
+    public void write(Path filepath) {
+        try {
+            FileWriter target = new FileWriter(filepath.toFile());
+            for (Task task : tasks_) {
+                target.write(task.get_enum_icon());
+                target.write(task.get_status_icon());
+                target.write(task.serialize());
+                target.write('\n');
+            }
+            target.flush();
+            target.close();
+        } catch (IOException e) {
+        }
+    }
+
+    public static TaskList read(Path filepath) {
+        TaskList tasklist = new TaskList();
+        try {
+            Scanner reader = new Scanner(filepath.toFile());
+            while (reader.hasNext()) {
+                String line = reader.nextLine();
+                char task_kind = line.charAt(0);
+                boolean done = line.charAt(1) == 'X';
+                Task t;
+                switch (task_kind) {
+                    case 'T':
+                        t = new Todo("");
+                        tasklist.add(t = t.deserialize(line.substring(2)));
+                        if (done)
+                            t.mark_as_done();
+                        break;
+                    case 'D':
+                        t = new Deadline("", "");
+                        tasklist.add(t = t.deserialize(line.substring(2)));
+                        if (done)
+                            t.mark_as_done();
+                        break;
+                    case 'E':
+                        t = new Event("", "", "");
+                        tasklist.add(t = t.deserialize(line.substring(2)));
+                        if (done)
+                            t.mark_as_done();
+                        break;
+                    default:
+                        System.err.println("Unrecognized enum.");
+                }
+            }
+        } catch (IOException e) {
+        }
+        return tasklist;
     }
 }

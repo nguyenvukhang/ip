@@ -3,6 +3,7 @@ import common.Pair;
 import common.Str;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Scanner;
 import printer.Printer;
@@ -16,11 +17,12 @@ public class Pascal {
     private final TaskList tasks_;
     private boolean exited_;
 
-    Pascal(InputStream input, Printer printer) {
+    Pascal(InputStream input, Printer printer, Optional<Path> data_path) {
         scanner_ = new Scanner(input);
         writer_ = printer.get_print_stream().orElse(System.err);
         printer_ = printer;
-        tasks_ = new TaskList();
+        tasks_ = data_path.map(path -> TaskList.read(path))
+                     .orElseGet(() -> new TaskList());
         exited_ = false;
     }
 
@@ -71,7 +73,10 @@ public class Pascal {
             return Result.err(Error.other("Invalid command. Try again."));
         }
         exited_ |= opt.get().v0 == Command.Bye;
-        return handle_command(opt.get().v0, opt.get().v1);
+        Result<String, Error> result =
+            handle_command(opt.get().v0, opt.get().v1);
+        tasks_.write(Path.of("pascal.txt"));
+        return result;
     }
 
     Result<String, Error> handle_command(Command command, Str input) {
