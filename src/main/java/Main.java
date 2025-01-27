@@ -4,8 +4,10 @@ import printer.Tester;
 
 class Test {
     static void test01(Tester t, Pascal p) {
-        p.handle_cli_line("hello");
-        t.assert_prev_eq("Invalid command. Try again.");
+        Result<Unit, Error> result;
+
+        Assert.eq(p.handle_cli_line("hello"),
+                  Result.err(Error.other("Invalid command. Try again.")));
 
         p.handle_cli_line("todo read book");
         t.assert_prev_eq("added: [T][ ] read book",

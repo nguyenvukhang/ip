@@ -25,6 +25,7 @@ public abstract class Task {
 
     abstract public String get_description();
 
+    @Override
     public String toString() {
         return String.format("[%s][%s] %s", get_enum_icon(), get_status_icon(),
                              get_description());

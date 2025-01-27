@@ -116,14 +116,14 @@ public class Pascal {
         println(msg);
     }
 
-    void handle_cli_line(String user_input)  {
+    Result<Unit, Error> handle_cli_line(String user_input) {
         Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
         if (opt.isEmpty()) {
-            println("Invalid command. Try again.");
-            return;
+            return Result.err(Error.other("Invalid command. Try again."));
         }
         handle_command(opt.get().v0, opt.get().v1);
         exited_ |= opt.get().v0 == Command.Bye;
+        return Result.ok(Unit.UNIT);
     }
 
     void handle_command(Command command, Str input) {

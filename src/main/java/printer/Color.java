@@ -10,6 +10,7 @@ public enum Color {
     Gray,
     Reset;
 
+    @Override
     public String toString() {
         switch (this) {
             case Red:

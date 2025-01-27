@@ -6,4 +6,24 @@ public class Error {
         kind_ = kind;
         msg_ = message;
     }
+
+    public static Error other(String message) {
+        return new Error(ErrorKind.Other, message);
+    }
+
+    public boolean equals(Object other) {
+        if (!(other instanceof Error))
+            return false;
+
+        Error rhs = (Error)other;
+        if (kind_ != rhs.kind_) {
+            return false;
+        }
+        return msg_.equals(rhs.msg_);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %s", kind_, msg_);
+    }
 }
