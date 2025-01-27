@@ -42,12 +42,6 @@ public class Pascal {
         return new Str(response);
     }
 
-    private String now_have() {
-        int n = tasks_.len();
-        String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
-        return String.format("Now you have %s in the list.", tasks);
-    }
-
     /**
      * Adds a task to the list.
      *
@@ -55,7 +49,7 @@ public class Pascal {
      */
     private String add_task(Task task) {
         tasks_.add(task);
-        return String.format("added: %s\n%s", task, now_have());
+        return String.format("added: %s\n%s", task, tasks_.now_have());
     }
 
     /**
@@ -67,9 +61,8 @@ public class Pascal {
      */
     private String delete_task(int idx) {
         Task task = tasks_.remove_unchecked(idx - 1);
-        String message = String.format("Noted. I've removed this task:\n%s\n%s",
-                                       task, now_have());
-        return message;
+        return String.format("Noted. I've removed this task:\n%s\n%s", task,
+                             tasks_.now_have());
     }
 
     Result<String, Error> handle_cli_line(String user_input) {

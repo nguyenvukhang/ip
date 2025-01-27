@@ -35,4 +35,10 @@ public class TaskList {
     public void add(Task task) {
         tasks_.add(task);
     }
+
+    public String now_have() {
+        int n = len();
+        String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
+        return String.format("Now you have %s in the list.", tasks);
+    }
 }
