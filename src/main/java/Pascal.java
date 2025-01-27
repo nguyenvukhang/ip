@@ -17,11 +17,12 @@ public class Pascal {
     private final TaskList tasks_;
     private boolean exited_;
 
-    Pascal(InputStream input, Printer printer) {
+    Pascal(InputStream input, Printer printer, Optional<Path> data_path) {
         scanner_ = new Scanner(input);
         writer_ = printer.get_print_stream().orElse(System.err);
         printer_ = printer;
-        tasks_ = new TaskList();
+        tasks_ = data_path.map(path -> TaskList.read(path))
+                     .orElseGet(() -> new TaskList());
         exited_ = false;
     }
 

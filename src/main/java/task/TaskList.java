@@ -84,16 +84,19 @@ public class TaskList {
                         tasklist.add(t = t.deserialize(line.substring(2)));
                         if (done)
                             t.mark_as_done();
+                        break;
                     case 'D':
                         t = new Deadline("", "");
                         tasklist.add(t = t.deserialize(line.substring(2)));
                         if (done)
                             t.mark_as_done();
+                        break;
                     case 'E':
                         t = new Event("", "", "");
                         tasklist.add(t = t.deserialize(line.substring(2)));
                         if (done)
                             t.mark_as_done();
+                        break;
                     default:
                         System.err.println("Unrecognized enum.");
                 }

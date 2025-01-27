@@ -1,3 +1,5 @@
+import java.nio.file.Path;
+import java.util.Optional;
 import printer.Color;
 import printer.PrettyPrint;
 import printer.Tester;
@@ -104,7 +106,7 @@ class Main {
 
     static void run_tests() {
         Tester t = new Tester();
-        Test.test01(new Pascal(System.in, t));
+        Test.test01(new Pascal(System.in, t, Optional.empty()));
         // Test.test02(new Pascal(System.in, t));
     }
 
@@ -116,6 +118,8 @@ class Main {
             return;
         }
         // Printer printer = is_test ? new Tester() : ;
-        new Pascal(System.in, new PrettyPrint(System.out)).run();
+        new Pascal(System.in, new PrettyPrint(System.out),
+                   Optional.of(Path.of("pascal.txt")))
+            .run();
     }
 }
