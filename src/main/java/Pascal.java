@@ -33,8 +33,8 @@ enum Command {
         return new Pair<String, Command>(s, c);
     }
 
-    private static List<Pair<String, Command>> command_map() {
-        return java.util.List.of(       //
+    private static List<Pair<String, Command>> command_map =
+        java.util.List.of(              //
             pair("list", List),         //
             pair("mark", Mark),         //
             pair("unmark", Unmark),     //
@@ -43,14 +43,13 @@ enum Command {
             pair("event", Event),       //
             pair("bye", Bye)            //
         );
-    }
 
     /**
      * Parses a command out of the first word of `input`, and then returns the
      * command, along with the remnants of the input.
      */
     public static Optional<Pair<Command, Str>> parse(Str input) {
-        for (Pair<String, Command> p : command_map()) {
+        for (Pair<String, Command> p : command_map) {
             Optional<Str> z = input.strip_prefix(p.v0).map(Str::trim_start);
             if (z.isPresent()) {
                 return Optional.of(new Pair<>(p.v1, z.get()));
