@@ -12,4 +12,12 @@ public class Todo extends Task {
     public String get_description() {
         return description_;
     }
+
+    public String serialize() {
+        return description_;
+    }
+
+    public Task deserialize(String text) {
+        return new Todo(text);
+    }
 }

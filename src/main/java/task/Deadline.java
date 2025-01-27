@@ -1,5 +1,8 @@
 package task;
 
+import common.Pair;
+import common.Str;
+
 public class Deadline extends Task {
     protected String by_;
 
@@ -14,5 +17,15 @@ public class Deadline extends Task {
 
     public String get_description() {
         return String.format("%s (by: %s)", description_, by_);
+    }
+
+    public String serialize() {
+        return String.format("%s::%s", description_, by_);
+    }
+
+    public Task deserialize(String text) {
+        Str x = new Str(text);
+        Pair<Str, Str> pair = x.split_once("::").get();
+        return new Deadline(pair.v0.inner(), pair.v1.inner());
     }
 }
