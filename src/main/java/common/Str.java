@@ -1,57 +1,59 @@
+package common;
+
 import java.util.Optional;
 
 public final class Str {
     private String buf_;
 
-    Str(String value) {
+    public Str(String value) {
         buf_ = value;
     }
 
-    String inner() {
+    public String inner() {
         return buf_;
     }
 
-    Str trim() {
+    public Str trim() {
         return new Str(buf_.trim());
     }
 
-    Str trim_start() {
+    public Str trim_start() {
         return new Str(buf_.stripLeading());
     }
 
-    Str trim_end() {
+    public Str trim_end() {
         return new Str(buf_.stripTrailing());
     }
 
-    Optional<Str> strip_prefix(String prefix) {
+    public Optional<Str> strip_prefix(String prefix) {
         if (!buf_.startsWith(prefix)) {
             return Optional.empty();
         }
         return Optional.of(new Str(buf_.substring(prefix.length())));
     }
 
-    Str substr(int start, int end) {
+    public Str substr(int start, int end) {
         return new Str(buf_.substring(start, end));
     }
 
-    Str substr(int start) {
+    public Str substr(int start) {
         return new Str(buf_.substring(start));
     }
 
-    Optional<Pair<Str, Str>> split_once(String delimiter) {
+    public Optional<Pair<Str, Str>> split_once(String delimiter) {
         int n = buf_.indexOf(delimiter);
         if (n == -1) {
             return Optional.empty();
         }
         return Optional.of(
-            new Pair<>(substr(0, n), substr(n + delimiter.length())));
+            new Pair<Str, Str>(substr(0, n), substr(n + delimiter.length())));
         // if (!buf_.startsWith(prefix)) {
         //     return Optional.empty();
         // }
         // return Optional.of(new Str(buf_.substring(prefix.length())));
     }
 
-    Optional<Integer> parse_int() {
+    public Optional<Integer> parse_int() {
         try {
             return Optional.of(Integer.parseInt(buf_));
         } catch (NumberFormatException e) {
