@@ -3,24 +3,24 @@ import common.Pair;
 import common.Str;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 import printer.Printer;
 import task.Task;
+import task.TaskList;
 
 public class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
     private final Printer printer_;
-    private final ArrayList<Task> tasks_;
+    private final TaskList tasks_;
     private boolean exited_;
 
     Pascal(InputStream input, Printer printer) {
         scanner_ = new Scanner(input);
         writer_ = printer.get_print_stream().orElse(System.err);
         printer_ = printer;
-        tasks_ = new ArrayList<>();
+        tasks_ = new TaskList();
         exited_ = false;
     }
 
@@ -42,19 +42,8 @@ public class Pascal {
         return new Str(response);
     }
 
-    /**
-     * Returns the output intended for the user as a `String`.
-     */
-    private String print_list() {
-        ArrayList<String> lines = new ArrayList<>();
-        for (int j = 0; j < tasks_.size(); ++j) {
-            lines.add(String.format("%d. %s", j + 1, tasks_.get(j)));
-        }
-        return String.join("\n", lines);
-    }
-
     private String now_have() {
-        int n = tasks_.size();
+        int n = tasks_.len();
         String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
         return String.format("Now you have %s in the list.", tasks);
     }
@@ -77,7 +66,7 @@ public class Pascal {
      * Assumes that `idx` points to a valid task.
      */
     private String delete_task(int idx) {
-        Task task = tasks_.remove(idx - 1);
+        Task task = tasks_.remove_unchecked(idx - 1);
         String message = String.format("Noted. I've removed this task:\n%s\n%s",
                                        task, now_have());
         return message;
@@ -99,13 +88,13 @@ public class Pascal {
         Task task;
         switch (command) {
             case List:
-                return Result.ok(print_list());
+                return Result.ok(tasks_.list());
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     return Result.err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                task = tasks_.get(opt.get() - 1);
+                task = tasks_.get_unchecked(opt.get() - 1);
                 task.mark_as_done();
                 return Result.ok(String.format(
                     "Nice! I've marked this task as done:\n%s", task));
@@ -114,7 +103,7 @@ public class Pascal {
                     return Result.err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                task = tasks_.get(opt.get() - 1);
+                task = tasks_.get_unchecked(opt.get() - 1);
                 task.mark_as_done();
                 return Result.ok(String.format(
                     "OK, I've marked this task as not done yet:\n%s", task));
