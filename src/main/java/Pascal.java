@@ -7,8 +7,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Scanner;
 import printer.Printer;
+import result.Error;
+import result.Result;
+import task.Deadline;
+import task.Event;
 import task.Task;
 import task.TaskList;
+import task.Todo;
 
 public class Pascal {
     private final Scanner scanner_;
@@ -21,7 +26,7 @@ public class Pascal {
         scanner_ = new Scanner(input);
         writer_ = printer.get_print_stream().orElse(System.err);
         printer_ = printer;
-        tasks_ = data_path.map(path -> TaskList.read(path))
+        tasks_ = data_path.map(path -> TaskList.read(path).get())
                      .orElseGet(() -> new TaskList());
         exited_ = false;
     }
@@ -70,11 +75,11 @@ public class Pascal {
     Result<String, Error> handle_cli_line(String user_input) {
         Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
         if (opt.isEmpty()) {
-            return Result.err(Error.other("Invalid command. Try again."));
+            return Result.Err(Error.other("Invalid command. Try again."));
         }
-        exited_ |= opt.get().v0 == Command.Bye;
+        exited_ |= opt.get().left == Command.Bye;
         Result<String, Error> result =
-            handle_command(opt.get().v0, opt.get().v1);
+            handle_command(opt.get().left, opt.get().right);
         tasks_.write(Path.of("pascal.txt"));
         return result;
     }
@@ -82,67 +87,68 @@ public class Pascal {
     Result<String, Error> handle_command(Command command, Str input) {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pair_str;
-        Str arg0, arg1, arg2;
+        Str arg;
+        String description;
         Task task;
         switch (command) {
             case List:
-                return Result.ok(tasks_.list());
+                return Result.Ok(tasks_.list());
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
-                    return Result.err(
+                    return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
                 task = tasks_.get_unchecked(opt.get() - 1);
                 task.mark_as_done();
-                return Result.ok(String.format(
+                return Result.Ok(String.format(
                     "Nice! I've marked this task as done:\n%s", task));
             case Unmark:
                 if ((opt = input.parse_int()).isEmpty()) {
-                    return Result.err(
+                    return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
                 task = tasks_.get_unchecked(opt.get() - 1);
                 task.mark_as_done();
-                return Result.ok(String.format(
+                return Result.Ok(String.format(
                     "OK, I've marked this task as not done yet:\n%s", task));
             case Delete:
                 if ((opt = input.parse_int()).isEmpty()) {
-                    return Result.err(
+                    return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                return Result.ok(delete_task(opt.get()));
+                return Result.Ok(delete_task(opt.get()));
+
             case Todo:
-                return Result.ok(add_task(new task.Todo(input.inner())));
+                description = input.inner();
+                return Result.Ok(add_task(new Todo(description)));
             case Deadline:
                 if ((pair_str = input.split_once("/by")).isEmpty()) {
-                    return Result.err(
+                    return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                arg0 = pair_str.get().v0.trim_end();
-                arg1 = pair_str.get().v1.trim_start();
-                return Result.ok(
-                    add_task(new task.Deadline(arg0.inner(), arg1.inner())));
+                description = pair_str.get().left.trim_end().inner();
+                String by = pair_str.get().right.trim_start().inner();
+                return Deadline.of(description, by).map(d -> add_task(d));
             case Event:
                 if ((pair_str = input.split_once("/from")).isEmpty()) {
-                    return Result.err(
+                    return Result.Err(
                         Error.other("Invalid input. Expected a \"/from\"."));
                 }
-                arg0 = pair_str.get().v0.trim_end();
-                arg1 = pair_str.get().v1.trim_start();
+                description = pair_str.get().left.trim_end().inner();
+                arg = pair_str.get().right.trim_start();
 
-                if ((pair_str = arg1.split_once("/to")).isEmpty()) {
-                    return Result.err(
+                if ((pair_str = arg.split_once("/to")).isEmpty()) {
+                    return Result.Err(
                         Error.other("Invalid input. Expected a \"/to\"."));
                 }
-                arg1 = pair_str.get().v0.trim_end();
-                arg2 = pair_str.get().v1.trim_start();
+                String from = pair_str.get().left.trim_end().inner();
+                String to = pair_str.get().right.trim_start().inner();
 
-                return Result.ok(add_task(
-                    new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
+                return Event.of(description, from, to).map(e -> add_task(e));
             case Bye:
-                return Result.ok("Bye. Hope to see you again soon!");
+                return Result.Ok("Bye. Hope to see you again soon!");
         }
-        return Result.err(Error.other("Unhandled command!"));
+        return Result.Err(Error.other("Unhandled command!"));
     }
 
     public void run() {

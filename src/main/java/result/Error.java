@@ -1,3 +1,5 @@
+package result;
+
 public class Error {
     protected final ErrorKind kind_;
     protected final String msg_;

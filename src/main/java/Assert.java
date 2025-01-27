@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import printer.Color;
+import result.Result;
 
 public class Assert {
     private static PrintStream err = System.err;

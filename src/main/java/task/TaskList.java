@@ -1,14 +1,15 @@
 package task;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import result.Error;
+import result.Result;
 
 public class TaskList {
     private ArrayList<Task> tasks_;
@@ -69,40 +70,50 @@ public class TaskList {
         }
     }
 
-    public static TaskList read(Path filepath) {
-        TaskList tasklist = new TaskList();
-        try {
-            Scanner reader = new Scanner(filepath.toFile());
-            while (reader.hasNext()) {
-                String line = reader.nextLine();
-                char task_kind = line.charAt(0);
-                boolean done = line.charAt(1) == 'X';
-                Task t;
-                switch (task_kind) {
-                    case 'T':
-                        t = new Todo("");
-                        tasklist.add(t = t.deserialize(line.substring(2)));
-                        if (done)
-                            t.mark_as_done();
-                        break;
-                    case 'D':
-                        t = new Deadline("", "");
-                        tasklist.add(t = t.deserialize(line.substring(2)));
-                        if (done)
-                            t.mark_as_done();
-                        break;
-                    case 'E':
-                        t = new Event("", "", "");
-                        tasklist.add(t = t.deserialize(line.substring(2)));
-                        if (done)
-                            t.mark_as_done();
-                        break;
-                    default:
-                        System.err.println("Unrecognized enum.");
-                }
-            }
-        } catch (IOException e) {
+    private static Result<Task, Error> parse_line(String line) {
+        if (line.length() < 2) {
+            return Result.Err(Error.other("Invalid data. Too short."));
         }
-        return tasklist;
+        char task_kind = line.charAt(0);
+        boolean done = line.charAt(1) == 'X';
+        Optional<Task> tt = Optional.empty();
+        switch (task_kind) {
+            case 'T':
+                tt = Optional.of(new Todo());
+                break;
+            case 'D':
+                tt = Optional.of(new Deadline());
+                break;
+            case 'E':
+                tt = Optional.of(new Event());
+                break;
+        }
+        if (tt.isEmpty()) {
+            return Result.Err(Error.other(
+                "Invalid line of data. Doesn't match any Task enum."));
+        }
+        Result<Task, Error> res = tt.get().deserialize(line.substring(2));
+        if (done && res.is_ok()) {
+            res.get().mark_as_done();
+        }
+        return res;
+    }
+
+    public static Result<TaskList, Error> read(Path filepath) {
+        TaskList tasklist = new TaskList();
+        Scanner reader;
+        try {
+            reader = new Scanner(filepath.toFile());
+        } catch (IOException e) {
+            return Result.Err(Error.other("Unable to read file."));
+        }
+        while (reader.hasNext()) {
+            Result<Task, Error> r = TaskList.parse_line(reader.nextLine());
+            if (r.is_err()) {
+                return Result.Err(r.get_err());
+            }
+            tasklist.add(r.get());
+        }
+        return Result.Ok(tasklist);
     }
 }
