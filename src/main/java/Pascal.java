@@ -5,14 +5,10 @@ import java.util.Optional;
 import java.util.Scanner;
 import printer.Printer;
 import task.Task;
-import task.Todo;
 
 enum Command {
     /** List the tasks in memory. */
     List,
-
-    /** Adds a todo. */
-    Todo,
 
     /** Marks a task as complete. */
     Mark,
@@ -20,14 +16,17 @@ enum Command {
     /** Marks a task as incomplete. */
     Unmark,
 
+    /** Deletes an event. */
+    Delete,
+
+    /** Adds a todo. */
+    Todo,
+
     /** Adds a deadline. */
     Deadline,
 
     /** Adds an event. */
     Event,
-
-    /** Deletes an event. */
-    Delete,
 
     /** Quits the session. */
     Bye;
@@ -159,6 +158,8 @@ public class Pascal {
         Str arg0, arg1, arg2;
         Task task;
         switch (command) {
+            case List:
+                return Result.ok(print_list());
             case Mark:
                 if ((opt = input.parse_int()).isEmpty()) {
                     return Result.err(
@@ -177,8 +178,12 @@ public class Pascal {
                 task.mark_as_done();
                 return Result.ok(String.format(
                     "OK, I've marked this task as not done yet:\n%s", task));
-            case List:
-                return Result.ok(print_list());
+            case Delete:
+                if ((opt = input.parse_int()).isEmpty()) {
+                    return Result.err(
+                        Error.other("Invalid input. Expected an integer."));
+                }
+                return Result.ok(delete_task(opt.get()));
             case Todo:
                 return Result.ok(add_task(new task.Todo(input.inner())));
             case Deadline:
@@ -207,12 +212,6 @@ public class Pascal {
 
                 return Result.ok(add_task(
                     new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
-            case Delete:
-                if ((opt = input.parse_int()).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected an integer."));
-                }
-                return Result.ok(delete_task(opt.get()));
             case Bye:
                 return Result.ok("Bye. Hope to see you again soon!");
         }
