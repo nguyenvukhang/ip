@@ -25,6 +25,10 @@ public abstract class Task {
 
     abstract public String get_description();
 
+    abstract public String serialize();
+
+    abstract public Task deserialize(String text);
+
     @Override
     public String toString() {
         return String.format("[%s][%s] %s", get_enum_icon(), get_status_icon(),
