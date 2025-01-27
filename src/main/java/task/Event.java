@@ -2,22 +2,30 @@ package task;
 
 import common.Pair;
 import common.Str;
+import java.time.LocalDate;
 import java.util.Optional;
 import result.Error;
 import result.Result;
 
 public class Event extends Task {
-    protected String from_, to_;
+    protected LocalDate from_, to_;
 
     /** Empty constructor for inner use. */
     public Event() {
         super("");
     }
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         from_ = from;
         to_ = to;
+    }
+
+    public static Result<Event, Error> of(String description, String from,
+                                          String to) {
+        return parse_date(from)
+            .and_then(f -> parse_date(to).map(t -> new Pair<>(f, t)))
+            .map(dates -> new Event(description, dates.left, dates.right));
     }
 
     public char get_enum_icon() {
@@ -45,9 +53,8 @@ public class Event extends Task {
         if (opt.isEmpty()) {
             return Result.Err(Error.other("Error in parsing an `Event`."));
         }
-
-        Str from = opt.get().left;
-        Str to = opt.get().right;
-        return Result.Ok(new Event(description, from.inner(), to.inner()));
+        String from = opt.get().left.inner();
+        String to = opt.get().right.inner();
+        return Event.of(description, from, to).map(e -> e);
     }
 }

@@ -40,6 +40,10 @@ public final class Result<T, E> {
         return new Result<>(value_.map(f), err_);
     }
 
+    public <U> Result<U, E> and_then(Function<? super T, Result<U, E>> f) {
+        return is_ok() ? f.apply(get()) : Result.Err(get_err());
+    }
+
     @Override
     public String toString() {
         if (is_ok()) {

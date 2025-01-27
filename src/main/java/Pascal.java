@@ -10,8 +10,10 @@ import printer.Printer;
 import result.Error;
 import result.Result;
 import task.Deadline;
+import task.Event;
 import task.Task;
 import task.TaskList;
+import task.Todo;
 
 public class Pascal {
     private final Scanner scanner_;
@@ -85,7 +87,8 @@ public class Pascal {
     Result<String, Error> handle_command(Command command, Str input) {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pair_str;
-        Str arg0, arg1, arg2;
+        Str arg;
+        String description;
         Task task;
         switch (command) {
             case List:
@@ -114,35 +117,34 @@ public class Pascal {
                         Error.other("Invalid input. Expected an integer."));
                 }
                 return Result.Ok(delete_task(opt.get()));
+
             case Todo:
-                return Result.Ok(add_task(new task.Todo(input.inner())));
+                description = input.inner();
+                return Result.Ok(add_task(new Todo(description)));
             case Deadline:
                 if ((pair_str = input.split_once("/by")).isEmpty()) {
                     return Result.Err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                arg0 = pair_str.get().left.trim_end();
-                arg1 = pair_str.get().right.trim_start();
-
-                return Deadline.of(arg0.inner(), arg1.inner())
-                    .map(deadline -> add_task(deadline));
+                description = pair_str.get().left.trim_end().inner();
+                String by = pair_str.get().right.trim_start().inner();
+                return Deadline.of(description, by).map(d -> add_task(d));
             case Event:
                 if ((pair_str = input.split_once("/from")).isEmpty()) {
                     return Result.Err(
                         Error.other("Invalid input. Expected a \"/from\"."));
                 }
-                arg0 = pair_str.get().left.trim_end();
-                arg1 = pair_str.get().right.trim_start();
+                description = pair_str.get().left.trim_end().inner();
+                arg = pair_str.get().right.trim_start();
 
-                if ((pair_str = arg1.split_once("/to")).isEmpty()) {
+                if ((pair_str = arg.split_once("/to")).isEmpty()) {
                     return Result.Err(
                         Error.other("Invalid input. Expected a \"/to\"."));
                 }
-                arg1 = pair_str.get().left.trim_end();
-                arg2 = pair_str.get().right.trim_start();
+                String from = pair_str.get().left.trim_end().inner();
+                String to = pair_str.get().right.trim_start().inner();
 
-                return Result.Ok(add_task(
-                    new task.Event(arg0.inner(), arg1.inner(), arg2.inner())));
+                return Event.of(description, from, to).map(e -> add_task(e));
             case Bye:
                 return Result.Ok("Bye. Hope to see you again soon!");
         }
