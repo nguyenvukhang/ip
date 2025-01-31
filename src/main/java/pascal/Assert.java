@@ -2,7 +2,7 @@ import java.io.PrintStream;
 import printer.Color;
 import result.Result;
 
-public class Assert {
+class Assert {
     private static PrintStream err = System.err;
 
     private static void report(Object received, Object expected) {

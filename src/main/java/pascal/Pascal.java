@@ -15,7 +15,7 @@ import task.Task;
 import task.TaskList;
 import task.Todo;
 
-public class Pascal {
+class Pascal {
     private final Scanner scanner_;
     private final PrintStream writer_;
     private final Printer printer_;
