@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -48,6 +49,17 @@ public class TaskList {
     /** Adds a task to the task list. */
     public void add(Task task) {
         tasks.add(task);
+    }
+
+    /** Finds tasks that contain a particular substring. */
+    public List<Task> find(String query) {
+        ArrayList<Task> hits = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(query)) {
+                hits.add(task);
+            }
+        }
+        return hits;
     }
 
     /** A quick convenience routine to show remaining tasks. */
