@@ -39,7 +39,7 @@ public enum Command {
         return new Pair<String, Command>(s, c);
     }
 
-    private static List<Pair<String, Command>> command_map =
+    private static List<Pair<String, Command>> COMMAND_MAP =
         java.util.List.of(              //
             pair("list", List),         //
             pair("mark", Mark),         //
@@ -56,7 +56,7 @@ public enum Command {
      * command, along with the remnants of the input.
      */
     public static Optional<Pair<Command, Str>> parse(Str input) {
-        for (Pair<String, Command> p : command_map) {
+        for (Pair<String, Command> p : COMMAND_MAP) {
             Optional<Str> z = input.stripPrefix(p.left).map(Str::trimStart);
             if (z.isPresent()) {
                 return Optional.of(new Pair<>(p.right, z.get()));

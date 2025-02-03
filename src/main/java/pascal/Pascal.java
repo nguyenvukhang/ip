@@ -24,11 +24,11 @@ class Pascal {
     private final TaskList tasks;
     private boolean isExited;
 
-    Pascal(InputStream input, Printer printer, Optional<Path> data_path) {
+    Pascal(InputStream input, Printer printer, Optional<Path> dataPath) {
         scanner = new Scanner(input);
         writer = printer.getPrintStream().orElse(System.err);
         this.printer = printer;
-        tasks = data_path.map(path -> TaskList.read(path).get())
+        tasks = dataPath.map(path -> TaskList.read(path).get())
                     .orElseGet(() -> new TaskList());
         isExited = false;
     }

@@ -5,16 +5,16 @@ import pascal.printer.Color;
 import pascal.result.Result;
 
 class Assert {
-    private static PrintStream err = System.err;
+    private static PrintStream ERR = System.err;
 
     private static void report(Object received, Object expected) {
-        err.printf("%sAssertion Error.%s\n", Color.Red, Color.Reset);
-        err.println("-----");
-        err.println("Received:");
-        err.println(received);
-        err.println("Expected:");
-        err.println(expected);
-        err.println("-----");
+        ERR.printf("%sAssertion Error.%s\n", Color.Red, Color.Reset);
+        ERR.println("-----");
+        ERR.println("Received:");
+        ERR.println(received);
+        ERR.println("Expected:");
+        ERR.println(expected);
+        ERR.println("-----");
         System.exit(1);
     }
 
