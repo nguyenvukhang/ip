@@ -7,6 +7,9 @@ current: test
 test:
 	$(GRADLE) test
 
+jar:
+	$(GRADLE) shadowJar
+
 old_test:
 	DEBUG=1 $(GRADLE) run --args='test'
 
