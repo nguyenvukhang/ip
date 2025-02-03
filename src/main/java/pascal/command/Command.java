@@ -1,9 +1,9 @@
 package pascal.command;
 
-import pascal.common.Pair;
-import pascal.common.Str;
 import java.util.List;
 import java.util.Optional;
+import pascal.common.Pair;
+import pascal.common.Str;
 
 public enum Command {
     /** List the tasks in memory. */
