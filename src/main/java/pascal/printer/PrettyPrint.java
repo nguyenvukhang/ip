@@ -8,8 +8,12 @@ import java.util.Optional;
  */
 public class PrettyPrint implements Printer {
     private final PrintStream writer;
-    private final char horizontal, vertical, topLeft, topRight, bottomLeft,
-        bottomRight;
+    private final char horizontal;
+    private final char vertical;
+    private final char topLeft;
+    private final char topRight;
+    private final char bottomLeft;
+    private final char bottomRight;
 
     /** Construct a PrettyPrint. */
     public PrettyPrint(PrintStream writer) {
@@ -47,8 +51,9 @@ public class PrettyPrint implements Printer {
         String output = String.format(format, args);
 
         // Nothing to do here.
-        if (output.length() == 0)
+        if (output.length() == 0) {
             return;
+        }
 
         // Unwrap safety guaranteed by the fact that output is non-empty.
         int maxLineLen = maxLen(output);

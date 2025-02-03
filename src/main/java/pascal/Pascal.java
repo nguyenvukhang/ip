@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Scanner;
+
 import pascal.command.Command;
 import pascal.common.Pair;
 import pascal.common.Str;
@@ -79,9 +80,9 @@ class Pascal {
         if (opt.isEmpty()) {
             return Result.err(Error.other("Invalid command. Try again."));
         }
-        isExited |= opt.get().left == Command.Bye;
+        isExited |= opt.get().left() == Command.Bye;
         Result<String, Error> result =
-            handleCommand(opt.get().left, opt.get().right);
+            handleCommand(opt.get().left(), opt.get().right());
         tasks.write(Path.of("pascal.txt"));
         return result;
     }
@@ -90,70 +91,72 @@ class Pascal {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pairStr;
         Str arg;
-        String description, query;
+        String description;
+        String query;
         Task task;
         switch (command) {
-            case List:
-                return Result.ok(tasks.listPretty());
-            case Find:
-                query = input.inner();
-                return Result.ok(tasks.findPretty(query));
-            case Mark:
-                if ((opt = input.parseInt()).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected an integer."));
-                }
-                task = tasks.getUnchecked(opt.get() - 1);
-                task.markAsDone();
-                return Result.ok(String.format(
-                    "Nice! I've marked this task as done:\n%s", task));
-            case Unmark:
-                if ((opt = input.parseInt()).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected an integer."));
-                }
-                task = tasks.getUnchecked(opt.get() - 1);
-                task.markAsNotDone();
-                return Result.ok(String.format(
-                    "OK, I've marked this task as not done yet:\n%s", task));
-            case Delete:
-                if ((opt = input.parseInt()).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected an integer."));
-                }
-                return Result.ok(deleteTask(opt.get()));
+        case List:
+            return Result.ok(tasks.listPretty());
+        case Find:
+            query = input.inner();
+            return Result.ok(tasks.findPretty(query));
+        case Mark:
+            if ((opt = input.parseInt()).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected an integer."));
+            }
+            task = tasks.getUnchecked(opt.get() - 1);
+            task.markAsDone();
+            return Result.ok(String.format(
+                "Nice! I've marked this task as done:\n%s", task));
+        case Unmark:
+            if ((opt = input.parseInt()).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected an integer."));
+            }
+            task = tasks.getUnchecked(opt.get() - 1);
+            task.markAsNotDone();
+            return Result.ok(String.format(
+                "OK, I've marked this task as not done yet:\n%s", task));
+        case Delete:
+            if ((opt = input.parseInt()).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected an integer."));
+            }
+            return Result.ok(deleteTask(opt.get()));
 
-            case Todo:
-                description = input.inner();
-                return Result.ok(addTask(new Todo(description)));
-            case Deadline:
-                if ((pairStr = input.splitOnce("/by")).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected an integer."));
-                }
-                description = pairStr.get().left.trimEnd().inner();
-                String by = pairStr.get().right.trimStart().inner();
-                return Deadline.of(description, by).map(d -> addTask(d));
-            case Event:
-                if ((pairStr = input.splitOnce("/from")).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected a \"/from\"."));
-                }
-                description = pairStr.get().left.trimEnd().inner();
-                arg = pairStr.get().right.trimStart();
+        case Todo:
+            description = input.inner();
+            return Result.ok(addTask(new Todo(description)));
+        case Deadline:
+            if ((pairStr = input.splitOnce("/by")).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected an integer."));
+            }
+            description = pairStr.get().left().trimEnd().inner();
+            String by = pairStr.get().right().trimStart().inner();
+            return Deadline.of(description, by).map(d -> addTask(d));
+        case Event:
+            if ((pairStr = input.splitOnce("/from")).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected a \"/from\"."));
+            }
+            description = pairStr.get().left().trimEnd().inner();
+            arg = pairStr.get().right().trimStart();
 
-                if ((pairStr = arg.splitOnce("/to")).isEmpty()) {
-                    return Result.err(
-                        Error.other("Invalid input. Expected a \"/to\"."));
-                }
-                String from = pairStr.get().left.trimEnd().inner();
-                String to = pairStr.get().right.trimStart().inner();
+            if ((pairStr = arg.splitOnce("/to")).isEmpty()) {
+                return Result.err(
+                    Error.other("Invalid input. Expected a \"/to\"."));
+            }
+            String from = pairStr.get().left().trimEnd().inner();
+            String to = pairStr.get().right().trimStart().inner();
 
-                return Event.of(description, from, to).map(e -> addTask(e));
-            case Bye:
-                return Result.ok("Bye. Hope to see you again soon!");
+            return Event.of(description, from, to).map(e -> addTask(e));
+        case Bye:
+            return Result.ok("Bye. Hope to see you again soon!");
+        default:
+            return Result.err(Error.other("Unhandled command!"));
         }
-        return Result.err(Error.other("Unhandled command!"));
     }
 
     public void run() {

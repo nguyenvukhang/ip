@@ -2,6 +2,7 @@ package pascal.task;
 
 import java.time.LocalDate;
 import java.util.Optional;
+
 import pascal.common.Pair;
 import pascal.common.Str;
 import pascal.result.Error;
@@ -52,8 +53,8 @@ public class Deadline extends Task {
         if (opt.isEmpty()) {
             return Result.err(Error.other("Error in parsing an `Deadline`."));
         }
-        String description = opt.get().left.inner();
-        String by = opt.get().right.inner();
+        String description = opt.get().left().inner();
+        String by = opt.get().right().inner();
         return parseDate(by).map(z -> new Deadline(description, z));
     }
 }

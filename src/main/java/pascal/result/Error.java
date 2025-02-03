@@ -31,10 +31,10 @@ public class Error {
 
     /** Equality comparison of errors. */
     public boolean equals(Object other) {
-        if (!(other instanceof Error))
+        if (!(other instanceof Error)) {
             return false;
-
-        Error rhs = (Error)other;
+        }
+        Error rhs = (Error) other;
         if (kind != rhs.kind) {
             return false;
         }

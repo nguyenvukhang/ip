@@ -3,6 +3,7 @@ package pascal.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import pascal.result.Error;
 import pascal.result.Result;
 
@@ -11,13 +12,13 @@ import pascal.result.Result;
  * An abstract class that describes the general idea of a Task.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-
-    protected static DateTimeFormatter DT_FMT =
+    protected static DateTimeFormatter dateFormat =
         DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    protected static LocalDate EMPTY_DATE = LocalDate.of(1, 1, 1);
+    protected static LocalDate emptyDate = LocalDate.of(1, 1, 1);
+
+    protected String description;
+    protected boolean isDone;
 
     /** Create a Task from a description. */
     public Task(String description) {
@@ -46,7 +47,7 @@ public abstract class Task {
     /** A date parser for internal use during parsing in subclasses. */
     protected static Result<LocalDate, Error> parseDate(String text) {
         try {
-            return Result.ok(LocalDate.parse(text, DT_FMT));
+            return Result.ok(LocalDate.parse(text, dateFormat));
         } catch (DateTimeParseException e) {
             return Result.err(Error.other("Error parsing datetime: %s", e));
         }
@@ -56,19 +57,19 @@ public abstract class Task {
      * Require subclasses to have an enum icon.
      * Used for serializing, deserializing, and displaying.
      */
-    abstract public char getEnumIcon();
+    abstract char getEnumIcon();
 
     /**
      * Require subclasses override how to display themselves.
      * Used for displaying.
      */
-    abstract public String getDescription();
+    abstract String getDescription();
 
     /** Require subclasses to show how to serialize themselves. */
-    abstract public String serialize();
+    abstract String serialize();
 
     /** Require subclasses to show how to deserialize themselves. */
-    abstract public Result<Task, Error> deserialize(String text);
+    abstract Result<Task, Error> deserialize(String text);
 
     @Override
     public String toString() {

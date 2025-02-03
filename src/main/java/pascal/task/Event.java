@@ -2,6 +2,7 @@ package pascal.task;
 
 import java.time.LocalDate;
 import java.util.Optional;
+
 import pascal.common.Pair;
 import pascal.common.Str;
 import pascal.result.Error;
@@ -12,7 +13,8 @@ import pascal.result.Result;
  * A task that has a start date and an end date.
  */
 public class Event extends Task {
-    protected LocalDate fromDate, toDate;
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
 
     /** Empty constructor for inner use. */
     public Event() {
@@ -31,7 +33,7 @@ public class Event extends Task {
                                           String to) {
         return parseDate(from)
             .andThen(f -> parseDate(to).map(t -> new Pair<>(f, t)))
-            .map(dates -> new Event(description, dates.left, dates.right));
+            .map(dates -> new Event(description, dates.left(), dates.right()));
     }
 
     /** Enum icon of a Event Task */
@@ -41,7 +43,8 @@ public class Event extends Task {
 
     /** Description of a Event Task */
     public String getDescription() {
-        return String.format("%s (from: %s to: %s)", description, fromDate, toDate);
+        return String.format("%s (from: %s to: %s)", description, fromDate,
+                             toDate);
     }
 
     /** Serialize a Event Task to save it to the filesystem. */
@@ -58,13 +61,13 @@ public class Event extends Task {
             return Result.err(Error.other("Error in parsing an `Event`."));
         }
 
-        String description = opt.get().left.inner();
-        opt = opt.get().right.splitOnce("::");
+        String description = opt.get().left().inner();
+        opt = opt.get().right().splitOnce("::");
         if (opt.isEmpty()) {
             return Result.err(Error.other("Error in parsing an `Event`."));
         }
-        String from = opt.get().left.inner();
-        String to = opt.get().right.inner();
+        String from = opt.get().left().inner();
+        String to = opt.get().right().inner();
         return Event.of(description, from, to).map(e -> e);
     }
 }

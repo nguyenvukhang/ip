@@ -98,7 +98,7 @@ IncludeCategories:
 IncludeIsMainRegex: '(Test)?$'
 IncludeIsMainSourceRegex: ''
 IndentAccessModifiers: false
-IndentCaseLabels: true
+IndentCaseLabels: false
 IndentCaseBlocks: true
 IndentGotoLabels: true
 IndentPPDirectives: None
@@ -140,7 +140,7 @@ ShortNamespaceLines: 1
 SortIncludes:    CaseSensitive
 SortJavaStaticImport: Before
 SortUsingDeclarations: true
-SpaceAfterCStyleCast: false
+SpaceAfterCStyleCast: true
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
@@ -182,6 +182,7 @@ StatementMacros:
 TabWidth:        8
 UseCRLF:         false
 UseTab:          Never
+JavaImportGroups: [java, org, pascal]
 WhitespaceSensitiveMacros:
   - STRINGIZE
   - PP_STRINGIZE
