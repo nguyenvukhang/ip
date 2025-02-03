@@ -57,13 +57,13 @@ public class PrettyPrint implements Printer {
         String topRule = topLeft + rule + topRight;
         String bottomRule = bottomLeft + rule + bottomRight;
 
-        String line_fmt = "%-" + maxLineLen + "s";
+        String lineFmt = "%-" + maxLineLen + "s";
 
         // Begin the printing.
         writer.println(topRule);
         output.lines().forEach((line) -> {
             writer.printf("%c %s", vertical, Color.Cyan);
-            writer.printf(line_fmt, line);
+            writer.printf(lineFmt, line);
             writer.printf("%s %c\n", Color.Reset, vertical);
         });
         writer.println(bottomRule);

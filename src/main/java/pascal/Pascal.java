@@ -74,8 +74,8 @@ class Pascal {
                              tasks.nowHave());
     }
 
-    Result<String, Error> handleUserInput(String user_input) {
-        Optional<Pair<Command, Str>> opt = Command.parse(new Str(user_input));
+    Result<String, Error> handleUserInput(String userInput) {
+        Optional<Pair<Command, Str>> opt = Command.parse(new Str(userInput));
         if (opt.isEmpty()) {
             return Result.err(Error.other("Invalid command. Try again."));
         }
@@ -88,7 +88,7 @@ class Pascal {
 
     Result<String, Error> handleCommand(Command command, Str input) {
         Optional<Integer> opt;
-        Optional<Pair<Str, Str>> pair_str;
+        Optional<Pair<Str, Str>> pairStr;
         Str arg;
         String description;
         Task task;
@@ -124,27 +124,27 @@ class Pascal {
                 description = input.inner();
                 return Result.ok(addTask(new Todo(description)));
             case Deadline:
-                if ((pair_str = input.splitOnce("/by")).isEmpty()) {
+                if ((pairStr = input.splitOnce("/by")).isEmpty()) {
                     return Result.err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                description = pair_str.get().left.trimEnd().inner();
-                String by = pair_str.get().right.trimStart().inner();
+                description = pairStr.get().left.trimEnd().inner();
+                String by = pairStr.get().right.trimStart().inner();
                 return Deadline.of(description, by).map(d -> addTask(d));
             case Event:
-                if ((pair_str = input.splitOnce("/from")).isEmpty()) {
+                if ((pairStr = input.splitOnce("/from")).isEmpty()) {
                     return Result.err(
                         Error.other("Invalid input. Expected a \"/from\"."));
                 }
-                description = pair_str.get().left.trimEnd().inner();
-                arg = pair_str.get().right.trimStart();
+                description = pairStr.get().left.trimEnd().inner();
+                arg = pairStr.get().right.trimStart();
 
-                if ((pair_str = arg.splitOnce("/to")).isEmpty()) {
+                if ((pairStr = arg.splitOnce("/to")).isEmpty()) {
                     return Result.err(
                         Error.other("Invalid input. Expected a \"/to\"."));
                 }
-                String from = pair_str.get().left.trimEnd().inner();
-                String to = pair_str.get().right.trimStart().inner();
+                String from = pairStr.get().left.trimEnd().inner();
+                String to = pairStr.get().right.trimStart().inner();
 
                 return Event.of(description, from, to).map(e -> addTask(e));
             case Bye:
@@ -156,8 +156,8 @@ class Pascal {
     public void run() {
         println("Hello! I'm Pascal!\nWhat can I do for you?\n");
         while (true) {
-            Str user_input = prompt();
-            Result<String, Error> result = handleUserInput(user_input.inner());
+            Str userInput = prompt();
+            Result<String, Error> result = handleUserInput(userInput.inner());
             if (result.isOk()) {
                 println(result.get());
             } else if (result.isErr()) {

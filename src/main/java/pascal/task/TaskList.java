@@ -78,10 +78,10 @@ public class TaskList {
         if (line.length() < 2) {
             return Result.err(Error.other("Invalid data. Too short."));
         }
-        char task_kind = line.charAt(0);
+        char taskKind = line.charAt(0);
         boolean done = line.charAt(1) == 'X';
         Optional<Task> tt = Optional.empty();
-        switch (task_kind) {
+        switch (taskKind) {
             case 'T':
                 tt = Optional.of(new Todo());
                 break;
