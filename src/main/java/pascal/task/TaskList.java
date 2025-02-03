@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import pascal.result.Error;
@@ -22,13 +23,6 @@ public class TaskList {
     /** Construct an empty TaskList. */
     public TaskList() {
         tasks = new ArrayList<>();
-    }
-
-    /** Gets the user-facing display of the current state of the list. */
-    public String list() {
-        return IntStream.range(0, len())
-            .mapToObj(j -> String.format("%d. %s", j + 1, tasks.get(j)))
-            .collect(Collectors.joining("\n"));
     }
 
     /** Gets the number of tasks in the task list. */
@@ -51,15 +45,36 @@ public class TaskList {
         tasks.add(task);
     }
 
-    /** Finds tasks that contain a particular substring. */
-    public List<Task> find(String query) {
-        ArrayList<Task> hits = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(query)) {
-                hits.add(task);
-            }
+    /**
+     * Enumerates a list of tasks and returns a newline-joined list of strings
+     * to print.
+     */
+    private static String enumerateTaskList(List<Task> tasks) {
+        ArrayList<String> lines = new ArrayList<>(tasks.size());
+        for (int j = 0; j < tasks.size(); ++j) {
+            lines.add(String.format("%d. %s", j + 1, tasks.get(j)));
         }
-        return hits;
+        return String.join("\n", lines);
+    }
+
+    /** Gets the user-facing display of the current state of the list. */
+    public String listPretty() {
+        return enumerateTaskList(tasks);
+    }
+
+    /**
+     * Finds tasks that contain a particular substring.
+     * And make the hits presentable.
+     */
+    public String findPretty(String query) {
+        return enumerateTaskList(find(t -> t.getDescription().contains(query)));
+    }
+
+    /**
+     * Finds a subset of tasks that matches a predicate.
+     */
+    public List<Task> find(Predicate<Task> pred) {
+        return tasks.stream().filter(pred).collect(Collectors.toList());
     }
 
     /** A quick convenience routine to show remaining tasks. */

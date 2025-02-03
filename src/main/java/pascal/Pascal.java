@@ -90,11 +90,14 @@ class Pascal {
         Optional<Integer> opt;
         Optional<Pair<Str, Str>> pairStr;
         Str arg;
-        String description;
+        String description, query;
         Task task;
         switch (command) {
             case List:
-                return Result.ok(tasks.list());
+                return Result.ok(tasks.listPretty());
+            case Find:
+                query = input.inner();
+                return Result.ok(tasks.findPretty(query));
             case Mark:
                 if ((opt = input.parseInt()).isEmpty()) {
                     return Result.err(
