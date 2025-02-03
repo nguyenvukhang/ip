@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 import pascal.result.Error;
 import pascal.result.Result;
 
@@ -97,6 +97,7 @@ public class TaskList {
             target.flush();
             target.close();
         } catch (IOException e) {
+            return;
         }
     }
 
@@ -109,15 +110,17 @@ public class TaskList {
         boolean done = line.charAt(1) == 'X';
         Optional<Task> tt = Optional.empty();
         switch (taskKind) {
-            case 'T':
-                tt = Optional.of(new Todo());
-                break;
-            case 'D':
-                tt = Optional.of(new Deadline());
-                break;
-            case 'E':
-                tt = Optional.of(new Event());
-                break;
+        case 'T':
+            tt = Optional.of(new Todo());
+            break;
+        case 'D':
+            tt = Optional.of(new Deadline());
+            break;
+        case 'E':
+            tt = Optional.of(new Event());
+            break;
+        default:
+            break;
         }
         if (tt.isEmpty()) {
             return Result.err(Error.other(
