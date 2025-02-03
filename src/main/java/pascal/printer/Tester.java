@@ -7,21 +7,21 @@ import java.util.Optional;
  * A dummy Printer.
  */
 public class Tester implements Printer {
-    private String buffer_;
+    private String buffer;
 
     /** Construct a new Tester. */
     public Tester() {
-        buffer_ = "";
+        buffer = "";
     }
 
     /** Gets the Tester's print stream: Nothing. */
-    public Optional<PrintStream> get_print_stream() {
+    public Optional<PrintStream> getPrintStream() {
         return Optional.empty();
     }
 
     /** Print stuff, but to the inner buffer. */
     public void println(String format, Object... args) {
-        buffer_ = String.format(format, args);
+        buffer = String.format(format, args);
     }
 
     /**
@@ -43,15 +43,15 @@ public class Tester implements Printer {
      * Assert equality on the last thing printed.
      * Arguments will be joined by the newline character.
      */
-    public void assert_prev_eq(String... expected) {
-        assert_prev_eq(String.join("\n", expected));
+    public void assertPrevEq(String... expected) {
+        assertPrevEq(String.join("\n", expected));
     }
 
     /** Assert equality on the last thing printed. */
-    public void assert_prev_eq(String expected) {
-        if (expected.equals(buffer_)) {
+    public void assertPrevEq(String expected) {
+        if (expected.equals(buffer)) {
             return;
         }
-        report(expected, buffer_);
+        report(expected, buffer);
     }
 }

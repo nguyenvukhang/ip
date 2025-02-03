@@ -5,16 +5,16 @@ import pascal.printer.Color;
 import pascal.result.Result;
 
 class Assert {
-    private static PrintStream err = System.err;
+    private static PrintStream ERR = System.err;
 
     private static void report(Object received, Object expected) {
-        err.printf("%sAssertion Error.%s\n", Color.Red, Color.Reset);
-        err.println("-----");
-        err.println("Received:");
-        err.println(received);
-        err.println("Expected:");
-        err.println(expected);
-        err.println("-----");
+        ERR.printf("%sAssertion Error.%s\n", Color.Red, Color.Reset);
+        ERR.println("-----");
+        ERR.println("Received:");
+        ERR.println(received);
+        ERR.println("Expected:");
+        ERR.println(expected);
+        ERR.println("-----");
         System.exit(1);
     }
 
@@ -25,13 +25,13 @@ class Assert {
     }
 
     public static <T, E> void eq(Result<T, E> received, Result<T, E> expected) {
-        if (received.is_ok() && expected.is_ok()) {
+        if (received.isOk() && expected.isOk()) {
             if (received.get().equals(expected.get())) {
                 return;
             }
         }
-        if (received.is_err() && expected.is_err()) {
-            if (received.get_err().equals(expected.get_err())) {
+        if (received.isErr() && expected.isErr()) {
+            if (received.getErr().equals(expected.getErr())) {
                 return;
             }
         }

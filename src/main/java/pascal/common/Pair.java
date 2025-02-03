@@ -4,12 +4,12 @@ package pascal.common;
  * A Pair.
  * So that functions can return more than one thing.
  */
-public class Pair<V0, V1> {
-    public V0 left;
-    public V1 right;
+public class Pair<A, B> {
+    public A left;
+    public B right;
 
     /** Pair two items together. */
-    public Pair(V0 v0, V1 v1) {
+    public Pair(A v0, B v1) {
         this.left = v0;
         this.right = v1;
     }

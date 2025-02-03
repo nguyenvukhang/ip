@@ -12,7 +12,7 @@ import pascal.result.Result;
  * A task that has a deadline.
  */
 public class Deadline extends Task {
-    protected LocalDate by_;
+    protected LocalDate byDate;
 
     /** Empty constructor for inner use. */
     public Deadline() {
@@ -22,38 +22,38 @@ public class Deadline extends Task {
     /** Create a Deadline Task. */
     public Deadline(String description, LocalDate by) {
         super(description);
-        by_ = by;
+        byDate = by;
     }
 
     /** Parse a Deadline Task from strings. */
     public static Result<Deadline, Error> of(String description, String by) {
-        return parse_date(by).map(z -> new Deadline(description, z));
+        return parseDate(by).map(z -> new Deadline(description, z));
     }
 
     /** Enum icon of a Deadline Task */
-    public char get_enum_icon() {
+    public char getEnumIcon() {
         return 'D';
     }
 
     /** Description of a Deadline Task */
-    public String get_description() {
-        return String.format("%s (by: %s)", description_, by_);
+    public String getDescription() {
+        return String.format("%s (by: %s)", description, byDate);
     }
 
     /** Serialize a Deadline Task to save it to the filesystem. */
     public String serialize() {
-        return String.format("%s::%s", description_, by_);
+        return String.format("%s::%s", description, byDate);
     }
 
     /** Deserialize a Deadline Task from a String. */
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
-        Optional<Pair<Str, Str>> opt = x.split_once("::");
+        Optional<Pair<Str, Str>> opt = x.splitOnce("::");
         if (opt.isEmpty()) {
-            return Result.Err(Error.other("Error in parsing an `Deadline`."));
+            return Result.err(Error.other("Error in parsing an `Deadline`."));
         }
         String description = opt.get().left.inner();
         String by = opt.get().right.inner();
-        return parse_date(by).map(z -> new Deadline(description, z));
+        return parseDate(by).map(z -> new Deadline(description, z));
     }
 }

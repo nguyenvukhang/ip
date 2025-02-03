@@ -9,62 +9,62 @@ import java.util.function.Function;
  * To replace Exceptions in the long run.
  */
 public final class Result<T, E> {
-    private Optional<T> value_;
-    private Optional<E> err_;
+    private Optional<T> value;
+    private Optional<E> err;
 
     /** Construct a result. */
-    private Result(Optional<T> value, Optional<E> error) {
-        value_ = value;
-        err_ = error;
+    private Result(Optional<T> value, Optional<E> err) {
+        this.value = value;
+        this.err = err;
     }
 
     /** Construct a result of the Ok variant. */
-    public static <T, E> Result<T, E> Ok(T value) {
+    public static <T, E> Result<T, E> ok(T value) {
         return new Result<>(Optional.of(value), Optional.empty());
     }
 
     /** Construct a result of the Err variant. */
-    public static <T, E> Result<T, E> Err(E error) {
+    public static <T, E> Result<T, E> err(E error) {
         return new Result<>(Optional.empty(), Optional.of(error));
     }
 
     /** Checks if a result is of the Ok variant. */
-    public boolean is_ok() {
-        return value_.isPresent();
+    public boolean isOk() {
+        return value.isPresent();
     }
 
     /** Checks if a result is of the Err variant. */
-    public boolean is_err() {
-        return err_.isPresent();
+    public boolean isErr() {
+        return err.isPresent();
     }
 
     /** Gets the value. Works only if the result is of the Ok variant. */
     public T get() {
-        return value_.get();
+        return value.get();
     }
 
     /** Gets the error. Works only if the result is of the Err variant. */
-    public E get_err() {
-        return err_.get();
+    public E getErr() {
+        return err.get();
     }
 
     /** Converts the Result to another type. */
     public <U> Result<U, E> map(Function<? super T, ? extends U> f) {
-        return new Result<>(value_.map(f), err_);
+        return new Result<>(value.map(f), err);
     }
 
     /** Converts the Result to another type. */
-    public <U> Result<U, E> and_then(Function<? super T, Result<U, E>> f) {
-        return is_ok() ? f.apply(get()) : Result.Err(get_err());
+    public <U> Result<U, E> andThen(Function<? super T, Result<U, E>> f) {
+        return isOk() ? f.apply(get()) : Result.err(getErr());
     }
 
     /** Print the result. */
     @Override
     public String toString() {
-        if (is_ok()) {
-            return String.format("Ok(%s)", value_.get());
+        if (isOk()) {
+            return String.format("Ok(%s)", value.get());
         } else {
-            return String.format("Err(%s)", err_.get());
+            return String.format("Err(%s)", err.get());
         }
     }
 }

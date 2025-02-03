@@ -1,15 +1,43 @@
 <?xml version="1.0"?>
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!DOCTYPE module PUBLIC
+  "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+  "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-  <module name="TreeWalker">
-    <!-- Enforce Javadoc for all methods -->
-    <module name="MissingJavadocMethod" />
+    <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/suppressions.xml"/>
+        <property name="optional" value="false"/>
+    </module>
 
-    <!-- Enforce Javadoc for all types -->
-    <module name="MissingJavadocType" />
+    <module name="TreeWalker">
 
-    <!-- Enforce no-fallthrough in switch statements -->
-    <module name="FallThrough"/>
-  </module>
+        <!-- Enforce Javadoc for all methods -->
+        <module name="MissingJavadocMethod"/>
+
+        <!-- Enforce Javadoc for all types -->
+        <module name="MissingJavadocType"/>
+
+        <!-- Enforce no-fallthrough in switch statements -->
+        <module name="FallThrough"/>
+
+        <!-- Enforce naming conventions -->
+        <!-- <module name="AbstractClassName"/> -->
+        <module name="CatchParameterName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="ConstantName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LambdaParameterName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName">
+          <property name="format" value="^[A-Z]+[A-Z_]+$"/>
+        </module>
+        <module name="TypeName"/>
+    </module>
 </module>

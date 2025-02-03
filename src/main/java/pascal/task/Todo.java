@@ -19,22 +19,22 @@ public class Todo extends Task {
     }
 
     /** Enum icon of a Todo Task */
-    public char get_enum_icon() {
+    public char getEnumIcon() {
         return 'T';
     }
 
     /** Description of a Todo Task */
-    public String get_description() {
-        return description_;
+    public String getDescription() {
+        return description;
     }
 
     /** Serialize a Todo Task to save it to the filesystem. */
     public String serialize() {
-        return description_;
+        return description;
     }
 
     /** Deserialize a Todo Task from a String. */
     public Result<Task, Error> deserialize(String text) {
-        return Result.Ok(new Todo(text));
+        return Result.ok(new Todo(text));
     }
 }
