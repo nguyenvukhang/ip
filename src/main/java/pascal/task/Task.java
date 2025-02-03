@@ -26,12 +26,12 @@ public abstract class Task {
     }
 
     /** Mark a Task as done. */
-    public void mark_as_done() {
+    public void markAsDone() {
         is_done_ = true;
     }
 
     /** Mark a Task as not done. */
-    public void mark_as_not_done() {
+    public void markAsNotDone() {
         is_done_ = false;
     }
 
@@ -39,16 +39,16 @@ public abstract class Task {
      * Obtains a status icon of the Task as a single character.
      * Depends on if it's done or not.
      */
-    public char get_status_icon() {
+    public char getStatusIcon() {
         return is_done_ ? 'X' : ' '; // mark done task with X
     }
 
     /** A date parser for internal use during parsing in subclasses. */
-    protected static Result<LocalDate, Error> parse_date(String text) {
+    protected static Result<LocalDate, Error> parseDate(String text) {
         try {
-            return Result.Ok(LocalDate.parse(text, DT_FMT));
+            return Result.ok(LocalDate.parse(text, DT_FMT));
         } catch (DateTimeParseException e) {
-            return Result.Err(Error.other("Error parsing datetime: %s", e));
+            return Result.err(Error.other("Error parsing datetime: %s", e));
         }
     }
 
@@ -56,13 +56,13 @@ public abstract class Task {
      * Require subclasses to have an enum icon.
      * Used for serializing, deserializing, and displaying.
      */
-    abstract public char get_enum_icon();
+    abstract public char getEnumIcon();
 
     /**
      * Require subclasses override how to display themselves.
      * Used for displaying.
      */
-    abstract public String get_description();
+    abstract public String getDescription();
 
     /** Require subclasses to show how to serialize themselves. */
     abstract public String serialize();
@@ -72,7 +72,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", get_enum_icon(), get_status_icon(),
-                             get_description());
+        return String.format("[%s][%s] %s", getEnumIcon(), getStatusIcon(),
+                             getDescription());
     }
 }

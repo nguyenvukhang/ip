@@ -26,12 +26,12 @@ public final class Str {
     }
 
     /** Trims starting whitespace, and return the newly formed `Str`. */
-    public Str trim_start() {
+    public Str trimStart() {
         return new Str(buf_.stripLeading());
     }
 
     /** Trims ending whitespace, and return the newly formed `Str`. */
-    public Str trim_end() {
+    public Str trimEnd() {
         return new Str(buf_.stripTrailing());
     }
 
@@ -39,7 +39,7 @@ public final class Str {
      * Strips a set prefix, and return the newly formed `Str`.
      * If the prefix is not found, an empty Optional is returned.
      * */
-    public Optional<Str> strip_prefix(String prefix) {
+    public Optional<Str> stripPrefix(String prefix) {
         if (!buf_.startsWith(prefix)) {
             return Optional.empty();
         }
@@ -66,7 +66,7 @@ public final class Str {
      * Splits a string once by a delimiter.
      * Returns an empty optional if the delimiter is not found.
      */
-    public Optional<Pair<Str, Str>> split_once(String delimiter) {
+    public Optional<Pair<Str, Str>> splitOnce(String delimiter) {
         int n = buf_.indexOf(delimiter);
         if (n == -1) {
             return Optional.empty();
@@ -79,7 +79,7 @@ public final class Str {
      * Parses an integer from the contents.
      * Returns an empty optional if the contents aren't parseable.
      */
-    public Optional<Integer> parse_int() {
+    public Optional<Integer> parseInt() {
         try {
             return Optional.of(Integer.parseInt(buf_));
         } catch (NumberFormatException e) {

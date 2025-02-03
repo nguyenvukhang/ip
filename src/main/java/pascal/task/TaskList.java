@@ -36,12 +36,12 @@ public class TaskList {
     }
 
     /** Gets the `idx`-th task, without checking bounds. */
-    public Task get_unchecked(int idx) {
+    public Task getUnchecked(int idx) {
         return tasks_.get(idx);
     }
 
     /** Removes the `idx`-th task, without checking bounds. */
-    public Task remove_unchecked(int idx) {
+    public Task removeUnchecked(int idx) {
         return tasks_.remove(idx);
     }
 
@@ -51,7 +51,7 @@ public class TaskList {
     }
 
     /** A quick convenience routine to show remaining tasks. */
-    public String now_have() {
+    public String nowHave() {
         int n = len();
         String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
         return String.format("Now you have %s in the list.", tasks);
@@ -62,8 +62,8 @@ public class TaskList {
         try {
             FileWriter target = new FileWriter(filepath.toFile());
             for (Task task : tasks_) {
-                target.write(task.get_enum_icon());
-                target.write(task.get_status_icon());
+                target.write(task.getEnumIcon());
+                target.write(task.getStatusIcon());
                 target.write(task.serialize());
                 target.write('\n');
             }
@@ -74,9 +74,9 @@ public class TaskList {
     }
 
     /** Parses one line from a saved file. */
-    private static Result<Task, Error> parse_line(String line) {
+    private static Result<Task, Error> parseLine(String line) {
         if (line.length() < 2) {
-            return Result.Err(Error.other("Invalid data. Too short."));
+            return Result.err(Error.other("Invalid data. Too short."));
         }
         char task_kind = line.charAt(0);
         boolean done = line.charAt(1) == 'X';
@@ -93,12 +93,12 @@ public class TaskList {
                 break;
         }
         if (tt.isEmpty()) {
-            return Result.Err(Error.other(
+            return Result.err(Error.other(
                 "Invalid line of data. Doesn't match any Task enum."));
         }
         Result<Task, Error> res = tt.get().deserialize(line.substring(2));
-        if (done && res.is_ok()) {
-            res.get().mark_as_done();
+        if (done && res.isOk()) {
+            res.get().markAsDone();
         }
         return res;
     }
@@ -110,15 +110,15 @@ public class TaskList {
         try {
             reader = new Scanner(filepath.toFile());
         } catch (IOException e) {
-            return Result.Err(Error.other("Unable to read file."));
+            return Result.err(Error.other("Unable to read file."));
         }
         while (reader.hasNext()) {
-            Result<Task, Error> r = TaskList.parse_line(reader.nextLine());
-            if (r.is_err()) {
-                return Result.Err(r.get_err());
+            Result<Task, Error> r = TaskList.parseLine(reader.nextLine());
+            if (r.isErr()) {
+                return Result.err(r.getErr());
             }
             tasklist.add(r.get());
         }
-        return Result.Ok(tasklist);
+        return Result.ok(tasklist);
     }
 }

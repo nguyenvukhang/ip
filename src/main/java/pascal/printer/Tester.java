@@ -15,7 +15,7 @@ public class Tester implements Printer {
     }
 
     /** Gets the Tester's print stream: Nothing. */
-    public Optional<PrintStream> get_print_stream() {
+    public Optional<PrintStream> getPrintStream() {
         return Optional.empty();
     }
 
@@ -43,12 +43,12 @@ public class Tester implements Printer {
      * Assert equality on the last thing printed.
      * Arguments will be joined by the newline character.
      */
-    public void assert_prev_eq(String... expected) {
-        assert_prev_eq(String.join("\n", expected));
+    public void assertPrevEq(String... expected) {
+        assertPrevEq(String.join("\n", expected));
     }
 
     /** Assert equality on the last thing printed. */
-    public void assert_prev_eq(String expected) {
+    public void assertPrevEq(String expected) {
         if (expected.equals(buffer_)) {
             return;
         }

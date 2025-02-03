@@ -19,22 +19,22 @@ public final class Result<T, E> {
     }
 
     /** Construct a result of the Ok variant. */
-    public static <T, E> Result<T, E> Ok(T value) {
+    public static <T, E> Result<T, E> ok(T value) {
         return new Result<>(Optional.of(value), Optional.empty());
     }
 
     /** Construct a result of the Err variant. */
-    public static <T, E> Result<T, E> Err(E error) {
+    public static <T, E> Result<T, E> err(E error) {
         return new Result<>(Optional.empty(), Optional.of(error));
     }
 
     /** Checks if a result is of the Ok variant. */
-    public boolean is_ok() {
+    public boolean isOk() {
         return value_.isPresent();
     }
 
     /** Checks if a result is of the Err variant. */
-    public boolean is_err() {
+    public boolean isErr() {
         return err_.isPresent();
     }
 
@@ -44,7 +44,7 @@ public final class Result<T, E> {
     }
 
     /** Gets the error. Works only if the result is of the Err variant. */
-    public E get_err() {
+    public E getErr() {
         return err_.get();
     }
 
@@ -54,14 +54,14 @@ public final class Result<T, E> {
     }
 
     /** Converts the Result to another type. */
-    public <U> Result<U, E> and_then(Function<? super T, Result<U, E>> f) {
-        return is_ok() ? f.apply(get()) : Result.Err(get_err());
+    public <U> Result<U, E> andThen(Function<? super T, Result<U, E>> f) {
+        return isOk() ? f.apply(get()) : Result.err(getErr());
     }
 
     /** Print the result. */
     @Override
     public String toString() {
-        if (is_ok()) {
+        if (isOk()) {
             return String.format("Ok(%s)", value_.get());
         } else {
             return String.format("Err(%s)", err_.get());

@@ -25,13 +25,13 @@ class Assert {
     }
 
     public static <T, E> void eq(Result<T, E> received, Result<T, E> expected) {
-        if (received.is_ok() && expected.is_ok()) {
+        if (received.isOk() && expected.isOk()) {
             if (received.get().equals(expected.get())) {
                 return;
             }
         }
-        if (received.is_err() && expected.is_err()) {
-            if (received.get_err().equals(expected.get_err())) {
+        if (received.isErr() && expected.isErr()) {
+            if (received.getErr().equals(expected.getErr())) {
                 return;
             }
         }

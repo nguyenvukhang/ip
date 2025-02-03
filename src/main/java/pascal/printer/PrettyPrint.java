@@ -23,19 +23,19 @@ public class PrettyPrint implements Printer {
     }
 
     /** Gets the maximum line length in a multiline `String`. */
-    private int max_len(String text) {
+    private int maxLen(String text) {
         int m = text.lines().map(String::length).max(Integer::compare).get();
         assert m <= 70 : "Keep hard-coded outputs to <= 70 chars per line.";
         return m;
     }
 
     /** Gets a horizontal ruler. */
-    private String get_horizontal(int len) {
+    private String getHorizontal(int len) {
         return String.valueOf(horz_).repeat(len);
     }
 
     /** Gets PrettyPrint's underlying print stream. */
-    public Optional<PrintStream> get_print_stream() {
+    public Optional<PrintStream> getPrintStream() {
         return Optional.of(writer_);
     }
 
@@ -51,9 +51,9 @@ public class PrettyPrint implements Printer {
             return;
 
         // Unwrap safety guaranteed by the fact that output is non-empty.
-        int max_line_len = max_len(output);
+        int max_line_len = maxLen(output);
 
-        String rule = get_horizontal(max_line_len + 2);
+        String rule = getHorizontal(max_line_len + 2);
         String top_rule = top_left_ + rule + top_right_;
         String bottom_rule = bottom_left_ + rule + bottom_right_;
 

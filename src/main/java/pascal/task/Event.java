@@ -29,18 +29,18 @@ public class Event extends Task {
     /** Parse a Event Task from strings. */
     public static Result<Event, Error> of(String description, String from,
                                           String to) {
-        return parse_date(from)
-            .and_then(f -> parse_date(to).map(t -> new Pair<>(f, t)))
+        return parseDate(from)
+            .andThen(f -> parseDate(to).map(t -> new Pair<>(f, t)))
             .map(dates -> new Event(description, dates.left, dates.right));
     }
 
     /** Enum icon of a Event Task */
-    public char get_enum_icon() {
+    public char getEnumIcon() {
         return 'E';
     }
 
     /** Description of a Event Task */
-    public String get_description() {
+    public String getDescription() {
         return String.format("%s (from: %s to: %s)", description_, from_, to_);
     }
 
@@ -53,15 +53,15 @@ public class Event extends Task {
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
         Optional<Pair<Str, Str>> opt;
-        opt = x.split_once("::");
+        opt = x.splitOnce("::");
         if (opt.isEmpty()) {
-            return Result.Err(Error.other("Error in parsing an `Event`."));
+            return Result.err(Error.other("Error in parsing an `Event`."));
         }
 
         String description = opt.get().left.inner();
-        opt = opt.get().right.split_once("::");
+        opt = opt.get().right.splitOnce("::");
         if (opt.isEmpty()) {
-            return Result.Err(Error.other("Error in parsing an `Event`."));
+            return Result.err(Error.other("Error in parsing an `Event`."));
         }
         String from = opt.get().left.inner();
         String to = opt.get().right.inner();
