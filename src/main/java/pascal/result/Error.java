@@ -9,6 +9,14 @@ public class Error {
         msg_ = message;
     }
 
+    public ErrorKind getKind() {
+        return kind_;
+    }
+
+    public String getMessage() {
+        return msg_;
+    }
+
     public static Error other(String format, Object... args) {
         return new Error(ErrorKind.Other, String.format(format, args));
     }
