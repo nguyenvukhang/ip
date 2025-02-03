@@ -11,50 +11,53 @@ import java.util.stream.IntStream;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * A list of tasks.
+ * Contains everything you might want to do with a list of Task instances.
+ */
 public class TaskList {
     private ArrayList<Task> tasks_;
 
+    /** Construct an empty TaskList. */
     public TaskList() {
         tasks_ = new ArrayList<>();
     }
 
-    /**
-     * Gets the user-facing display of the current state of the list.
-     */
+    /** Gets the user-facing display of the current state of the list. */
     public String list() {
         return IntStream.range(0, len())
             .mapToObj(j -> String.format("%d. %s", j + 1, tasks_.get(j)))
             .collect(Collectors.joining("\n"));
     }
 
+    /** Gets the number of tasks in the task list. */
     public int len() {
         return tasks_.size();
     }
 
+    /** Gets the `idx`-th task, without checking bounds. */
     public Task get_unchecked(int idx) {
         return tasks_.get(idx);
     }
 
+    /** Removes the `idx`-th task, without checking bounds. */
     public Task remove_unchecked(int idx) {
         return tasks_.remove(idx);
     }
 
+    /** Adds a task to the task list. */
     public void add(Task task) {
         tasks_.add(task);
     }
 
+    /** A quick convenience routine to show remaining tasks. */
     public String now_have() {
         int n = len();
         String tasks = String.format(n == 1 ? "%d task" : "%d tasks", n);
         return String.format("Now you have %s in the list.", tasks);
     }
 
-    //////////////////////////////////////////////////////////////////
-    // IO Methods
-
-    /**
-     * Writes the contents of the task list to a file.
-     */
+    /** Writes the contents of the task list to a file. */
     public void write(Path filepath) {
         try {
             FileWriter target = new FileWriter(filepath.toFile());
@@ -70,6 +73,7 @@ public class TaskList {
         }
     }
 
+    /** Parses one line from a saved file. */
     private static Result<Task, Error> parse_line(String line) {
         if (line.length() < 2) {
             return Result.Err(Error.other("Invalid data. Too short."));
@@ -99,6 +103,7 @@ public class TaskList {
         return res;
     }
 
+    /** Reads the contents of the task list from a file. */
     public static Result<TaskList, Error> read(Path filepath) {
         TaskList tasklist = new TaskList();
         Scanner reader;

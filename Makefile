@@ -2,7 +2,7 @@ MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MAKEFILE_DIR  := $(dir $(MAKEFILE_PATH))
 GRADLE := $(MAKEFILE_DIR)gradlew
 
-current: test
+current: checkstyle
 
 test:
 	$(GRADLE) test
@@ -20,4 +20,8 @@ interact: build
 fmt:
 	find * -name '*.java' | xargs clang-format -i
 
-.PHONY: build gradle
+c: checkstyle
+checkstyle:
+	$(GRADLE) check
+
+.PHONY: build gradle test

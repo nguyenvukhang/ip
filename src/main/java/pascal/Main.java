@@ -103,17 +103,23 @@ class Test {
     }
 }
 
+/**
+ * The entrypoint.
+ */
 public class Main {
+    /** Quick and dirty check if we should run tests. */
     static boolean is_test(String[] args) {
         return args.length >= 1 && args[0].equals("test");
     }
 
+    /** Test runner. */
     static void run_tests() {
         Tester t = new Tester();
         Test.test01(new Pascal(System.in, t, Optional.empty()));
         // Test.test02(new Pascal(System.in, t));
     }
 
+    /** The entrypoint. */
     public static void main(String[] args) {
         if (is_test(args)) {
             run_tests();

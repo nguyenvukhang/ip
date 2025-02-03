@@ -5,6 +5,11 @@ import java.util.Optional;
 import pascal.common.Pair;
 import pascal.common.Str;
 
+/**
+ * CLI Command.
+ *
+ * All the possible sub-actions to take.
+ */
 public enum Command {
     /** List the tasks in memory. */
     List,
