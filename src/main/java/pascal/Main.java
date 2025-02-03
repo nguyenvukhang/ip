@@ -101,6 +101,39 @@ class Test {
 
         t.test("bye", Result.ok("Bye. Hope to see you again soon!"));
     }
+
+    /**
+     * Test task search.
+     */
+    static void test03(Pascal pascal) {
+        Test t = new Test(pascal);
+
+        t.test("todo send blue",
+               Result.ok(j("added: [T][ ] send blue",
+                           "Now you have 1 task in the list.")));
+
+        t.test("todo send red",
+               Result.ok(j("added: [T][ ] send red",
+                           "Now you have 2 tasks in the list.")));
+
+        t.test("todo send green",
+               Result.ok(j("added: [T][ ] send green",
+                           "Now you have 3 tasks in the list.")));
+
+        t.test("todo send purple",
+               Result.ok(j("added: [T][ ] send purple",
+                           "Now you have 4 tasks in the list.")));
+
+        t.test("list",
+               Result.ok(j("1. [T][ ] send blue", "2. [T][ ] send red",
+                           "3. [T][ ] send green", "4. [T][ ] send purple")));
+
+        t.test("find blue", Result.ok(j("1. [T][ ] send blue")));
+
+        t.test("find green", Result.ok(j("1. [T][ ] send green")));
+
+        t.test("bye", Result.ok("Bye. Hope to see you again soon!"));
+    }
 }
 
 /**
@@ -116,7 +149,8 @@ public class Main {
     static void runTests() {
         Tester t = new Tester();
         Test.test01(new Pascal(System.in, t, Optional.empty()));
-        // Test.test02(new Pascal(System.in, t));
+        Test.test02(new Pascal(System.in, t, Optional.empty()));
+        Test.test03(new Pascal(System.in, t, Optional.empty()));
     }
 
     /** The entrypoint. */

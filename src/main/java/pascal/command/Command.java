@@ -14,6 +14,9 @@ public enum Command {
     /** List the tasks in memory. */
     List,
 
+    /** Find a task by substring search. */
+    Find,
+
     /** Marks a task as complete. */
     Mark,
 
@@ -42,6 +45,7 @@ public enum Command {
     private static List<Pair<String, Command>> COMMAND_MAP =
         java.util.List.of(              //
             pair("list", List),         //
+            pair("find", Find),         //
             pair("mark", Mark),         //
             pair("unmark", Unmark),     //
             pair("todo", Todo),         //
