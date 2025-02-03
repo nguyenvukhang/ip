@@ -11,6 +11,7 @@ public class PrettyPrint implements Printer {
     private final char horz_, vert_, top_left_, top_right_, bottom_left_,
         bottom_right_;
 
+    /** Construct a PrettyPrint. */
     public PrettyPrint(PrintStream writer) {
         writer_ = writer;
         horz_ = '─';
@@ -21,23 +22,27 @@ public class PrettyPrint implements Printer {
         bottom_right_ = '╯';
     }
 
-    /**
-     * Gets the maximum line length in a multiline `String`.
-     */
+    /** Gets the maximum line length in a multiline `String`. */
     private int max_len(String text) {
         int m = text.lines().map(String::length).max(Integer::compare).get();
         assert m <= 70 : "Keep hard-coded outputs to <= 70 chars per line.";
         return m;
     }
 
+    /** Gets a horizontal ruler. */
     private String get_horizontal(int len) {
         return String.valueOf(horz_).repeat(len);
     }
 
+    /** Gets PrettyPrint's underlying print stream. */
     public Optional<PrintStream> get_print_stream() {
         return Optional.of(writer_);
     }
 
+    /**
+     * THE pretty print function.
+     * Like printf but with a newline at the end.
+     */
     public void println(String format, Object... args) {
         String output = String.format(format, args);
 

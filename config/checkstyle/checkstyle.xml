@@ -4,7 +4,7 @@
 <module name="Checker">
   <module name="TreeWalker">
     <!-- Enforce Javadoc for all methods -->
-    <!-- <module name="JavadocMethod" /> -->
+    <module name="MissingJavadocMethod" />
 
     <!-- Enforce Javadoc for all types -->
     <module name="MissingJavadocType" />

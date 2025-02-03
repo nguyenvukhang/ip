@@ -24,4 +24,4 @@ c: checkstyle
 checkstyle:
 	$(GRADLE) check
 
-.PHONY: build gradle
+.PHONY: build gradle test
