@@ -10,7 +10,7 @@ test:
 jar:
 	$(GRADLE) shadowJar
 
-old_test:
+t:
 	DEBUG=1 $(GRADLE) run --args='test'
 
 i: interact
