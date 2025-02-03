@@ -1,4 +1,4 @@
-package printer;
+package pascal.printer;
 
 public enum Color {
     Red,

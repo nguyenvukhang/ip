@@ -1,6 +1,8 @@
+package pascal;
+
 import java.io.PrintStream;
-import printer.Color;
-import result.Result;
+import pascal.printer.Color;
+import pascal.result.Result;
 
 class Assert {
     private static PrintStream err = System.err;

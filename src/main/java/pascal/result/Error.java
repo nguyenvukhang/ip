@@ -1,4 +1,4 @@
-package result;
+package pascal.result;
 
 public class Error {
     protected final ErrorKind kind_;

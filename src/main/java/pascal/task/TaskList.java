@@ -1,4 +1,4 @@
-package task;
+package pascal.task;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import result.Error;
-import result.Result;
+import pascal.result.Error;
+import pascal.result.Result;
 
 public class TaskList {
     private ArrayList<Task> tasks_;

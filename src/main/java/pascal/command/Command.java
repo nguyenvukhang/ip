@@ -1,7 +1,7 @@
-package command;
+package pascal.command;
 
-import common.Pair;
-import common.Str;
+import pascal.common.Pair;
+import pascal.common.Str;
 import java.util.List;
 import java.util.Optional;
 

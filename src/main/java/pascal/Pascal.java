@@ -1,19 +1,21 @@
-import command.Command;
-import common.Pair;
-import common.Str;
+package pascal;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Scanner;
-import printer.Printer;
-import result.Error;
-import result.Result;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.Todo;
+import pascal.command.Command;
+import pascal.common.Pair;
+import pascal.common.Str;
+import pascal.printer.Printer;
+import pascal.result.Error;
+import pascal.result.Result;
+import pascal.task.Deadline;
+import pascal.task.Event;
+import pascal.task.Task;
+import pascal.task.TaskList;
+import pascal.task.Todo;
 
 class Pascal {
     private final Scanner scanner_;

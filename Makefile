@@ -1,4 +1,7 @@
-current: test
+current: gradle
+
+gradle:
+	./gradlew run
 
 build:
 	find * -name '*.java' > sources.txt
@@ -17,4 +20,4 @@ interact: build
 fmt:
 	find * -name '*.java' | xargs clang-format -i
 
-.PHONY: build
+.PHONY: build gradle

@@ -1,11 +1,11 @@
-package task;
+package pascal.task;
 
-import common.Pair;
-import common.Str;
 import java.time.LocalDate;
 import java.util.Optional;
-import result.Error;
-import result.Result;
+import pascal.common.Pair;
+import pascal.common.Str;
+import pascal.result.Error;
+import pascal.result.Result;
 
 public class Deadline extends Task {
     protected LocalDate by_;

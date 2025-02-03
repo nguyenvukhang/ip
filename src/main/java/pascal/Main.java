@@ -1,10 +1,12 @@
+package pascal;
+
 import java.nio.file.Path;
 import java.util.Optional;
-import printer.Color;
-import printer.PrettyPrint;
-import printer.Tester;
-import result.Error;
-import result.Result;
+import pascal.printer.Color;
+import pascal.printer.PrettyPrint;
+import pascal.printer.Tester;
+import pascal.result.Error;
+import pascal.result.Result;
 
 class Test {
     private final Pascal pascal_;
@@ -39,8 +41,8 @@ class Test {
                            "Now you have 2 tasks in the list.")));
 
         t.test("event project meeting /from 2025-05-29 /to 2025-06-15",
-               Result.Ok(j("added: [E][ ] project meeting (from: 2025-05-29 " +
-                           "to: 2025-06-15)",
+               Result.Ok(j("added: [E][ ] project meeting (from: 2025-05-29 "
+                               + "to: 2025-06-15)",
                            "Now you have 3 tasks in the list.")));
 
         t.test("todo join sports club",
@@ -101,7 +103,7 @@ class Test {
     }
 }
 
-class Main {
+public class Main {
     static boolean is_test(String[] args) {
         return args.length >= 1 && args[0].equals("test");
     }

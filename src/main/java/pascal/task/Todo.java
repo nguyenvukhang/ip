@@ -1,7 +1,7 @@
-package task;
+package pascal.task;
 
-import result.Error;
-import result.Result;
+import pascal.result.Error;
+import pascal.result.Result;
 
 public class Todo extends Task {
     /** Empty constructor for inner use. */

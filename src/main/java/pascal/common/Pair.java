@@ -1,4 +1,4 @@
-package common;
+package pascal.common;
 
 public class Pair<V0, V1> {
     public V0 left;

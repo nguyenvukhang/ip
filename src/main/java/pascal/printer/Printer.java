@@ -1,4 +1,4 @@
-package printer;
+package pascal.printer;
 
 import java.io.PrintStream;
 import java.util.Optional;

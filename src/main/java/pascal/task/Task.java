@@ -1,10 +1,10 @@
-package task;
+package pascal.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import result.Error;
-import result.Result;
+import pascal.result.Error;
+import pascal.result.Result;
 
 public abstract class Task {
     protected String description_;
