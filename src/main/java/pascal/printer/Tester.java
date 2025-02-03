@@ -3,6 +3,9 @@ package pascal.printer;
 import java.io.PrintStream;
 import java.util.Optional;
 
+/**
+ * A dummy Printer.
+ */
 public class Tester implements Printer {
     private String buffer_;
 

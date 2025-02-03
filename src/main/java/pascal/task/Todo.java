@@ -3,6 +3,10 @@ package pascal.task;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * A Todo.
+ * A simple task that has only the text body.
+ */
 public class Todo extends Task {
     /** Empty constructor for inner use. */
     public Todo() {

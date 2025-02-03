@@ -1,5 +1,9 @@
 package pascal.printer;
 
+/**
+ * Colors. In ANSI.
+ * To bring the CLI to life.
+ */
 public enum Color {
     Red,
     Green,

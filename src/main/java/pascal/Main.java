@@ -103,6 +103,9 @@ class Test {
     }
 }
 
+/**
+ * The entrypoint.
+ */
 public class Main {
     static boolean is_test(String[] args) {
         return args.length >= 1 && args[0].equals("test");

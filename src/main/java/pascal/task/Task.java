@@ -6,6 +6,10 @@ import java.time.format.DateTimeParseException;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * A Task.
+ * An abstract class that describes the general idea of a Task.
+ */
 public abstract class Task {
     protected String description_;
     protected boolean is_done_;

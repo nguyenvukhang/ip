@@ -7,6 +7,10 @@ import pascal.common.Str;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * An Event.
+ * A task that has a start date and an end date.
+ */
 public class Event extends Task {
     protected LocalDate from_, to_;
 

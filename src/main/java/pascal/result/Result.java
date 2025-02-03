@@ -3,6 +3,11 @@ package pascal.result;
 import java.util.Optional;
 import java.util.function.Function;
 
+/**
+ * A Result.
+ * Can be in only ONE of two states: Ok, or Err.
+ * To replace Exceptions in the long run.
+ */
 public final class Result<T, E> {
     private Optional<T> value_;
     private Optional<E> err_;

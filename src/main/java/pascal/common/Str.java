@@ -2,6 +2,11 @@ package pascal.common;
 
 import java.util.Optional;
 
+/**
+ * A custom String class.
+ * Implements all the forbidden string-parsing routines I want to only
+ * ever see once.
+ */
 public final class Str {
     private String buf_;
 

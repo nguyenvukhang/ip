@@ -3,6 +3,9 @@ package pascal.printer;
 import java.io.PrintStream;
 import java.util.Optional;
 
+/**
+ * Fancy printer.
+ */
 public class PrettyPrint implements Printer {
     private final PrintStream writer_;
     private final char horz_, vert_, top_left_, top_right_, bottom_left_,

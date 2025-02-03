@@ -11,6 +11,10 @@ import java.util.stream.IntStream;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * A list of tasks.
+ * Contains everything you might want to do with a list of Task instances.
+ */
 public class TaskList {
     private ArrayList<Task> tasks_;
 

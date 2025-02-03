@@ -7,6 +7,10 @@ import pascal.common.Str;
 import pascal.result.Error;
 import pascal.result.Result;
 
+/**
+ * A Deadline'd Task.
+ * A task that has a deadline.
+ */
 public class Deadline extends Task {
     protected LocalDate by_;
 

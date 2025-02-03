@@ -1,5 +1,9 @@
 package pascal.result;
 
+/**
+ * An Error.
+ * Contains the kind of error along with the error message.
+ */
 public class Error {
     protected final ErrorKind kind_;
     protected final String msg_;
