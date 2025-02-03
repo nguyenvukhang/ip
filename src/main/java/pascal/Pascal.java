@@ -18,35 +18,35 @@ import pascal.task.TaskList;
 import pascal.task.Todo;
 
 class Pascal {
-    private final Scanner scanner_;
-    private final PrintStream writer_;
-    private final Printer printer_;
-    private final TaskList tasks_;
-    private boolean exited_;
+    private final Scanner scanner;
+    private final PrintStream writer;
+    private final Printer printer;
+    private final TaskList tasks;
+    private boolean isExited;
 
     Pascal(InputStream input, Printer printer, Optional<Path> data_path) {
-        scanner_ = new Scanner(input);
-        writer_ = printer.getPrintStream().orElse(System.err);
-        printer_ = printer;
-        tasks_ = data_path.map(path -> TaskList.read(path).get())
-                     .orElseGet(() -> new TaskList());
-        exited_ = false;
+        scanner = new Scanner(input);
+        writer = printer.getPrintStream().orElse(System.err);
+        this.printer = printer;
+        tasks = data_path.map(path -> TaskList.read(path).get())
+                    .orElseGet(() -> new TaskList());
+        isExited = false;
     }
 
     public boolean isExited() {
-        return exited_;
+        return isExited;
     }
 
     private void println(String format, Object... args) {
-        printer_.println(format, args);
+        printer.println(format, args);
     }
 
     private Str prompt() {
-        writer_.print("> ");
-        writer_.flush();
-        String response = scanner_.nextLine();
+        writer.print("> ");
+        writer.flush();
+        String response = scanner.nextLine();
         if (System.getenv("DEBUG") != null) {
-            writer_.println(response);
+            writer.println(response);
         }
         return new Str(response);
     }
@@ -57,8 +57,8 @@ class Pascal {
      * And then returns the output intended for the user.
      */
     private String addTask(Task task) {
-        tasks_.add(task);
-        return String.format("added: %s\n%s", task, tasks_.nowHave());
+        tasks.add(task);
+        return String.format("added: %s\n%s", task, tasks.nowHave());
     }
 
     /**
@@ -69,9 +69,9 @@ class Pascal {
      * Assumes that `idx` points to a valid task.
      */
     private String deleteTask(int idx) {
-        Task task = tasks_.removeUnchecked(idx - 1);
+        Task task = tasks.removeUnchecked(idx - 1);
         return String.format("Noted. I've removed this task:\n%s\n%s", task,
-                             tasks_.nowHave());
+                             tasks.nowHave());
     }
 
     Result<String, Error> handleUserInput(String user_input) {
@@ -79,10 +79,10 @@ class Pascal {
         if (opt.isEmpty()) {
             return Result.err(Error.other("Invalid command. Try again."));
         }
-        exited_ |= opt.get().left == Command.Bye;
+        isExited |= opt.get().left == Command.Bye;
         Result<String, Error> result =
             handleCommand(opt.get().left, opt.get().right);
-        tasks_.write(Path.of("pascal.txt"));
+        tasks.write(Path.of("pascal.txt"));
         return result;
     }
 
@@ -94,13 +94,13 @@ class Pascal {
         Task task;
         switch (command) {
             case List:
-                return Result.ok(tasks_.list());
+                return Result.ok(tasks.list());
             case Mark:
                 if ((opt = input.parseInt()).isEmpty()) {
                     return Result.err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                task = tasks_.getUnchecked(opt.get() - 1);
+                task = tasks.getUnchecked(opt.get() - 1);
                 task.markAsDone();
                 return Result.ok(String.format(
                     "Nice! I've marked this task as done:\n%s", task));
@@ -109,7 +109,7 @@ class Pascal {
                     return Result.err(
                         Error.other("Invalid input. Expected an integer."));
                 }
-                task = tasks_.getUnchecked(opt.get() - 1);
+                task = tasks.getUnchecked(opt.get() - 1);
                 task.markAsNotDone();
                 return Result.ok(String.format(
                     "OK, I've marked this task as not done yet:\n%s", task));

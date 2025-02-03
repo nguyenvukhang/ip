@@ -17,8 +17,8 @@ class DeadlineTest {
         assertTrue(result.isOk());
         assertTrue(result.get() instanceof Deadline);
         Deadline deadline = (Deadline)result.get();
-        assertEquals("return book", deadline.description_);
-        assertEquals(parseDate("2025-05-29").get(), deadline.by_);
+        assertEquals("return book", deadline.description);
+        assertEquals(parseDate("2025-05-29").get(), deadline.byDate);
     }
 
     @Test

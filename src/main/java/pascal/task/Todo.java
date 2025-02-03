@@ -25,12 +25,12 @@ public class Todo extends Task {
 
     /** Description of a Todo Task */
     public String getDescription() {
-        return description_;
+        return description;
     }
 
     /** Serialize a Todo Task to save it to the filesystem. */
     public String serialize() {
-        return description_;
+        return description;
     }
 
     /** Deserialize a Todo Task from a String. */

@@ -9,10 +9,10 @@ import pascal.result.Error;
 import pascal.result.Result;
 
 class Test {
-    private final Pascal pascal_;
+    private final Pascal pascal;
 
     Test(Pascal pascal) {
-        pascal_ = pascal;
+        this.pascal = pascal;
     }
 
     static Result<String, Error> ok(String... output) {
@@ -24,7 +24,7 @@ class Test {
     }
 
     private void test(String input, Result<String, Error> output) {
-        Assert.eq(pascal_.handleUserInput(input), output);
+        Assert.eq(pascal.handleUserInput(input), output);
     }
 
     static void test01(Pascal pascal) {

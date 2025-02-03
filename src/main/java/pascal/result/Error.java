@@ -5,23 +5,23 @@ package pascal.result;
  * Contains the kind of error along with the error message.
  */
 public class Error {
-    protected final ErrorKind kind_;
-    protected final String msg_;
+    protected final ErrorKind kind;
+    protected final String message;
 
     /** Construct an Error. */
     Error(ErrorKind kind, String message) {
-        kind_ = kind;
-        msg_ = message;
+        this.kind = kind;
+        this.message = message;
     }
 
     /** Gets the Error's type/kind. */
     public ErrorKind getKind() {
-        return kind_;
+        return kind;
     }
 
     /** Gets the Error's underlying error message. */
     public String getMessage() {
-        return msg_;
+        return message;
     }
 
     /** Convenience routine to make an Other variant of Errors. */
@@ -35,15 +35,15 @@ public class Error {
             return false;
 
         Error rhs = (Error)other;
-        if (kind_ != rhs.kind_) {
+        if (kind != rhs.kind) {
             return false;
         }
-        return msg_.equals(rhs.msg_);
+        return message.equals(rhs.message);
     }
 
     /** Displaying errors. */
     @Override
     public String toString() {
-        return String.format("%s: %s", kind_, msg_);
+        return String.format("%s: %s", kind, message);
     }
 }

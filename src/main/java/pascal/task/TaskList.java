@@ -16,38 +16,38 @@ import pascal.result.Result;
  * Contains everything you might want to do with a list of Task instances.
  */
 public class TaskList {
-    private ArrayList<Task> tasks_;
+    private ArrayList<Task> tasks;
 
     /** Construct an empty TaskList. */
     public TaskList() {
-        tasks_ = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /** Gets the user-facing display of the current state of the list. */
     public String list() {
         return IntStream.range(0, len())
-            .mapToObj(j -> String.format("%d. %s", j + 1, tasks_.get(j)))
+            .mapToObj(j -> String.format("%d. %s", j + 1, tasks.get(j)))
             .collect(Collectors.joining("\n"));
     }
 
     /** Gets the number of tasks in the task list. */
     public int len() {
-        return tasks_.size();
+        return tasks.size();
     }
 
     /** Gets the `idx`-th task, without checking bounds. */
     public Task getUnchecked(int idx) {
-        return tasks_.get(idx);
+        return tasks.get(idx);
     }
 
     /** Removes the `idx`-th task, without checking bounds. */
     public Task removeUnchecked(int idx) {
-        return tasks_.remove(idx);
+        return tasks.remove(idx);
     }
 
     /** Adds a task to the task list. */
     public void add(Task task) {
-        tasks_.add(task);
+        tasks.add(task);
     }
 
     /** A quick convenience routine to show remaining tasks. */
@@ -61,7 +61,7 @@ public class TaskList {
     public void write(Path filepath) {
         try {
             FileWriter target = new FileWriter(filepath.toFile());
-            for (Task task : tasks_) {
+            for (Task task : tasks) {
                 target.write(task.getEnumIcon());
                 target.write(task.getStatusIcon());
                 target.write(task.serialize());

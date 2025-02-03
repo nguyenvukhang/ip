@@ -17,9 +17,9 @@ class EventTest {
         assertTrue(result.isOk());
         assertTrue(result.get() instanceof Event);
         Event event = (Event)result.get();
-        assertEquals("project meeting", event.description_);
-        assertEquals(parseDate("2025-05-29").get(), event.from_);
-        assertEquals(parseDate("2025-06-15").get(), event.to_);
+        assertEquals("project meeting", event.description);
+        assertEquals(parseDate("2025-05-29").get(), event.fromDate);
+        assertEquals(parseDate("2025-06-15").get(), event.toDate);
     }
 
     @Test

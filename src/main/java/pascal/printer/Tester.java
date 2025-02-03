@@ -7,11 +7,11 @@ import java.util.Optional;
  * A dummy Printer.
  */
 public class Tester implements Printer {
-    private String buffer_;
+    private String buffer;
 
     /** Construct a new Tester. */
     public Tester() {
-        buffer_ = "";
+        buffer = "";
     }
 
     /** Gets the Tester's print stream: Nothing. */
@@ -21,7 +21,7 @@ public class Tester implements Printer {
 
     /** Print stuff, but to the inner buffer. */
     public void println(String format, Object... args) {
-        buffer_ = String.format(format, args);
+        buffer = String.format(format, args);
     }
 
     /**
@@ -49,9 +49,9 @@ public class Tester implements Printer {
 
     /** Assert equality on the last thing printed. */
     public void assertPrevEq(String expected) {
-        if (expected.equals(buffer_)) {
+        if (expected.equals(buffer)) {
             return;
         }
-        report(expected, buffer_);
+        report(expected, buffer);
     }
 }

@@ -7,19 +7,19 @@ import java.util.Optional;
  * Fancy printer.
  */
 public class PrettyPrint implements Printer {
-    private final PrintStream writer_;
-    private final char horz_, vert_, top_left_, top_right_, bottom_left_,
-        bottom_right_;
+    private final PrintStream writer;
+    private final char horizontal, vertical, topLeft, topRight, bottomLeft,
+        bottomRight;
 
     /** Construct a PrettyPrint. */
     public PrettyPrint(PrintStream writer) {
-        writer_ = writer;
-        horz_ = '─';
-        vert_ = '│';
-        top_left_ = '╭';
-        top_right_ = '╮';
-        bottom_left_ = '─';
-        bottom_right_ = '╯';
+        this.writer = writer;
+        horizontal = '─';
+        vertical = '│';
+        topLeft = '╭';
+        topRight = '╮';
+        bottomLeft = '─';
+        bottomRight = '╯';
     }
 
     /** Gets the maximum line length in a multiline `String`. */
@@ -31,12 +31,12 @@ public class PrettyPrint implements Printer {
 
     /** Gets a horizontal ruler. */
     private String getHorizontal(int len) {
-        return String.valueOf(horz_).repeat(len);
+        return String.valueOf(horizontal).repeat(len);
     }
 
     /** Gets PrettyPrint's underlying print stream. */
     public Optional<PrintStream> getPrintStream() {
-        return Optional.of(writer_);
+        return Optional.of(writer);
     }
 
     /**
@@ -51,21 +51,21 @@ public class PrettyPrint implements Printer {
             return;
 
         // Unwrap safety guaranteed by the fact that output is non-empty.
-        int max_line_len = maxLen(output);
+        int maxLineLen = maxLen(output);
 
-        String rule = getHorizontal(max_line_len + 2);
-        String top_rule = top_left_ + rule + top_right_;
-        String bottom_rule = bottom_left_ + rule + bottom_right_;
+        String rule = getHorizontal(maxLineLen + 2);
+        String topRule = topLeft + rule + topRight;
+        String bottomRule = bottomLeft + rule + bottomRight;
 
-        String line_fmt = "%-" + max_line_len + "s";
+        String line_fmt = "%-" + maxLineLen + "s";
 
         // Begin the printing.
-        writer_.println(top_rule);
+        writer.println(topRule);
         output.lines().forEach((line) -> {
-            writer_.printf("%c %s", vert_, Color.Cyan);
-            writer_.printf(line_fmt, line);
-            writer_.printf("%s %c\n", Color.Reset, vert_);
+            writer.printf("%c %s", vertical, Color.Cyan);
+            writer.printf(line_fmt, line);
+            writer.printf("%s %c\n", Color.Reset, vertical);
         });
-        writer_.println(bottom_rule);
+        writer.println(bottomRule);
     }
 }

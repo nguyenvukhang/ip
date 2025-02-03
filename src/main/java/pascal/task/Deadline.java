@@ -12,7 +12,7 @@ import pascal.result.Result;
  * A task that has a deadline.
  */
 public class Deadline extends Task {
-    protected LocalDate by_;
+    protected LocalDate byDate;
 
     /** Empty constructor for inner use. */
     public Deadline() {
@@ -22,7 +22,7 @@ public class Deadline extends Task {
     /** Create a Deadline Task. */
     public Deadline(String description, LocalDate by) {
         super(description);
-        by_ = by;
+        byDate = by;
     }
 
     /** Parse a Deadline Task from strings. */
@@ -37,12 +37,12 @@ public class Deadline extends Task {
 
     /** Description of a Deadline Task */
     public String getDescription() {
-        return String.format("%s (by: %s)", description_, by_);
+        return String.format("%s (by: %s)", description, byDate);
     }
 
     /** Serialize a Deadline Task to save it to the filesystem. */
     public String serialize() {
-        return String.format("%s::%s", description_, by_);
+        return String.format("%s::%s", description, byDate);
     }
 
     /** Deserialize a Deadline Task from a String. */

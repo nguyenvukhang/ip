@@ -11,8 +11,8 @@ import pascal.result.Result;
  * An abstract class that describes the general idea of a Task.
  */
 public abstract class Task {
-    protected String description_;
-    protected boolean is_done_;
+    protected String description;
+    protected boolean isDone;
 
     protected static DateTimeFormatter DT_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -21,18 +21,18 @@ public abstract class Task {
 
     /** Create a Task from a description. */
     public Task(String description) {
-        description_ = description;
-        is_done_ = false;
+        this.description = description;
+        isDone = false;
     }
 
     /** Mark a Task as done. */
     public void markAsDone() {
-        is_done_ = true;
+        isDone = true;
     }
 
     /** Mark a Task as not done. */
     public void markAsNotDone() {
-        is_done_ = false;
+        isDone = false;
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class Task {
      * Depends on if it's done or not.
      */
     public char getStatusIcon() {
-        return is_done_ ? 'X' : ' '; // mark done task with X
+        return isDone ? 'X' : ' '; // mark done task with X
     }
 
     /** A date parser for internal use during parsing in subclasses. */

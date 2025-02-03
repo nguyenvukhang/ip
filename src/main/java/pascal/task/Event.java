@@ -12,7 +12,7 @@ import pascal.result.Result;
  * A task that has a start date and an end date.
  */
 public class Event extends Task {
-    protected LocalDate from_, to_;
+    protected LocalDate fromDate, toDate;
 
     /** Empty constructor for inner use. */
     public Event() {
@@ -22,8 +22,8 @@ public class Event extends Task {
     /** Create a Event Task. */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
-        from_ = from;
-        to_ = to;
+        fromDate = from;
+        toDate = to;
     }
 
     /** Parse a Event Task from strings. */
@@ -41,12 +41,12 @@ public class Event extends Task {
 
     /** Description of a Event Task */
     public String getDescription() {
-        return String.format("%s (from: %s to: %s)", description_, from_, to_);
+        return String.format("%s (from: %s to: %s)", description, fromDate, toDate);
     }
 
     /** Serialize a Event Task to save it to the filesystem. */
     public String serialize() {
-        return String.format("%s::%s::%s", description_, from_, to_);
+        return String.format("%s::%s::%s", description, fromDate, toDate);
     }
 
     /** Deserialize a Event Task from a String. */
