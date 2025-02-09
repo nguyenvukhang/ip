@@ -150,6 +150,11 @@ public class Main {
         return args.length >= 1 && args[0].equals("test");
     }
 
+    /** Quick and dirty check if we should just quit. */
+    static boolean isQuickQuit(String[] args) {
+        return args.length >= 1 && args[0].equals("quit");
+    }
+
     /** Quick and dirty check if we should run the GUI. */
     static boolean isGui(String[] args) {
         return args.length >= 1 && args[0].equals("gui");
@@ -170,6 +175,9 @@ public class Main {
 
     /** The entrypoint. */
     public static void main(String[] args) {
+        if (isQuickQuit(args)) {
+            return;
+        }
         if (isGui(args)) {
             runGui(args);
             return;
