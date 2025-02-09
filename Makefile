@@ -2,7 +2,10 @@ MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MAKEFILE_DIR  := $(dir $(MAKEFILE_PATH))
 GRADLE := $(MAKEFILE_DIR)gradlew
 
-current:
+current: checkstyleMain
+
+g: gui
+gui:
 	$(GRADLE) run --args='gui'
 
 test:

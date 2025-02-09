@@ -3,14 +3,15 @@ package pascal;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import pascal.ui.App;
+// clang-format off
+import javafx.application.Application;
 import pascal.printer.Color;
 import pascal.printer.PrettyPrint;
 import pascal.printer.Tester;
 import pascal.result.Error;
 import pascal.result.Result;
-
-import javafx.application.Application;
+import pascal.ui.App;
+// clang-format on
 
 class Test {
     private final Pascal pascal;

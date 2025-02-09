@@ -10,7 +10,7 @@ AlignConsecutiveBitFields: None
 AlignConsecutiveDeclarations: None
 AlignEscapedNewlines: Right
 AlignOperands:   Align
-AlignTrailingComments: true
+AlignTrailingComments: false
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortEnumsOnASingleLine: true
@@ -182,7 +182,11 @@ StatementMacros:
 TabWidth:        8
 UseCRLF:         false
 UseTab:          Never
-JavaImportGroups: [java, org, pascal, javafx]
+JavaImportGroups: 
+  - java
+  - javafx
+  - pascal
+  - org
 WhitespaceSensitiveMacros:
   - STRINGIZE
   - PP_STRINGIZE

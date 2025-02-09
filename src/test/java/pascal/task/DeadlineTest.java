@@ -1,15 +1,15 @@
 package pascal.task;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static pascal.task.Task.parseDate;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import pascal.result.Error;
 import pascal.result.ErrorKind;
 import pascal.result.Result;
+
+import org.junit.jupiter.api.Test;
 
 class DeadlineTest {
     @Test
