@@ -3,6 +3,7 @@ package pascal;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import pascal.ui.App;
 import pascal.printer.Color;
 import pascal.printer.PrettyPrint;
 import pascal.printer.Tester;
@@ -163,7 +164,7 @@ public class Main {
 
     /** GUI runner. */
     static void runGui(String[] args) {
-        Application.launch(pascal.App.class, args);
+        Application.launch(App.class, args);
     }
 
     /** The entrypoint. */

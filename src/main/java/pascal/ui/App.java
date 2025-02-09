@@ -1,4 +1,4 @@
-package pascal;
+package pascal.ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
