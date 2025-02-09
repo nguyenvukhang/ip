@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,24 +24,60 @@ public class App extends Application {
     private Button sendButton;
     private Scene scene;
 
+    private final static double WIDTH = 400;
+    private final static double HEIGHT = 600;
+
+    private VBox createDialogContainer() {
+        VBox vb = new VBox();
+        DialogBox dialogBox = new DialogBox("Hello!", pascalImage);
+        vb.getChildren().addAll(dialogBox);
+        vb.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        return vb;
+    }
+
+    private ScrollPane createScrollPane(VBox content) {
+        ScrollPane sp = new ScrollPane(content);
+        sp.setPrefSize(385, 535);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setVvalue(1.0);
+        sp.setFitToWidth(true);
+        return sp;
+    }
+
+    private void setStage(Stage stage) {
+        stage.setTitle("Pascal");
+        stage.setResizable(false);
+        stage.setMinHeight(HEIGHT);
+        stage.setMinWidth(WIDTH);
+    }
+
     @Override
     public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        setStage(stage);
 
-        DialogBox dialogBox = new DialogBox("Hello!", pascalImage);
-        dialogContainer.getChildren().addAll(dialogBox);
+        dialogContainer = createDialogContainer();
+
+        scrollPane = createScrollPane(dialogContainer);
 
         userInput = new TextField();
+        userInput.setPrefWidth(325.0);
+
         sendButton = new Button("Send");
+        sendButton.setPrefWidth(55.0);
 
         AnchorPane mainLayout = new AnchorPane();
+
+        mainLayout.setPrefSize(WIDTH, HEIGHT);
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        scene = new Scene(mainLayout);
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        stage.setScene(scene);
+        stage.setScene(new Scene(mainLayout));
         stage.show();
     }
 }
