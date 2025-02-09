@@ -9,6 +9,8 @@ import pascal.printer.Tester;
 import pascal.result.Error;
 import pascal.result.Result;
 
+import javafx.application.Application;
+
 class Test {
     private final Pascal pascal;
 
@@ -146,6 +148,11 @@ public class Main {
         return args.length >= 1 && args[0].equals("test");
     }
 
+    /** Quick and dirty check if we should run the GUI. */
+    static boolean isGui(String[] args) {
+        return args.length >= 1 && args[0].equals("gui");
+    }
+
     /** Test runner. */
     static void runTests() {
         Tester t = new Tester();
@@ -154,8 +161,17 @@ public class Main {
         Test.test03(new Pascal(System.in, t, Optional.empty()));
     }
 
+    /** GUI runner. */
+    static void runGui(String[] args) {
+        Application.launch(pascal.App.class, args);
+    }
+
     /** The entrypoint. */
     public static void main(String[] args) {
+        if (isGui(args)) {
+            runGui(args);
+            return;
+        }
         if (isTest(args)) {
             runTests();
             System.out.printf("%sAll tests passed!%s\n", Color.Green,

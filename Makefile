@@ -3,7 +3,7 @@ MAKEFILE_DIR  := $(dir $(MAKEFILE_PATH))
 GRADLE := $(MAKEFILE_DIR)gradlew
 
 current:
-	$(GRADLE) checkstyleMain
+	$(GRADLE) run --args='gui'
 
 test:
 	$(GRADLE) test
@@ -21,7 +21,10 @@ interact: build
 fmt:
 	find * -name '*.java' | xargs clang-format -i
 
-c: checkstyle
+c: checkstyleMain
+checkstyleMain:
+	$(GRADLE) checkstyleMain
+
 checkstyle:
 	$(GRADLE) check
 

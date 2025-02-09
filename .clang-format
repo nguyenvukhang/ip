@@ -182,7 +182,7 @@ StatementMacros:
 TabWidth:        8
 UseCRLF:         false
 UseTab:          Never
-JavaImportGroups: [java, org, pascal]
+JavaImportGroups: [java, org, pascal, javafx]
 WhitespaceSensitiveMacros:
   - STRINGIZE
   - PP_STRINGIZE
