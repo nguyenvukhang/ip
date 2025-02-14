@@ -37,6 +37,7 @@ public class TaskList {
 
     /** Removes the `idx`-th task, without checking bounds. */
     public Task removeUnchecked(int idx) {
+        assert !tasks.isEmpty() : "Tried removing from an empty list";
         return tasks.remove(idx);
     }
 
