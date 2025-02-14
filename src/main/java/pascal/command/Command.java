@@ -18,6 +18,9 @@ public enum Command {
     /** Find a task by substring search. */
     Find,
 
+    /** List (remind) the user on the upcoming tasks. */
+    Remind,
+
     /** Marks a task as complete. */
     Mark,
 
@@ -40,9 +43,10 @@ public enum Command {
     Bye;
 
     private static List<Pair<String, Command>> commandMap = java.util.List.of(
-        pair("list", List), pair("find", Find), pair("mark", Mark),
-        pair("unmark", Unmark), pair("todo", Todo), pair("deadline", Deadline),
-        pair("event", Event), pair("delete", Delete), pair("bye", Bye));
+        pair("list", List), pair("find", Find), pair("remind", Remind),
+        pair("mark", Mark), pair("unmark", Unmark), pair("todo", Todo),
+        pair("deadline", Deadline), pair("event", Event),
+        pair("delete", Delete), pair("bye", Bye));
 
     private static Pair<String, Command> pair(String s, Command c) {
         return new Pair<String, Command>(s, c);

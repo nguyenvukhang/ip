@@ -100,6 +100,11 @@ public class TaskList {
             .collect(Collectors.toList());
     }
 
+    /** Gets the user-facing display of the tasks in the upcoming week. */
+    public String upcomingWeekPretty() {
+        return enumerateTaskList(upcomingWeek());
+    }
+
     /** A quick convenience routine to show remaining tasks. */
     public String nowHave() {
         int n = len();

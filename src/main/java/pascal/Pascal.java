@@ -89,6 +89,8 @@ public class Pascal {
         case Find:
             query = input.inner();
             return Result.ok(tasks.findPretty(query));
+        case Remind:
+            return Result.ok(tasks.upcomingWeekPretty());
         case Mark:
             if ((opt = input.parseInt()).isEmpty()) {
                 return Result.err(
