@@ -1,11 +1,15 @@
 package pascal.ui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -22,9 +26,11 @@ public class App extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Scene scene;
 
+    /** (Fixed) width of the OS window. */
     private final static double WIDTH = 400;
+
+    /** (Fixed) height of the OS window. */
     private final static double HEIGHT = 600;
 
     private VBox createDialogContainer() {
@@ -77,7 +83,19 @@ public class App extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        stage.setScene(new Scene(mainLayout));
+        Scene scene = new Scene(mainLayout);
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case Q:
+                Platform.exit();
+            default:
+                break;
+            }
+        });
+
+        stage.setScene(scene);
         stage.show();
+        stage.toFront();
+        stage.requestFocus();
     }
 }
