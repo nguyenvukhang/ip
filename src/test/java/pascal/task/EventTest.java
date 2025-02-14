@@ -1,15 +1,16 @@
 package pascal.task;
 
-import static pascal.task.Task.parseDate;
-
+// clang-format off
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static pascal.task.Task.parseDate;
+// clang-format on
+
+import org.junit.jupiter.api.Test;
 
 import pascal.result.Error;
 import pascal.result.ErrorKind;
 import pascal.result.Result;
-
-import org.junit.jupiter.api.Test;
 
 class EventTest {
     @Test

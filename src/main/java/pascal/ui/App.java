@@ -1,5 +1,6 @@
 package pascal.ui;
 
+// clang-format off
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.geometry.Insets;
@@ -15,16 +16,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import pascal.Pascal;
 import pascal.color.Colors;
 import pascal.result.Error;
 import pascal.result.Result;
+// clang-format on
 
 /**
  * The UI of the application.
  */
 public class App extends Application {
+    /** (Fixed) width of the OS window. */
+    private static final double WIDTH = 400;
+
+    /** (Fixed) height of the OS window. */
+    private static final double HEIGHT = 600;
+
     private Image pascalImage =
         new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
     private Image userImage =
@@ -45,12 +52,6 @@ public class App extends Application {
     private Button sendButton;
 
     private Pascal pascal;
-
-    /** (Fixed) width of the OS window. */
-    private final static double WIDTH = 400;
-
-    /** (Fixed) height of the OS window. */
-    private final static double HEIGHT = 600;
 
     private void respond(String text) {
         DialogBox db = new DialogBox(text, pascalImage);

@@ -1,1014 +1,1279 @@
 package pascal.color;
 
+/** Color my pencils. */
 public final class Colors {
+    /** Shades of slate */
     public final class Slate {
-        public final static String z50() {
+        /** slate-50. */
+        public static final String z50() {
             return "#f8fafc";
         }
 
-        public final static String z100() {
+        /** slate-100. */
+        public static final String z100() {
             return "#f1f5f9";
         }
 
-        public final static String z200() {
+        /** slate-200. */
+        public static final String z200() {
             return "#e2e8f0";
         }
 
-        public final static String z300() {
+        /** slate-300. */
+        public static final String z300() {
             return "#cbd5e1";
         }
 
-        public final static String z400() {
+        /** slate-400. */
+        public static final String z400() {
             return "#94a3b8";
         }
 
-        public final static String z500() {
+        /** slate-500. */
+        public static final String z500() {
             return "#64748b";
         }
 
-        public final static String z600() {
+        /** slate-600. */
+        public static final String z600() {
             return "#475569";
         }
 
-        public final static String z700() {
+        /** slate-700. */
+        public static final String z700() {
             return "#334155";
         }
 
-        public final static String z800() {
+        /** slate-800. */
+        public static final String z800() {
             return "#1e293b";
         }
 
-        public final static String z900() {
+        /** slate-900. */
+        public static final String z900() {
             return "#0f172a";
         }
 
-        public final static String z950() {
+        /** slate-950. */
+        public static final String z950() {
             return "#020617";
         }
     }
 
+    /** Shades of gray */
     public final class Gray {
-        public final static String z50() {
+        /** gray-50. */
+        public static final String z50() {
             return "#f9fafb";
         }
 
-        public final static String z100() {
+        /** gray-100. */
+        public static final String z100() {
             return "#f3f4f6";
         }
 
-        public final static String z200() {
+        /** gray-200. */
+        public static final String z200() {
             return "#e5e7eb";
         }
 
-        public final static String z300() {
+        /** gray-300. */
+        public static final String z300() {
             return "#d1d5db";
         }
 
-        public final static String z400() {
+        /** gray-400. */
+        public static final String z400() {
             return "#9ca3af";
         }
 
-        public final static String z500() {
+        /** gray-500. */
+        public static final String z500() {
             return "#6b7280";
         }
 
-        public final static String z600() {
+        /** gray-600. */
+        public static final String z600() {
             return "#4b5563";
         }
 
-        public final static String z700() {
+        /** gray-700. */
+        public static final String z700() {
             return "#374151";
         }
 
-        public final static String z800() {
+        /** gray-800. */
+        public static final String z800() {
             return "#1f2937";
         }
 
-        public final static String z900() {
+        /** gray-900. */
+        public static final String z900() {
             return "#111827";
         }
 
-        public final static String z950() {
+        /** gray-950. */
+        public static final String z950() {
             return "#030712";
         }
     }
 
+    /** Shades of zinc */
     public final class Zinc {
-        public final static String z50() {
+        /** zinc-50. */
+        public static final String z50() {
             return "#fafafa";
         }
 
-        public final static String z100() {
+        /** zinc-100. */
+        public static final String z100() {
             return "#f4f4f5";
         }
 
-        public final static String z200() {
+        /** zinc-200. */
+        public static final String z200() {
             return "#e4e4e7";
         }
 
-        public final static String z300() {
+        /** zinc-300. */
+        public static final String z300() {
             return "#d4d4d8";
         }
 
-        public final static String z400() {
+        /** zinc-400. */
+        public static final String z400() {
             return "#a1a1aa";
         }
 
-        public final static String z500() {
+        /** zinc-500. */
+        public static final String z500() {
             return "#71717a";
         }
 
-        public final static String z600() {
+        /** zinc-600. */
+        public static final String z600() {
             return "#52525b";
         }
 
-        public final static String z700() {
+        /** zinc-700. */
+        public static final String z700() {
             return "#3f3f46";
         }
 
-        public final static String z800() {
+        /** zinc-800. */
+        public static final String z800() {
             return "#27272a";
         }
 
-        public final static String z900() {
+        /** zinc-900. */
+        public static final String z900() {
             return "#18181b";
         }
 
-        public final static String z950() {
+        /** zinc-950. */
+        public static final String z950() {
             return "#09090b";
         }
     }
 
+    /** Shades of neutral */
     public final class Neutral {
-        public final static String z50() {
+        /** neutral-50. */
+        public static final String z50() {
             return "#fafafa";
         }
 
-        public final static String z100() {
+        /** neutral-100. */
+        public static final String z100() {
             return "#f5f5f5";
         }
 
-        public final static String z200() {
+        /** neutral-200. */
+        public static final String z200() {
             return "#e5e5e5";
         }
 
-        public final static String z300() {
+        /** neutral-300. */
+        public static final String z300() {
             return "#d4d4d4";
         }
 
-        public final static String z400() {
+        /** neutral-400. */
+        public static final String z400() {
             return "#a3a3a3";
         }
 
-        public final static String z500() {
+        /** neutral-500. */
+        public static final String z500() {
             return "#737373";
         }
 
-        public final static String z600() {
+        /** neutral-600. */
+        public static final String z600() {
             return "#525252";
         }
 
-        public final static String z700() {
+        /** neutral-700. */
+        public static final String z700() {
             return "#404040";
         }
 
-        public final static String z800() {
+        /** neutral-800. */
+        public static final String z800() {
             return "#262626";
         }
 
-        public final static String z900() {
+        /** neutral-900. */
+        public static final String z900() {
             return "#171717";
         }
 
-        public final static String z950() {
+        /** neutral-950. */
+        public static final String z950() {
             return "#0a0a0a";
         }
     }
 
+    /** Shades of stone */
     public final class Stone {
-        public final static String z50() {
+        /** stone-50. */
+        public static final String z50() {
             return "#fafaf9";
         }
 
-        public final static String z100() {
+        /** stone-100. */
+        public static final String z100() {
             return "#f5f5f4";
         }
 
-        public final static String z200() {
+        /** stone-200. */
+        public static final String z200() {
             return "#e7e5e4";
         }
 
-        public final static String z300() {
+        /** stone-300. */
+        public static final String z300() {
             return "#d6d3d1";
         }
 
-        public final static String z400() {
+        /** stone-400. */
+        public static final String z400() {
             return "#a8a29e";
         }
 
-        public final static String z500() {
+        /** stone-500. */
+        public static final String z500() {
             return "#78716c";
         }
 
-        public final static String z600() {
+        /** stone-600. */
+        public static final String z600() {
             return "#57534e";
         }
 
-        public final static String z700() {
+        /** stone-700. */
+        public static final String z700() {
             return "#44403c";
         }
 
-        public final static String z800() {
+        /** stone-800. */
+        public static final String z800() {
             return "#292524";
         }
 
-        public final static String z900() {
+        /** stone-900. */
+        public static final String z900() {
             return "#1c1917";
         }
 
-        public final static String z950() {
+        /** stone-950. */
+        public static final String z950() {
             return "#0c0a09";
         }
     }
 
+    /** Shades of red */
     public final class Red {
-        public final static String z50() {
+        /** red-50. */
+        public static final String z50() {
             return "#fef2f2";
         }
 
-        public final static String z100() {
+        /** red-100. */
+        public static final String z100() {
             return "#fee2e2";
         }
 
-        public final static String z200() {
+        /** red-200. */
+        public static final String z200() {
             return "#fecaca";
         }
 
-        public final static String z300() {
+        /** red-300. */
+        public static final String z300() {
             return "#fca5a5";
         }
 
-        public final static String z400() {
+        /** red-400. */
+        public static final String z400() {
             return "#f87171";
         }
 
-        public final static String z500() {
+        /** red-500. */
+        public static final String z500() {
             return "#ef4444";
         }
 
-        public final static String z600() {
+        /** red-600. */
+        public static final String z600() {
             return "#dc2626";
         }
 
-        public final static String z700() {
+        /** red-700. */
+        public static final String z700() {
             return "#b91c1c";
         }
 
-        public final static String z800() {
+        /** red-800. */
+        public static final String z800() {
             return "#991b1b";
         }
 
-        public final static String z900() {
+        /** red-900. */
+        public static final String z900() {
             return "#7f1d1d";
         }
 
-        public final static String z950() {
+        /** red-950. */
+        public static final String z950() {
             return "#450a0a";
         }
     }
 
+    /** Shades of orange */
     public final class Orange {
-        public final static String z50() {
+        /** orange-50. */
+        public static final String z50() {
             return "#fff7ed";
         }
 
-        public final static String z100() {
+        /** orange-100. */
+        public static final String z100() {
             return "#ffedd5";
         }
 
-        public final static String z200() {
+        /** orange-200. */
+        public static final String z200() {
             return "#fed7aa";
         }
 
-        public final static String z300() {
+        /** orange-300. */
+        public static final String z300() {
             return "#fdba74";
         }
 
-        public final static String z400() {
+        /** orange-400. */
+        public static final String z400() {
             return "#fb923c";
         }
 
-        public final static String z500() {
+        /** orange-500. */
+        public static final String z500() {
             return "#f97316";
         }
 
-        public final static String z600() {
+        /** orange-600. */
+        public static final String z600() {
             return "#ea580c";
         }
 
-        public final static String z700() {
+        /** orange-700. */
+        public static final String z700() {
             return "#c2410c";
         }
 
-        public final static String z800() {
+        /** orange-800. */
+        public static final String z800() {
             return "#9a3412";
         }
 
-        public final static String z900() {
+        /** orange-900. */
+        public static final String z900() {
             return "#7c2d12";
         }
 
-        public final static String z950() {
+        /** orange-950. */
+        public static final String z950() {
             return "#431407";
         }
     }
 
+    /** Shades of amber */
     public final class Amber {
-        public final static String z50() {
+        /** amber-50. */
+        public static final String z50() {
             return "#fffbeb";
         }
 
-        public final static String z100() {
+        /** amber-100. */
+        public static final String z100() {
             return "#fef3c7";
         }
 
-        public final static String z200() {
+        /** amber-200. */
+        public static final String z200() {
             return "#fde68a";
         }
 
-        public final static String z300() {
+        /** amber-300. */
+        public static final String z300() {
             return "#fcd34d";
         }
 
-        public final static String z400() {
+        /** amber-400. */
+        public static final String z400() {
             return "#fbbf24";
         }
 
-        public final static String z500() {
+        /** amber-500. */
+        public static final String z500() {
             return "#f59e0b";
         }
 
-        public final static String z600() {
+        /** amber-600. */
+        public static final String z600() {
             return "#d97706";
         }
 
-        public final static String z700() {
+        /** amber-700. */
+        public static final String z700() {
             return "#b45309";
         }
 
-        public final static String z800() {
+        /** amber-800. */
+        public static final String z800() {
             return "#92400e";
         }
 
-        public final static String z900() {
+        /** amber-900. */
+        public static final String z900() {
             return "#78350f";
         }
 
-        public final static String z950() {
+        /** amber-950. */
+        public static final String z950() {
             return "#451a03";
         }
     }
 
+    /** Shades of yellow */
     public final class Yellow {
-        public final static String z50() {
+        /** yellow-50. */
+        public static final String z50() {
             return "#fefce8";
         }
 
-        public final static String z100() {
+        /** yellow-100. */
+        public static final String z100() {
             return "#fef9c3";
         }
 
-        public final static String z200() {
+        /** yellow-200. */
+        public static final String z200() {
             return "#fef08a";
         }
 
-        public final static String z300() {
+        /** yellow-300. */
+        public static final String z300() {
             return "#fde047";
         }
 
-        public final static String z400() {
+        /** yellow-400. */
+        public static final String z400() {
             return "#facc15";
         }
 
-        public final static String z500() {
+        /** yellow-500. */
+        public static final String z500() {
             return "#eab308";
         }
 
-        public final static String z600() {
+        /** yellow-600. */
+        public static final String z600() {
             return "#ca8a04";
         }
 
-        public final static String z700() {
+        /** yellow-700. */
+        public static final String z700() {
             return "#a16207";
         }
 
-        public final static String z800() {
+        /** yellow-800. */
+        public static final String z800() {
             return "#854d0e";
         }
 
-        public final static String z900() {
+        /** yellow-900. */
+        public static final String z900() {
             return "#713f12";
         }
 
-        public final static String z950() {
+        /** yellow-950. */
+        public static final String z950() {
             return "#422006";
         }
     }
 
+    /** Shades of lime */
     public final class Lime {
-        public final static String z50() {
+        /** lime-50. */
+        public static final String z50() {
             return "#f7fee7";
         }
 
-        public final static String z100() {
+        /** lime-100. */
+        public static final String z100() {
             return "#ecfccb";
         }
 
-        public final static String z200() {
+        /** lime-200. */
+        public static final String z200() {
             return "#d9f99d";
         }
 
-        public final static String z300() {
+        /** lime-300. */
+        public static final String z300() {
             return "#bef264";
         }
 
-        public final static String z400() {
+        /** lime-400. */
+        public static final String z400() {
             return "#a3e635";
         }
 
-        public final static String z500() {
+        /** lime-500. */
+        public static final String z500() {
             return "#84cc16";
         }
 
-        public final static String z600() {
+        /** lime-600. */
+        public static final String z600() {
             return "#65a30d";
         }
 
-        public final static String z700() {
+        /** lime-700. */
+        public static final String z700() {
             return "#4d7c0f";
         }
 
-        public final static String z800() {
+        /** lime-800. */
+        public static final String z800() {
             return "#3f6212";
         }
 
-        public final static String z900() {
+        /** lime-900. */
+        public static final String z900() {
             return "#365314";
         }
 
-        public final static String z950() {
+        /** lime-950. */
+        public static final String z950() {
             return "#1a2e05";
         }
     }
 
+    /** Shades of green */
     public final class Green {
-        public final static String z50() {
+        /** green-50. */
+        public static final String z50() {
             return "#f0fdf4";
         }
 
-        public final static String z100() {
+        /** green-100. */
+        public static final String z100() {
             return "#dcfce7";
         }
 
-        public final static String z200() {
+        /** green-200. */
+        public static final String z200() {
             return "#bbf7d0";
         }
 
-        public final static String z300() {
+        /** green-300. */
+        public static final String z300() {
             return "#86efac";
         }
 
-        public final static String z400() {
+        /** green-400. */
+        public static final String z400() {
             return "#4ade80";
         }
 
-        public final static String z500() {
+        /** green-500. */
+        public static final String z500() {
             return "#22c55e";
         }
 
-        public final static String z600() {
+        /** green-600. */
+        public static final String z600() {
             return "#16a34a";
         }
 
-        public final static String z700() {
+        /** green-700. */
+        public static final String z700() {
             return "#15803d";
         }
 
-        public final static String z800() {
+        /** green-800. */
+        public static final String z800() {
             return "#166534";
         }
 
-        public final static String z900() {
+        /** green-900. */
+        public static final String z900() {
             return "#14532d";
         }
 
-        public final static String z950() {
+        /** green-950. */
+        public static final String z950() {
             return "#052e16";
         }
     }
 
+    /** Shades of emerald */
     public final class Emerald {
-        public final static String z50() {
+        /** emerald-50. */
+        public static final String z50() {
             return "#ecfdf5";
         }
 
-        public final static String z100() {
+        /** emerald-100. */
+        public static final String z100() {
             return "#d1fae5";
         }
 
-        public final static String z200() {
+        /** emerald-200. */
+        public static final String z200() {
             return "#a7f3d0";
         }
 
-        public final static String z300() {
+        /** emerald-300. */
+        public static final String z300() {
             return "#6ee7b7";
         }
 
-        public final static String z400() {
+        /** emerald-400. */
+        public static final String z400() {
             return "#34d399";
         }
 
-        public final static String z500() {
+        /** emerald-500. */
+        public static final String z500() {
             return "#10b981";
         }
 
-        public final static String z600() {
+        /** emerald-600. */
+        public static final String z600() {
             return "#059669";
         }
 
-        public final static String z700() {
+        /** emerald-700. */
+        public static final String z700() {
             return "#047857";
         }
 
-        public final static String z800() {
+        /** emerald-800. */
+        public static final String z800() {
             return "#065f46";
         }
 
-        public final static String z900() {
+        /** emerald-900. */
+        public static final String z900() {
             return "#064e3b";
         }
 
-        public final static String z950() {
+        /** emerald-950. */
+        public static final String z950() {
             return "#022c22";
         }
     }
 
+    /** Shades of teal */
     public final class Teal {
-        public final static String z50() {
+        /** teal-50. */
+        public static final String z50() {
             return "#f0fdfa";
         }
 
-        public final static String z100() {
+        /** teal-100. */
+        public static final String z100() {
             return "#ccfbf1";
         }
 
-        public final static String z200() {
+        /** teal-200. */
+        public static final String z200() {
             return "#99f6e4";
         }
 
-        public final static String z300() {
+        /** teal-300. */
+        public static final String z300() {
             return "#5eead4";
         }
 
-        public final static String z400() {
+        /** teal-400. */
+        public static final String z400() {
             return "#2dd4bf";
         }
 
-        public final static String z500() {
+        /** teal-500. */
+        public static final String z500() {
             return "#14b8a6";
         }
 
-        public final static String z600() {
+        /** teal-600. */
+        public static final String z600() {
             return "#0d9488";
         }
 
-        public final static String z700() {
+        /** teal-700. */
+        public static final String z700() {
             return "#0f766e";
         }
 
-        public final static String z800() {
+        /** teal-800. */
+        public static final String z800() {
             return "#115e59";
         }
 
-        public final static String z900() {
+        /** teal-900. */
+        public static final String z900() {
             return "#134e4a";
         }
 
-        public final static String z950() {
+        /** teal-950. */
+        public static final String z950() {
             return "#042f2e";
         }
     }
 
+    /** Shades of cyan */
     public final class Cyan {
-        public final static String z50() {
+        /** cyan-50. */
+        public static final String z50() {
             return "#ecfeff";
         }
 
-        public final static String z100() {
+        /** cyan-100. */
+        public static final String z100() {
             return "#cffafe";
         }
 
-        public final static String z200() {
+        /** cyan-200. */
+        public static final String z200() {
             return "#a5f3fc";
         }
 
-        public final static String z300() {
+        /** cyan-300. */
+        public static final String z300() {
             return "#67e8f9";
         }
 
-        public final static String z400() {
+        /** cyan-400. */
+        public static final String z400() {
             return "#22d3ee";
         }
 
-        public final static String z500() {
+        /** cyan-500. */
+        public static final String z500() {
             return "#06b6d4";
         }
 
-        public final static String z600() {
+        /** cyan-600. */
+        public static final String z600() {
             return "#0891b2";
         }
 
-        public final static String z700() {
+        /** cyan-700. */
+        public static final String z700() {
             return "#0e7490";
         }
 
-        public final static String z800() {
+        /** cyan-800. */
+        public static final String z800() {
             return "#155e75";
         }
 
-        public final static String z900() {
+        /** cyan-900. */
+        public static final String z900() {
             return "#164e63";
         }
 
-        public final static String z950() {
+        /** cyan-950. */
+        public static final String z950() {
             return "#083344";
         }
     }
 
+    /** Shades of sky */
     public final class Sky {
-        public final static String z50() {
+        /** sky-50. */
+        public static final String z50() {
             return "#f0f9ff";
         }
 
-        public final static String z100() {
+        /** sky-100. */
+        public static final String z100() {
             return "#e0f2fe";
         }
 
-        public final static String z200() {
+        /** sky-200. */
+        public static final String z200() {
             return "#bae6fd";
         }
 
-        public final static String z300() {
+        /** sky-300. */
+        public static final String z300() {
             return "#7dd3fc";
         }
 
-        public final static String z400() {
+        /** sky-400. */
+        public static final String z400() {
             return "#38bdf8";
         }
 
-        public final static String z500() {
+        /** sky-500. */
+        public static final String z500() {
             return "#0ea5e9";
         }
 
-        public final static String z600() {
+        /** sky-600. */
+        public static final String z600() {
             return "#0284c7";
         }
 
-        public final static String z700() {
+        /** sky-700. */
+        public static final String z700() {
             return "#0369a1";
         }
 
-        public final static String z800() {
+        /** sky-800. */
+        public static final String z800() {
             return "#075985";
         }
 
-        public final static String z900() {
+        /** sky-900. */
+        public static final String z900() {
             return "#0c4a6e";
         }
 
-        public final static String z950() {
+        /** sky-950. */
+        public static final String z950() {
             return "#082f49";
         }
     }
 
+    /** Shades of blue */
     public final class Blue {
-        public final static String z50() {
+        /** blue-50. */
+        public static final String z50() {
             return "#eff6ff";
         }
 
-        public final static String z100() {
+        /** blue-100. */
+        public static final String z100() {
             return "#dbeafe";
         }
 
-        public final static String z200() {
+        /** blue-200. */
+        public static final String z200() {
             return "#bfdbfe";
         }
 
-        public final static String z300() {
+        /** blue-300. */
+        public static final String z300() {
             return "#93c5fd";
         }
 
-        public final static String z400() {
+        /** blue-400. */
+        public static final String z400() {
             return "#60a5fa";
         }
 
-        public final static String z500() {
+        /** blue-500. */
+        public static final String z500() {
             return "#3b82f6";
         }
 
-        public final static String z600() {
+        /** blue-600. */
+        public static final String z600() {
             return "#2563eb";
         }
 
-        public final static String z700() {
+        /** blue-700. */
+        public static final String z700() {
             return "#1d4ed8";
         }
 
-        public final static String z800() {
+        /** blue-800. */
+        public static final String z800() {
             return "#1e40af";
         }
 
-        public final static String z900() {
+        /** blue-900. */
+        public static final String z900() {
             return "#1e3a8a";
         }
 
-        public final static String z950() {
+        /** blue-950. */
+        public static final String z950() {
             return "#172554";
         }
     }
 
+    /** Shades of indigo */
     public final class Indigo {
-        public final static String z50() {
+        /** indigo-50. */
+        public static final String z50() {
             return "#eef2ff";
         }
 
-        public final static String z100() {
+        /** indigo-100. */
+        public static final String z100() {
             return "#e0e7ff";
         }
 
-        public final static String z200() {
+        /** indigo-200. */
+        public static final String z200() {
             return "#c7d2fe";
         }
 
-        public final static String z300() {
+        /** indigo-300. */
+        public static final String z300() {
             return "#a5b4fc";
         }
 
-        public final static String z400() {
+        /** indigo-400. */
+        public static final String z400() {
             return "#818cf8";
         }
 
-        public final static String z500() {
+        /** indigo-500. */
+        public static final String z500() {
             return "#6366f1";
         }
 
-        public final static String z600() {
+        /** indigo-600. */
+        public static final String z600() {
             return "#4f46e5";
         }
 
-        public final static String z700() {
+        /** indigo-700. */
+        public static final String z700() {
             return "#4338ca";
         }
 
-        public final static String z800() {
+        /** indigo-800. */
+        public static final String z800() {
             return "#3730a3";
         }
 
-        public final static String z900() {
+        /** indigo-900. */
+        public static final String z900() {
             return "#312e81";
         }
 
-        public final static String z950() {
+        /** indigo-950. */
+        public static final String z950() {
             return "#1e1b4b";
         }
     }
 
+    /** Shades of violet */
     public final class Violet {
-        public final static String z50() {
+        /** violet-50. */
+        public static final String z50() {
             return "#f5f3ff";
         }
 
-        public final static String z100() {
+        /** violet-100. */
+        public static final String z100() {
             return "#ede9fe";
         }
 
-        public final static String z200() {
+        /** violet-200. */
+        public static final String z200() {
             return "#ddd6fe";
         }
 
-        public final static String z300() {
+        /** violet-300. */
+        public static final String z300() {
             return "#c4b5fd";
         }
 
-        public final static String z400() {
+        /** violet-400. */
+        public static final String z400() {
             return "#a78bfa";
         }
 
-        public final static String z500() {
+        /** violet-500. */
+        public static final String z500() {
             return "#8b5cf6";
         }
 
-        public final static String z600() {
+        /** violet-600. */
+        public static final String z600() {
             return "#7c3aed";
         }
 
-        public final static String z700() {
+        /** violet-700. */
+        public static final String z700() {
             return "#6d28d9";
         }
 
-        public final static String z800() {
+        /** violet-800. */
+        public static final String z800() {
             return "#5b21b6";
         }
 
-        public final static String z900() {
+        /** violet-900. */
+        public static final String z900() {
             return "#4c1d95";
         }
 
-        public final static String z950() {
+        /** violet-950. */
+        public static final String z950() {
             return "#2e1065";
         }
     }
 
+    /** Shades of purple */
     public final class Purple {
-        public final static String z50() {
+        /** purple-50. */
+        public static final String z50() {
             return "#faf5ff";
         }
 
-        public final static String z100() {
+        /** purple-100. */
+        public static final String z100() {
             return "#f3e8ff";
         }
 
-        public final static String z200() {
+        /** purple-200. */
+        public static final String z200() {
             return "#e9d5ff";
         }
 
-        public final static String z300() {
+        /** purple-300. */
+        public static final String z300() {
             return "#d8b4fe";
         }
 
-        public final static String z400() {
+        /** purple-400. */
+        public static final String z400() {
             return "#c084fc";
         }
 
-        public final static String z500() {
+        /** purple-500. */
+        public static final String z500() {
             return "#a855f7";
         }
 
-        public final static String z600() {
+        /** purple-600. */
+        public static final String z600() {
             return "#9333ea";
         }
 
-        public final static String z700() {
+        /** purple-700. */
+        public static final String z700() {
             return "#7e22ce";
         }
 
-        public final static String z800() {
+        /** purple-800. */
+        public static final String z800() {
             return "#6b21a8";
         }
 
-        public final static String z900() {
+        /** purple-900. */
+        public static final String z900() {
             return "#581c87";
         }
 
-        public final static String z950() {
+        /** purple-950. */
+        public static final String z950() {
             return "#3b0764";
         }
     }
 
+    /** Shades of fuchsia */
     public final class Fuchsia {
-        public final static String z50() {
+        /** fuchsia-50. */
+        public static final String z50() {
             return "#fdf4ff";
         }
 
-        public final static String z100() {
+        /** fuchsia-100. */
+        public static final String z100() {
             return "#fae8ff";
         }
 
-        public final static String z200() {
+        /** fuchsia-200. */
+        public static final String z200() {
             return "#f5d0fe";
         }
 
-        public final static String z300() {
+        /** fuchsia-300. */
+        public static final String z300() {
             return "#f0abfc";
         }
 
-        public final static String z400() {
+        /** fuchsia-400. */
+        public static final String z400() {
             return "#e879f9";
         }
 
-        public final static String z500() {
+        /** fuchsia-500. */
+        public static final String z500() {
             return "#d946ef";
         }
 
-        public final static String z600() {
+        /** fuchsia-600. */
+        public static final String z600() {
             return "#c026d3";
         }
 
-        public final static String z700() {
+        /** fuchsia-700. */
+        public static final String z700() {
             return "#a21caf";
         }
 
-        public final static String z800() {
+        /** fuchsia-800. */
+        public static final String z800() {
             return "#86198f";
         }
 
-        public final static String z900() {
+        /** fuchsia-900. */
+        public static final String z900() {
             return "#701a75";
         }
 
-        public final static String z950() {
+        /** fuchsia-950. */
+        public static final String z950() {
             return "#4a044e";
         }
     }
 
+    /** Shades of pink */
     public final class Pink {
-        public final static String z50() {
+        /** pink-50. */
+        public static final String z50() {
             return "#fdf2f8";
         }
 
-        public final static String z100() {
+        /** pink-100. */
+        public static final String z100() {
             return "#fce7f3";
         }
 
-        public final static String z200() {
+        /** pink-200. */
+        public static final String z200() {
             return "#fbcfe8";
         }
 
-        public final static String z300() {
+        /** pink-300. */
+        public static final String z300() {
             return "#f9a8d4";
         }
 
-        public final static String z400() {
+        /** pink-400. */
+        public static final String z400() {
             return "#f472b6";
         }
 
-        public final static String z500() {
+        /** pink-500. */
+        public static final String z500() {
             return "#ec4899";
         }
 
-        public final static String z600() {
+        /** pink-600. */
+        public static final String z600() {
             return "#db2777";
         }
 
-        public final static String z700() {
+        /** pink-700. */
+        public static final String z700() {
             return "#be185d";
         }
 
-        public final static String z800() {
+        /** pink-800. */
+        public static final String z800() {
             return "#9d174d";
         }
 
-        public final static String z900() {
+        /** pink-900. */
+        public static final String z900() {
             return "#831843";
         }
 
-        public final static String z950() {
+        /** pink-950. */
+        public static final String z950() {
             return "#500724";
         }
     }
 
+    /** Shades of rose */
     public final class Rose {
-        public final static String z50() {
+        /** rose-50. */
+        public static final String z50() {
             return "#fff1f2";
         }
 
-        public final static String z100() {
+        /** rose-100. */
+        public static final String z100() {
             return "#ffe4e6";
         }
 
-        public final static String z200() {
+        /** rose-200. */
+        public static final String z200() {
             return "#fecdd3";
         }
 
-        public final static String z300() {
+        /** rose-300. */
+        public static final String z300() {
             return "#fda4af";
         }
 
-        public final static String z400() {
+        /** rose-400. */
+        public static final String z400() {
             return "#fb7185";
         }
 
-        public final static String z500() {
+        /** rose-500. */
+        public static final String z500() {
             return "#f43f5e";
         }
 
-        public final static String z600() {
+        /** rose-600. */
+        public static final String z600() {
             return "#e11d48";
         }
 
-        public final static String z700() {
+        /** rose-700. */
+        public static final String z700() {
             return "#be123c";
         }
 
-        public final static String z800() {
+        /** rose-800. */
+        public static final String z800() {
             return "#9f1239";
         }
 
-        public final static String z900() {
+        /** rose-900. */
+        public static final String z900() {
             return "#881337";
         }
 
-        public final static String z950() {
+        /** rose-950. */
+        public static final String z950() {
             return "#4c0519";
         }
     }

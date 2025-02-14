@@ -14,16 +14,24 @@ import pascal.task.Task;
 import pascal.task.TaskList;
 import pascal.task.Todo;
 
+/**
+ * The Pascal ChatBot.
+ */
 public class Pascal {
+    /** Internal list of tasks. */
     private final TaskList tasks;
+
+    /** If the server has exited. */
     private boolean isExited;
 
+    /** Construct with a data source. */
     public Pascal(Optional<Path> dataPath) {
         tasks = dataPath.map(path -> TaskList.read(path).get())
                     .orElseGet(() -> new TaskList());
         isExited = false;
     }
 
+    /** Construct with default data source. */
     public Pascal() {
         this(Optional.of(Path.of("pascal.txt")));
     }
@@ -55,6 +63,7 @@ public class Pascal {
                              tasks.nowHave());
     }
 
+    /** Handles one line of user input. */
     public Result<String, Error> handleUserInput(String userInput) {
         Optional<Pair<Command, Str>> opt = Command.parse(new Str(userInput));
         if (opt.isEmpty()) {

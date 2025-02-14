@@ -12,30 +12,33 @@ import javafx.scene.layout.Priority;
  * Contains a speech bubble and a profile image.
  */
 public class DialogBox extends HBox {
-    private Label text;
+    private Label textLabel;
     private ImageView displayPicture;
 
-    public DialogBox(String s, Image i) {
+    /** Create a new dialog box. */
+    public DialogBox(String text, Image image) {
         super(10); // set a spacing between display picture and text.
-        text = new Label(s);
-        displayPicture = new ImageView(i);
+        textLabel = new Label(text);
+        displayPicture = new ImageView(image);
         displayPicture.setFitWidth(42);
         displayPicture.setFitHeight(42);
 
-        text.setWrapText(true);
-        text.setFont(Config.BODY_FONT);
-        HBox.setHgrow(text, Priority.ALWAYS);
+        textLabel.setWrapText(true);
+        textLabel.setFont(Config.BODY_FONT);
+        HBox.setHgrow(textLabel, Priority.ALWAYS);
 
         setLeft();
     }
 
+    /** Set the dialog box to the left. */
     public void setLeft() {
         setAlignment(Pos.TOP_LEFT);
-        getChildren().setAll(displayPicture, text);
+        getChildren().setAll(displayPicture, textLabel);
     }
 
+    /** Set the dialog box to the right. */
     public void setRight() {
         setAlignment(Pos.TOP_RIGHT);
-        getChildren().setAll(text, displayPicture);
+        getChildren().setAll(textLabel, displayPicture);
     }
 }

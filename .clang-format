@@ -184,9 +184,9 @@ UseCRLF:         false
 UseTab:          Never
 JavaImportGroups: 
   - java
+  - org
   - javafx
   - pascal
-  - org
 WhitespaceSensitiveMacros:
   - STRINGIZE
   - PP_STRINGIZE
