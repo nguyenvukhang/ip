@@ -8,22 +8,22 @@ import java.util.Optional;
  */
 public class PrettyPrint implements Printer {
     private final PrintStream writer;
-    private final char horizontal;
-    private final char vertical;
-    private final char topLeft;
-    private final char topRight;
-    private final char bottomLeft;
-    private final char bottomRight;
+    private final String horizontal;
+    private final String vertical;
+    private final String topLeft;
+    private final String topRight;
+    private final String bottomLeft;
+    private final String bottomRight;
 
     /** Construct a PrettyPrint. */
     public PrettyPrint(PrintStream writer) {
         this.writer = writer;
-        horizontal = '─';
-        vertical = '│';
-        topLeft = '╭';
-        topRight = '╮';
-        bottomLeft = '─';
-        bottomRight = '╯';
+        horizontal = "─";
+        vertical = "│";
+        topLeft = "╭";
+        topRight = "╮";
+        bottomLeft = "─";
+        bottomRight = "╯";
     }
 
     /** Gets the maximum line length in a multiline `String`. */
