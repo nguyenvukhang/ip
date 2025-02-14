@@ -1,5 +1,8 @@
 package pascal.task;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import pascal.result.Error;
 import pascal.result.Result;
 
@@ -18,14 +21,19 @@ public class Todo extends Task {
         super(description);
     }
 
-    /** Enum icon of a Todo Task */
+    /** Enum icon of a Todo Task. */
     public char getEnumIcon() {
         return 'T';
     }
 
-    /** Description of a Todo Task */
+    /** Description of a Todo Task. */
     public String getDescription() {
         return description;
+    }
+
+    /** Indicative date of a Todo Task. */
+    public Optional<LocalDate> getDate() {
+        return Optional.empty();
     }
 
     /** Serialize a Todo Task to save it to the filesystem. */

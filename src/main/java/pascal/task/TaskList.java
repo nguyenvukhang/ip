@@ -3,6 +3,7 @@ package pascal.task;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +79,25 @@ public class TaskList {
      */
     public List<Task> find(Predicate<Task> pred) {
         return tasks.stream().filter(pred).collect(Collectors.toList());
+    }
+
+    /**
+     * Gets a list of tasks in the upcoming week.
+     */
+    public List<Task> upcomingWeek() {
+        LocalDate lowerBound = LocalDate.now();
+        LocalDate upperBound = lowerBound.plusWeeks(1);
+
+        return tasks.stream()
+            .filter(v -> {
+                Optional<LocalDate> optDate = v.getDate();
+                if (optDate.isEmpty()) {
+                    return true;
+                }
+                LocalDate date = optDate.get();
+                return lowerBound.isBefore(date) && upperBound.isAfter(date);
+            })
+            .collect(Collectors.toList());
     }
 
     /** A quick convenience routine to show remaining tasks. */

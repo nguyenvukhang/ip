@@ -31,14 +31,19 @@ public class Deadline extends Task {
         return parseDate(by).map(z -> new Deadline(description, z));
     }
 
-    /** Enum icon of a Deadline Task */
+    /** Enum icon of a Deadline Task. */
     public char getEnumIcon() {
         return 'D';
     }
 
-    /** Description of a Deadline Task */
+    /** Description of a Deadline Task. */
     public String getDescription() {
         return String.format("%s (by: %s)", description, byDate);
+    }
+
+    /** Indicative date of a Deadline Task. */
+    public Optional<LocalDate> getDate() {
+        return Optional.of(byDate);
     }
 
     /** Serialize a Deadline Task to save it to the filesystem. */

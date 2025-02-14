@@ -3,6 +3,7 @@ package pascal.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import pascal.result.Error;
 import pascal.result.Result;
@@ -64,6 +65,9 @@ public abstract class Task {
      * Used for displaying.
      */
     abstract String getDescription();
+
+    /** Gets an indicative date, if any. */
+    abstract Optional<LocalDate> getDate();
 
     /** Require subclasses to show how to serialize themselves. */
     abstract String serialize();

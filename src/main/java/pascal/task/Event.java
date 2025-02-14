@@ -21,14 +21,14 @@ public class Event extends Task {
         super("");
     }
 
-    /** Create a Event Task. */
+    /** Create an Event Task. */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         fromDate = from;
         toDate = to;
     }
 
-    /** Parse a Event Task from strings. */
+    /** Parse an Event Task from strings. */
     public static Result<Event, Error> of(String description, String from,
                                           String to) {
         return parseDate(from)
@@ -36,23 +36,28 @@ public class Event extends Task {
             .map(dates -> new Event(description, dates.left(), dates.right()));
     }
 
-    /** Enum icon of a Event Task */
+    /** Enum icon of an Event Task. */
     public char getEnumIcon() {
         return 'E';
     }
 
-    /** Description of a Event Task */
+    /** Description of an Event Task. */
     public String getDescription() {
         return String.format("%s (from: %s to: %s)", description, fromDate,
                              toDate);
     }
 
-    /** Serialize a Event Task to save it to the filesystem. */
+    /** Indicative date of an Event Task. */
+    public Optional<LocalDate> getDate() {
+        return Optional.of(fromDate);
+    }
+
+    /** Serialize an Event Task to save it to the filesystem. */
     public String serialize() {
         return String.format("%s::%s::%s", description, fromDate, toDate);
     }
 
-    /** Deserialize a Event Task from a String. */
+    /** Deserialize an Event Task from a String. */
     public Result<Task, Error> deserialize(String text) {
         Str x = new Str(text);
         Optional<Pair<Str, Str>> opt;
