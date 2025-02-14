@@ -37,6 +37,7 @@ public class TaskList {
 
     /** Removes the `idx`-th task, without checking bounds. */
     public Task removeUnchecked(int idx) {
+        assert !tasks.isEmpty() : "Tried removing from an empty list";
         return tasks.remove(idx);
     }
 
@@ -50,9 +51,11 @@ public class TaskList {
      * to print.
      */
     private static String enumerateTaskList(List<Task> tasks) {
-        ArrayList<String> lines = new ArrayList<>(tasks.size());
+        List<String> lines = tasks.stream()
+                                 .map(v -> String.format("%s", v))
+                                 .collect(Collectors.toList());
         for (int j = 0; j < tasks.size(); ++j) {
-            lines.add(String.format("%d. %s", j + 1, tasks.get(j)));
+            lines.set(j, String.format("%d. %s", j + 1, lines.get(j)));
         }
         return String.join("\n", lines);
     }
