@@ -6,20 +6,35 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A single message in a chat.
+ * Contains a speech bubble and a profile image.
+ */
 public class DialogBox extends HBox {
     private Label text;
     private ImageView displayPicture;
 
     public DialogBox(String s, Image i) {
+        super(10); // set a spacing between display picture and text.
         text = new Label(s);
         displayPicture = new ImageView(i);
+        displayPicture.setFitWidth(64);
+        displayPicture.setFitHeight(64);
 
         // Styling the dialog box
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
+        text.setFont(Config.BODY_FONT);
 
-        this.getChildren().addAll(text, displayPicture);
+        setLeft();
+    }
+
+    public void setLeft() {
+        setAlignment(Pos.TOP_LEFT);
+        getChildren().setAll(displayPicture, text);
+    }
+
+    public void setRight() {
+        setAlignment(Pos.TOP_RIGHT);
+        getChildren().setAll(text, displayPicture);
     }
 }

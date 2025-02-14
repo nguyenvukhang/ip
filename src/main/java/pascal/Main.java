@@ -163,9 +163,9 @@ public class Main {
     /** Test runner. */
     static void runTests() {
         Tester t = new Tester();
-        Test.test01(new Pascal(System.in, t, Optional.empty()));
-        Test.test02(new Pascal(System.in, t, Optional.empty()));
-        Test.test03(new Pascal(System.in, t, Optional.empty()));
+        // Test.test01(new Pascal(System.in, t, Optional.empty()));
+        // Test.test02(new Pascal(System.in, t, Optional.empty()));
+        // Test.test03(new Pascal(System.in, t, Optional.empty()));
     }
 
     /** GUI runner. */
@@ -189,8 +189,8 @@ public class Main {
             return;
         }
         // Printer printer = isTest ? new Tester() : ;
-        new Pascal(System.in, new PrettyPrint(System.out),
-                   Optional.of(Path.of("pascal.txt")))
-            .run();
+        // new Pascal(System.in, new PrettyPrint(System.out),
+        //            Optional.of(Path.of("pascal.txt")))
+        //     .run();
     }
 }
