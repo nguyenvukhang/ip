@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * A single message in a chat.
@@ -18,12 +19,12 @@ public class DialogBox extends HBox {
         super(10); // set a spacing between display picture and text.
         text = new Label(s);
         displayPicture = new ImageView(i);
-        displayPicture.setFitWidth(64);
-        displayPicture.setFitHeight(64);
+        displayPicture.setFitWidth(42);
+        displayPicture.setFitHeight(42);
 
-        // Styling the dialog box
         text.setWrapText(true);
         text.setFont(Config.BODY_FONT);
+        HBox.setHgrow(text, Priority.ALWAYS);
 
         setLeft();
     }
