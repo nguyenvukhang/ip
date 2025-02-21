@@ -43,6 +43,19 @@ public final class Result<T, E> {
         return value.get();
     }
 
+    /** Gets the value or returns a default. */
+    public T unwrap_or(T t) {
+        if (value.isPresent()) {
+            return value.get();
+        }
+        return t;
+    }
+
+    /** Converts to an Optional. */
+    public Optional<T> ok() {
+        return value;
+    }
+
     /** Gets the error. Works only if the result is of the Err variant. */
     public E getErr() {
         return err.get();

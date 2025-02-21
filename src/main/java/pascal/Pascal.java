@@ -26,7 +26,7 @@ public class Pascal {
 
     /** Construct with a data source. */
     public Pascal(Optional<Path> dataPath) {
-        tasks = dataPath.map(path -> TaskList.read(path).get())
+        tasks = dataPath.flatMap(path -> TaskList.read(path).ok())
                     .orElseGet(() -> new TaskList());
         isExited = false;
     }
