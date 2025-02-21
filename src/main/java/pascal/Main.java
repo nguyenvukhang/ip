@@ -171,19 +171,20 @@ public class Main {
 
     /** The entrypoint. */
     public static void main(String[] args) {
-        if (isQuickQuit(args)) {
-            return;
-        }
-        if (isGui(args)) {
-            runGui(args);
-            return;
-        }
-        if (isTest(args)) {
-            runTests();
-            System.out.printf("%sAll tests passed!%s\n", Color.Green,
-                              Color.Reset);
-            return;
-        }
+        runGui(args);
+        // if (isQuickQuit(args)) {
+        //     return;
+        // }
+        // if (isGui(args)) {
+        //     runGui(args);
+        //     return;
+        // }
+        // if (isTest(args)) {
+        //     runTests();
+        //     System.out.printf("%sAll tests passed!%s\n", Color.Green,
+        //                       Color.Reset);
+        //     return;
+        // }
         // Printer printer = isTest ? new Tester() : ;
         // new Pascal(System.in, new PrettyPrint(System.out),
         //            Optional.of(Path.of("pascal.txt")))
