@@ -15,9 +15,6 @@ test:
 	$(GRADLE) test
 
 jar:
-	$(GRADLE) shadowJar
-
-jar2:
 	$(GRADLE) clean shadowJar
 	rm -f ~/Downloads/pascal.jar
 	mv build/libs/pascal.jar ~/Downloads
