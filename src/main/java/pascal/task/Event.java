@@ -9,8 +9,7 @@ import pascal.result.Error;
 import pascal.result.Result;
 
 /**
- * An Event.
- * A task that has a start date and an end date.
+ * An Event. A task that has a start date and an end date.
  */
 public class Event extends Task {
     protected LocalDate fromDate;
@@ -29,11 +28,9 @@ public class Event extends Task {
     }
 
     /** Parse an Event Task from strings. */
-    public static Result<Event, Error> of(String description, String from,
-                                          String to) {
-        return parseDate(from)
-            .andThen(f -> parseDate(to).map(t -> new Pair<>(f, t)))
-            .map(dates -> new Event(description, dates.left(), dates.right()));
+    public static Result<Event, Error> of(String description, String from, String to) {
+        return parseDate(from).andThen(f -> parseDate(to).map(t -> new Pair<>(f, t)))
+                        .map(dates -> new Event(description, dates.left(), dates.right()));
     }
 
     /** Enum icon of an Event Task. */
@@ -43,8 +40,7 @@ public class Event extends Task {
 
     /** Description of an Event Task. */
     public String getDescription() {
-        return String.format("%s (from: %s to: %s)", description, fromDate,
-                             toDate);
+        return String.format("%s (from: %s to: %s)", description, fromDate, toDate);
     }
 
     /** Indicative date of an Event Task. */

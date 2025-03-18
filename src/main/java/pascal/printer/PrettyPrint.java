@@ -44,8 +44,7 @@ public class PrettyPrint implements Printer {
     }
 
     /**
-     * THE pretty print function.
-     * Like printf but with a newline at the end.
+     * THE pretty print function. Like printf but with a newline at the end.
      */
     public void println(String format, Object... args) {
         String output = String.format(format, args);
@@ -66,7 +65,9 @@ public class PrettyPrint implements Printer {
 
         // Begin the printing.
         writer.println(topRule);
-        output.lines().forEach((line) -> {
+        output.lines().forEach((
+                        line
+        ) -> {
             writer.printf("%c %s", vertical, Color.Cyan);
             writer.printf(lineFmt, line);
             writer.printf("%s %c\n", Color.Reset, vertical);

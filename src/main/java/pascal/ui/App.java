@@ -32,20 +32,17 @@ public class App extends Application {
     /** (Fixed) height of the OS window. */
     private static final double HEIGHT = 600;
 
-    private Image pascalImage =
-        new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
-    private Image userImage =
-        new Image(this.getClass().getResourceAsStream("/images/tux.png"));
+    private Image pascalImage = new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tux.png"));
 
     /**
-     * Scrolls over the dialog.
-     * Has only one child: the `VBox` that contains the list of dialog messages.
+     * Scrolls over the dialog. Has only one child: the `VBox` that contains the
+     * list of dialog messages.
      */
     private ScrollPane scrollPane;
 
     /**
-     * Parent of all the individual messages.
-     * Each child is a message.
+     * Parent of all the individual messages. Each child is a message.
      */
     private VBox dialogContainer;
     private TextField userTextField;

@@ -42,11 +42,9 @@ public enum Command {
     /** Quits the session. */
     Bye;
 
-    private static List<Pair<String, Command>> commandMap = java.util.List.of(
-        pair("list", List), pair("find", Find), pair("remind", Remind),
-        pair("mark", Mark), pair("unmark", Unmark), pair("todo", Todo),
-        pair("deadline", Deadline), pair("event", Event),
-        pair("delete", Delete), pair("bye", Bye));
+    private static List<Pair<String, Command>> commandMap = java.util.List.of(pair("list", List), pair("find", Find),
+                    pair("remind", Remind), pair("mark", Mark), pair("unmark", Unmark), pair("todo", Todo),
+                    pair("deadline", Deadline), pair("event", Event), pair("delete", Delete), pair("bye", Bye));
 
     private static Pair<String, Command> pair(String s, Command c) {
         return new Pair<String, Command>(s, c);

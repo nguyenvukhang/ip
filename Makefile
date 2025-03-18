@@ -27,13 +27,13 @@ interact: build
 	$(GRADLE) run --quiet --console=plain
 
 fmt:
-	find * -name '*.java' | xargs clang-format -i
+	$(GRADLE) spotlessApply
 
 c: checkstyleMain
 checkstyleMain:
 	$(GRADLE) checkstyleMain
 
-checkstyle:
+check:
 	$(GRADLE) check
 
 .PHONY: build gradle test

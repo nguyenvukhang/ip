@@ -9,12 +9,10 @@ import pascal.result.Error;
 import pascal.result.Result;
 
 /**
- * A Task.
- * An abstract class that describes the general idea of a Task.
+ * A Task. An abstract class that describes the general idea of a Task.
  */
 public abstract class Task {
-    protected static DateTimeFormatter dateFormat =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     protected static LocalDate emptyDate = LocalDate.of(1, 1, 1);
 
@@ -38,8 +36,8 @@ public abstract class Task {
     }
 
     /**
-     * Obtains a status icon of the Task as a single character.
-     * Depends on if it's done or not.
+     * Obtains a status icon of the Task as a single character. Depends on if it's
+     * done or not.
      */
     public char getStatusIcon() {
         return isDone ? 'X' : ' '; // mark done task with X
@@ -55,14 +53,13 @@ public abstract class Task {
     }
 
     /**
-     * Require subclasses to have an enum icon.
-     * Used for serializing, deserializing, and displaying.
+     * Require subclasses to have an enum icon. Used for serializing, deserializing,
+     * and displaying.
      */
     abstract char getEnumIcon();
 
     /**
-     * Require subclasses override how to display themselves.
-     * Used for displaying.
+     * Require subclasses override how to display themselves. Used for displaying.
      */
     abstract String getDescription();
 
@@ -77,7 +74,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", getEnumIcon(), getStatusIcon(),
-                             getDescription());
+        return String.format("[%s][%s] %s", getEnumIcon(), getStatusIcon(), getDescription());
     }
 }

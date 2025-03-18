@@ -2,7 +2,6 @@ package pascal;
 
 // clang-format off
 import javafx.application.Application;
-import pascal.printer.Color;
 import pascal.printer.Tester;
 import pascal.result.Error;
 import pascal.result.Result;

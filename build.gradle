@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.diffplug.spotless' version '7.0.2'
 }
 
 repositories {
@@ -54,4 +55,21 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+spotless {
+    format 'misc', {
+        target '*.gradle', '.gitattributes', '.gitignore' // define the files to apply `misc` to
+
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
+    }
+    java {
+        eclipse().configFile('config/checkstyle/eclipse.xml')
+        trimTrailingWhitespace()
+
+        importOrder('\\#', 'java.', 'javax.', 'org.', 'com.')
+        removeUnusedImports()
+    }
 }

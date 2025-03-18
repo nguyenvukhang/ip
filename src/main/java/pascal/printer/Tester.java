@@ -25,8 +25,7 @@ public class Tester implements Printer {
     }
 
     /**
-     * Report an assertion error.
-     * Exits immediately after.
+     * Report an assertion error. Exits immediately after.
      */
     private void report(String expected, String received) {
         System.err.printf("%sAssertion Error.%s\n", Color.Red, Color.Reset);
@@ -40,8 +39,8 @@ public class Tester implements Printer {
     }
 
     /**
-     * Assert equality on the last thing printed.
-     * Arguments will be joined by the newline character.
+     * Assert equality on the last thing printed. Arguments will be joined by the
+     * newline character.
      */
     public void assertPrevEq(String... expected) {
         assertPrevEq(String.join("\n", expected));
