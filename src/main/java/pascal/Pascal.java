@@ -65,15 +65,16 @@ public class Pascal {
 
     /** Handles one line of user input. */
     public Result<String, Error> handleUserInput(String userInput) {
-        Optional<Pair<Command, Str>> opt = Command.parse(new Str(userInput));
-        if (opt.isEmpty()) {
-            return Result.err(Error.other("Invalid command. Try again."));
+        Result<Pair<Command, Str>, Error> parseResult = Parser.parse(userInput);
+        if (parseResult.isErr()) {
+            return parseResult.map(unused -> "");
         }
-        isExited |= opt.get().left() == Command.Bye;
-        Result<String, Error> result =
-            handleCommand(opt.get().left(), opt.get().right());
+        Command command = parseResult.get().left();
+        Str input = parseResult.get().right();
+        isExited |= command == Command.Bye;
+        Result<String, Error> runResult = handleCommand(command, input);
         tasks.write(Path.of("pascal.txt"));
-        return result;
+        return runResult;
     }
 
     Result<String, Error> handleCommand(Command command, Str input) {
