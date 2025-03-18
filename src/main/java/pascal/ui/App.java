@@ -2,6 +2,7 @@ package pascal.ui;
 
 // clang-format off
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -78,6 +79,14 @@ public class App extends Application {
             return;
         }
         respond(result.get());
+
+        if (pascal.isExited()) {
+            try {
+                java.util.concurrent.TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
+            }
+            Platform.exit();
+        }
     }
 
     @Override
