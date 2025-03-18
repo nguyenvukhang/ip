@@ -3,9 +3,8 @@ package pascal.common;
 import java.util.Optional;
 
 /**
- * A custom String class.
- * Implements all the forbidden string-parsing routines I want to only
- * ever see once.
+ * A custom String class. Implements all the forbidden string-parsing routines I
+ * want to only ever see once.
  */
 public final class Str {
     private String buf;
@@ -36,9 +35,9 @@ public final class Str {
     }
 
     /**
-     * Strips a set prefix, and return the newly formed `Str`.
-     * If the prefix is not found, an empty Optional is returned.
-     * */
+     * Strips a set prefix, and return the newly formed `Str`. If the prefix is not
+     * found, an empty Optional is returned.
+     */
     public Optional<Str> stripPrefix(String prefix) {
         if (!buf.startsWith(prefix)) {
             return Optional.empty();
@@ -47,37 +46,34 @@ public final class Str {
     }
 
     /**
-     * Obtains a substring.
-     * Exact same API as Java Standard Library.
+     * Obtains a substring. Exact same API as Java Standard Library.
      */
     public Str substr(int start, int end) {
         return new Str(buf.substring(start, end));
     }
 
     /**
-     * Obtains a substring.
-     * Exact same API as Java Standard Library.
+     * Obtains a substring. Exact same API as Java Standard Library.
      */
     public Str substr(int start) {
         return new Str(buf.substring(start));
     }
 
     /**
-     * Splits a string once by a delimiter.
-     * Returns an empty optional if the delimiter is not found.
+     * Splits a string once by a delimiter. Returns an empty optional if the
+     * delimiter is not found.
      */
     public Optional<Pair<Str, Str>> splitOnce(String delimiter) {
         int n = buf.indexOf(delimiter);
         if (n == -1) {
             return Optional.empty();
         }
-        return Optional.of(
-            new Pair<Str, Str>(substr(0, n), substr(n + delimiter.length())));
+        return Optional.of(new Pair<Str, Str>(substr(0, n), substr(n + delimiter.length())));
     }
 
     /**
-     * Parses an integer from the contents.
-     * Returns an empty optional if the contents aren't parseable.
+     * Parses an integer from the contents. Returns an empty optional if the
+     * contents aren't parseable.
      */
     public Optional<Integer> parseInt() {
         try {

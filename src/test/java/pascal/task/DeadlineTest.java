@@ -4,7 +4,6 @@ package pascal.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static pascal.task.Task.parseDate;
-// clang-format on
 
 import org.junit.jupiter.api.Test;
 

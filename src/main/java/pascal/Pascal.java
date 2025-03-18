@@ -26,8 +26,8 @@ public class Pascal {
 
     /** Construct with a data source. */
     public Pascal(Optional<Path> dataPath) {
-        tasks = dataPath.flatMap(path -> TaskList.read(path).ok())
-                    .orElseGet(() -> new TaskList());
+        tasks = dataPath.flatMap(path -> TaskList.read(path).ok()).orElseGet((
+        ) -> new TaskList());
         isExited = false;
     }
 
@@ -59,21 +59,21 @@ public class Pascal {
      */
     private String deleteTask(int idx) {
         Task task = tasks.removeUnchecked(idx - 1);
-        return String.format("Noted. I've removed this task:\n%s\n%s", task,
-                             tasks.nowHave());
+        return String.format("Noted. I've removed this task:\n%s\n%s", task, tasks.nowHave());
     }
 
     /** Handles one line of user input. */
     public Result<String, Error> handleUserInput(String userInput) {
-        Optional<Pair<Command, Str>> opt = Command.parse(new Str(userInput));
-        if (opt.isEmpty()) {
-            return Result.err(Error.other("Invalid command. Try again."));
+        Result<Pair<Command, Str>, Error> parseResult = Parser.parse(userInput);
+        if (parseResult.isErr()) {
+            return parseResult.map(unused -> "");
         }
-        isExited |= opt.get().left() == Command.Bye;
-        Result<String, Error> result =
-            handleCommand(opt.get().left(), opt.get().right());
+        Command command = parseResult.get().left();
+        Str input = parseResult.get().right();
+        isExited |= command == Command.Bye;
+        Result<String, Error> runResult = handleCommand(command, input);
         tasks.write(Path.of("pascal.txt"));
-        return result;
+        return runResult;
     }
 
     Result<String, Error> handleCommand(Command command, Str input) {
@@ -93,26 +93,21 @@ public class Pascal {
             return Result.ok(tasks.upcomingWeekPretty());
         case Mark:
             if ((opt = input.parseInt()).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected an integer."));
+                return Result.err(Error.other("Invalid input. Expected an integer."));
             }
             task = tasks.getUnchecked(opt.get() - 1);
             task.markAsDone();
-            return Result.ok(String.format(
-                "Nice! I've marked this task as done:\n%s", task));
+            return Result.ok(String.format("Nice! I've marked this task as done:\n%s", task));
         case Unmark:
             if ((opt = input.parseInt()).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected an integer."));
+                return Result.err(Error.other("Invalid input. Expected an integer."));
             }
             task = tasks.getUnchecked(opt.get() - 1);
             task.markAsNotDone();
-            return Result.ok(String.format(
-                "OK, I've marked this task as not done yet:\n%s", task));
+            return Result.ok(String.format("OK, I've marked this task as not done yet:\n%s", task));
         case Delete:
             if ((opt = input.parseInt()).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected an integer."));
+                return Result.err(Error.other("Invalid input. Expected an integer."));
             }
             return Result.ok(deleteTask(opt.get()));
 
@@ -121,23 +116,20 @@ public class Pascal {
             return Result.ok(addTask(new Todo(description)));
         case Deadline:
             if ((pairStr = input.splitOnce("/by")).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected an integer."));
+                return Result.err(Error.other("Invalid input. Expected an integer."));
             }
             description = pairStr.get().left().trimEnd().inner();
             String by = pairStr.get().right().trimStart().inner();
             return Deadline.of(description, by).map(d -> addTask(d));
         case Event:
             if ((pairStr = input.splitOnce("/from")).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected a \"/from\"."));
+                return Result.err(Error.other("Invalid input. Expected a \"/from\"."));
             }
             description = pairStr.get().left().trimEnd().inner();
             arg = pairStr.get().right().trimStart();
 
             if ((pairStr = arg.splitOnce("/to")).isEmpty()) {
-                return Result.err(
-                    Error.other("Invalid input. Expected a \"/to\"."));
+                return Result.err(Error.other("Invalid input. Expected a \"/to\"."));
             }
             String from = pairStr.get().left().trimEnd().inner();
             String to = pairStr.get().right().trimStart().inner();

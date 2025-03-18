@@ -1,18 +1,10 @@
 package pascal.printer;
 
 /**
- * Colors. In ANSI.
- * To bring the CLI to life.
+ * Colors. In ANSI. To bring the CLI to life.
  */
 public enum Color {
-    Red,
-    Green,
-    Yellow,
-    Blue,
-    Purple,
-    Cyan,
-    Gray,
-    Reset;
+    Red, Green, Yellow, Blue, Purple, Cyan, Gray, Reset;
 
     @Override
     public String toString() {

@@ -1,8 +1,7 @@
 package pascal.common;
 
 /**
- * A Pair.
- * So that functions can return more than one thing.
+ * A Pair. So that functions can return more than one thing.
  */
 public class Pair<A, B> {
     private A left;

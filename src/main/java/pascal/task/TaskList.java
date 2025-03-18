@@ -15,8 +15,8 @@ import pascal.result.Error;
 import pascal.result.Result;
 
 /**
- * A list of tasks.
- * Contains everything you might want to do with a list of Task instances.
+ * A list of tasks. Contains everything you might want to do with a list of Task
+ * instances.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -48,13 +48,11 @@ public class TaskList {
     }
 
     /**
-     * Enumerates a list of tasks and returns a newline-joined list of strings
-     * to print.
+     * Enumerates a list of tasks and returns a newline-joined list of strings to
+     * print.
      */
     private static String enumerateTaskList(List<Task> tasks) {
-        List<String> lines = tasks.stream()
-                                 .map(v -> String.format("%s", v))
-                                 .collect(Collectors.toList());
+        List<String> lines = tasks.stream().map(v -> String.format("%s", v)).collect(Collectors.toList());
         for (int j = 0; j < tasks.size(); ++j) {
             lines.set(j, String.format("%d. %s", j + 1, lines.get(j)));
         }
@@ -67,8 +65,8 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain a particular substring.
-     * And make the hits presentable.
+     * Finds tasks that contain a particular substring. And make the hits
+     * presentable.
      */
     public String findPretty(String query) {
         return enumerateTaskList(find(t -> t.getDescription().contains(query)));
@@ -88,16 +86,14 @@ public class TaskList {
         LocalDate lowerBound = LocalDate.now();
         LocalDate upperBound = lowerBound.plusWeeks(1);
 
-        return tasks.stream()
-            .filter(v -> {
-                Optional<LocalDate> optDate = v.getDate();
-                if (optDate.isEmpty()) {
-                    return true;
-                }
-                LocalDate date = optDate.get();
-                return lowerBound.isBefore(date) && upperBound.isAfter(date);
-            })
-            .collect(Collectors.toList());
+        return tasks.stream().filter(v -> {
+            Optional<LocalDate> optDate = v.getDate();
+            if (optDate.isEmpty()) {
+                return true;
+            }
+            LocalDate date = optDate.get();
+            return lowerBound.isBefore(date) && upperBound.isAfter(date);
+        }).collect(Collectors.toList());
     }
 
     /** Gets the user-facing display of the tasks in the upcoming week. */
@@ -151,8 +147,7 @@ public class TaskList {
             break;
         }
         if (tt.isEmpty()) {
-            return Result.err(Error.other(
-                "Invalid line of data. Doesn't match any Task enum."));
+            return Result.err(Error.other("Invalid line of data. Doesn't match any Task enum."));
         }
         Result<Task, Error> res = tt.get().deserialize(line.substring(2));
         if (done && res.isOk()) {

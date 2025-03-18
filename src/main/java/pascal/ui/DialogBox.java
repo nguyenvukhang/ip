@@ -8,8 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * A single message in a chat.
- * Contains a speech bubble and a profile image.
+ * A single message in a chat. Contains a speech bubble and a profile image.
  */
 public class DialogBox extends HBox {
     private Label textLabel;

@@ -1,30 +1,51 @@
 # Pascal User Guide
 
-// Update the title above to match the actual product name
+![https://github.com/user-attachments/assets/43a099fc-ae1b-42d0-8bd2-23d0fc21c222]()
 
-// Product screenshot goes here
+The absolutely minimal chat bot that stores some tasks.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+Note: **all** dates are meant to be in `YYYY-MM-DD` format.
 
-// Describe the action and its outcome.
+### Create a TODO task
 
-// Give examples of usage
+command: `todo [TITLE]`
 
-Example: `keyword (optional arguments)`
+Create a todo with just a title.
 
-// A description of the expected outcome goes here
+### Create a DEADLINE task
 
-```
-expected output
-```
+command: `deadline [TITLE] /by [DATE]`
 
-## Feature ABC
+Create a deadline'd todo with a title and a deadline.
 
-// Feature details
+### Create an EVENT task
 
+command: `event [TITLE] /from [DATE] /to [DATE]`
 
-## Feature XYZ
+Create an event with a title, a start date, and an end date .
 
-// Feature details
+### List all tasks
+
+command: `list`
+
+This will list all available tasks.
+
+### Mark a task as complete
+
+command: `mark [INDEX]`
+
+example: `mark 3`
+
+This will mark a task as complete.
+
+### Mark a task as incomplete
+
+command: `unmark [INDEX]`
+
+This does the opposite of [marking a task as complete](#mark-a-task-as-complete)
+
+### Delete a task
+
+command: `delete [INDEX]`

@@ -2,6 +2,7 @@ package pascal.ui;
 
 // clang-format off
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -32,20 +33,17 @@ public class App extends Application {
     /** (Fixed) height of the OS window. */
     private static final double HEIGHT = 600;
 
-    private Image pascalImage =
-        new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
-    private Image userImage =
-        new Image(this.getClass().getResourceAsStream("/images/tux.png"));
+    private Image pascalImage = new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tux.png"));
 
     /**
-     * Scrolls over the dialog.
-     * Has only one child: the `VBox` that contains the list of dialog messages.
+     * Scrolls over the dialog. Has only one child: the `VBox` that contains the
+     * list of dialog messages.
      */
     private ScrollPane scrollPane;
 
     /**
-     * Parent of all the individual messages.
-     * Each child is a message.
+     * Parent of all the individual messages. Each child is a message.
      */
     private VBox dialogContainer;
     private TextField userTextField;
@@ -70,7 +68,9 @@ public class App extends Application {
         // node.setStyle(String.format("-fx-background-color: %s;", color));
     }
 
-    private void handleUserInput(String input) {
+    private void handleUserInput() {
+        String input = userTextField.getText();
+        userTextField.clear();
         if (input.isEmpty()) {
             return;
         }
@@ -81,6 +81,15 @@ public class App extends Application {
             return;
         }
         respond(result.get());
+
+        if (pascal.isExited()) {
+            try {
+                java.util.concurrent.TimeUnit.SECONDS.sleep(1);
+            } catch (Exception e) {
+                // gg, bro
+            }
+            Platform.exit();
+        }
     }
 
     @Override
@@ -116,11 +125,8 @@ public class App extends Application {
 
         // Start talking backend.
         pascal = new Pascal();
-        userTextField.setOnAction(event -> {
-            String input = userTextField.getText();
-            userTextField.clear();
-            handleUserInput(input);
-        });
+        userTextField.setOnAction(event -> handleUserInput());
+        sendButton.setOnAction(event -> handleUserInput());
         respond("Hello!");
 
         stage.setTitle("Pascal");

@@ -4,9 +4,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * A Result.
- * Can be in only ONE of two states: Ok, or Err.
- * To replace Exceptions in the long run.
+ * A Result. Can be in only ONE of two states: Ok, or Err. To replace Exceptions
+ * in the long run.
  */
 public final class Result<T, E> {
     private Optional<T> value;
@@ -16,6 +15,11 @@ public final class Result<T, E> {
     private Result(Optional<T> value, Optional<E> err) {
         this.value = value;
         this.err = err;
+    }
+
+    /** Converts to an Optional. */
+    public Optional<T> ok() {
+        return value;
     }
 
     /** Construct a result of the Ok variant. */
@@ -49,11 +53,6 @@ public final class Result<T, E> {
             return value.get();
         }
         return t;
-    }
-
-    /** Converts to an Optional. */
-    public Optional<T> ok() {
-        return value;
     }
 
     /** Gets the error. Works only if the result is of the Err variant. */
