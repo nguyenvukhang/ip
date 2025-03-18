@@ -1,30 +1,27 @@
 # Pascal User Guide
 
-// Update the title above to match the actual product name
+![https://github.com/user-attachments/assets/43a099fc-ae1b-42d0-8bd2-23d0fc21c222]
 
-// Product screenshot goes here
+The absolutely minimal chat bot that stores some tasks.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### List all tasks
 
-// Describe the action and its outcome.
+command: `list`
 
-// Give examples of usage
+This will list all available tasks.
 
-Example: `keyword (optional arguments)`
+### Mark a task as complete
 
-// A description of the expected outcome goes here
+command: `mark [INDEX]`
 
-```
-expected output
-```
+example: `mark 3`
 
-## Feature ABC
+This will mark a task as complete.
 
-// Feature details
+### Mark a task as incomplete
 
+command: `unmark [INDEX]`
 
-## Feature XYZ
-
-// Feature details
+This does the opposite of [marking a task as complete](#mark-a-task-as-complete)
