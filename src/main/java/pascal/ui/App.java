@@ -33,10 +33,8 @@ public class App extends Application {
     /** (Fixed) height of the OS window. */
     private static final double HEIGHT = 600;
 
-    private Image pascalImage =
-        new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
-    private Image userImage =
-        new Image(this.getClass().getResourceAsStream("/images/tux.png"));
+    private Image pascalImage = new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tux.png"));
 
     /**
      * Scrolls over the dialog. Has only one child: the `VBox` that contains the
@@ -88,6 +86,7 @@ public class App extends Application {
             try {
                 java.util.concurrent.TimeUnit.SECONDS.sleep(1);
             } catch (Exception e) {
+                // gg, bro
             }
             Platform.exit();
         }
