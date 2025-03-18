@@ -33,8 +33,10 @@ public class App extends Application {
     /** (Fixed) height of the OS window. */
     private static final double HEIGHT = 600;
 
-    private Image pascalImage = new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tux.png"));
+    private Image pascalImage =
+        new Image(this.getClass().getResourceAsStream("/images/uwuntu.png"));
+    private Image userImage =
+        new Image(this.getClass().getResourceAsStream("/images/tux.png"));
 
     /**
      * Scrolls over the dialog. Has only one child: the `VBox` that contains the
@@ -68,7 +70,9 @@ public class App extends Application {
         // node.setStyle(String.format("-fx-background-color: %s;", color));
     }
 
-    private void handleUserInput(String input) {
+    private void handleUserInput() {
+        String input = userTextField.getText();
+        userTextField.clear();
         if (input.isEmpty()) {
             return;
         }
@@ -122,11 +126,8 @@ public class App extends Application {
 
         // Start talking backend.
         pascal = new Pascal();
-        userTextField.setOnAction(event -> {
-            String input = userTextField.getText();
-            userTextField.clear();
-            handleUserInput(input);
-        });
+        userTextField.setOnAction(event -> handleUserInput());
+        sendButton.setOnAction(event -> handleUserInput());
         respond("Hello!");
 
         stage.setTitle("Pascal");
